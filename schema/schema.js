@@ -55,6 +55,17 @@ const RootQuery = new GraphQLObjectType({
           }
         }
       }
+    },
+    company: {
+      type: CompanyType,
+      args: { id: { type: GraphQLString }},
+      resolve(parentValue, args) {
+        for (company of companies) {
+          if (company.id === args.id) {
+            return company;
+          }
+        }
+      }
     }
   }
 });
