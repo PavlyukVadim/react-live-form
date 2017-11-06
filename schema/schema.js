@@ -5,18 +5,41 @@ const {
   GraphQLSchema
 } = graphql;
 
+
+const CompanyType = new GraphQLObjectType({
+  name: 'Company',
+  fields: {
+    id: { type: GraphQLString },
+    name: { type: GraphQLString }
+  }
+});
+
 const UserType = new GraphQLObjectType({
   name: 'User',
   fields: {
     id: { type: GraphQLString },
     firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString }
+    lastName: { type: GraphQLString },
+    company: {
+      type: CompanyType,
+      resolve(parentValue, args) {
+        for (company of companies) {
+          if (company.id === parentValue.companyId) {
+            return company;
+          }
+        }
+      }
+    }
   }
 });
 
 const users = [
-  { id: '23', firstName: 'Walter', lastName: 'White'},
+  { id: '23', firstName: 'Walter', lastName: 'White', companyId: '1'},
   { id: '47', firstName: 'Jesse', lastName: 'Pinkman'},
+];
+
+const companies = [
+  { id: '1', name: 'Gray Matter Technologies' }
 ];
 
 const RootQuery = new GraphQLObjectType({
