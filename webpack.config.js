@@ -2,9 +2,9 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './client/index.js',
+  entry: './client/src/index.js',
   output: {
-    path: '/',
+    path: __dirname + '/client/static',
     filename: 'bundle.js'
   },
   module: {
