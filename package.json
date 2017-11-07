@@ -23,5 +23,10 @@
     "express-graphql": "^0.6.11",
     "graphql": "^0.11.7",
     "nodemon": "^1.12.1"
+  },
+  "devDependencies": {
+    "html-webpack-plugin": "^2.30.1",
+    "webpack": "^3.8.1",
+    "webpack-dev-middleware": "^1.12.0"
   }
 }
