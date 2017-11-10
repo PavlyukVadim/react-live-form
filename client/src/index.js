@@ -1,19 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
-
-const networkInterface = createNetworkInterface({
-  uri: 'http://localhost:4000/graphql',
-  opts: {
-    headers: {
-      'Accept': 'application/json, text/plain, */*',
-      'Content-Type': 'application/json'
-    }
-  }
-});
+import { ApolloClient } from 'apollo-client';
+import { createHttpLink } from 'apollo-link-http';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { ApolloProvider } from 'react-apollo';
 
 const client = new ApolloClient({
-  networkInterface: networkInterface,
+  link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
+  cache: new InMemoryCache(),
 });
 
 const Root = () => {
