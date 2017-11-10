@@ -1,9 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ApolloClient from 'apollo-client';
-import { ApolloProvider } from 'react-apollo';
+import { ApolloClient, ApolloProvider, createNetworkInterface } from 'react-apollo';
 
-const client = new ApolloClient({});
+const networkInterface = createNetworkInterface({
+  uri: 'http://localhost:4000/graphql',
+  opts: {
+    headers: {
+      'Accept': 'application/json, text/plain, */*',
+      'Content-Type': 'application/json'
+    }
+  }
+});
+
+const client = new ApolloClient({
+  networkInterface: networkInterface,
+});
 
 const Root = () => {
   return (
