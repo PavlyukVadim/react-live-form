@@ -1,0 +1,86 @@
+@import "./variables";
+
+$breakpoints: (
+  xxxs: $xxxs,
+  xxs: $xxs,
+  xs: $xs,
+  sm: $sm,
+  md: $md,
+  lg: $lg
+);
+
+@mixin break($size) {
+  @media (min-width: map-get($breakpoints, $size)) {
+    @content;
+  }
+}
+
+$items: 12;
+$col-padding: 0px;
+
+.row {
+  display: flex;
+  flex-flow: row wrap;
+  width: 100%;
+
+  @media screen and (max-width: $xs) {
+    justify-content: center;
+  }
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  padding: 0 $col-padding;
+  flex: 1 0 0px;
+}
+
+.container {
+  max-width: 1260px;
+  width: 80%;
+  margin: 0 auto;
+
+  @media screen and (max-width: $sm) {
+    width: 90%;
+  }
+}
+
+.centered {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  max-width: 100%;
+  flex: 1 0 0px;
+}
+
+.centered-h {
+  display: flex;
+  align-items: center;
+  max-width: 100%;
+  flex: 1 0 0px;
+}
+
+@each $key,
+$value in $breakpoints {
+  @for $i from 1 through $items {
+    .col-#{$key}-#{$i} {
+      flex-direction: column;
+      display: flex;
+      max-width: 100%;
+      padding: 0 $col-padding;
+      flex: 0 0 calc(100%);
+    }
+  }
+}
+
+@each $key,
+$value in $breakpoints {
+  @for $i from 1 through $items {
+    .col-#{$key}-#{$i} {
+      @include break($key) {
+        flex: 0 0 calc(#{$i / $items * 100%});
+      }
+    }
+  }
+}
