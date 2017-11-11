@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
-import { AppBar, Checkbox, IconButton } from 'react-toolbox';
-import { Layout, NavDrawer, Panel, Sidebar } from 'react-toolbox';
+import { Route } from 'react-router-dom';
+import {
+  AppBar,
+  Checkbox,
+  IconButton,
+  Layout,
+  NavDrawer,
+  Panel,
+  Sidebar
+} from 'react-toolbox';
+import TestsList from './containers/TestsList';
 
 class UserApp extends Component {
-  
   constructor(props) {
     super(props);
     this.state = {
@@ -23,9 +31,10 @@ class UserApp extends Component {
   render() {
     return (
       <Layout>
-        <NavDrawer active={this.state.drawerActive}
-                   permanentAt='xxxl'
-                   onOverlayClick={this.toggleDrawerActive}
+        <NavDrawer
+          active={this.state.drawerActive}
+          onOverlayClick={this.toggleDrawerActive}
+          permanentAt='xxxl'
         >
           <p>
             Navigation, account switcher, etc. go here.
@@ -33,16 +42,21 @@ class UserApp extends Component {
         </NavDrawer>
         <Panel>
           <AppBar leftIcon='menu' onLeftIconClick={this.toggleDrawerActive} />
-          <div>
+          <div className="container">
             <h1>Main Content</h1>
             <p>Main content goes here.</p>
+            <Route
+              path='/user'
+              exact
+              render={() => 
+                (<TestsList 
+                  history={this.props.history}
+                  path={this.props.match.path}
+                />)
+              }
+            />
           </div>
         </Panel>
-        <Sidebar pinned={this.state.sidebarPinned} width={5}>
-          <div style={{ flex: 1 }}>
-            <p>Supplemental content goes here.</p>
-          </div>
-        </Sidebar>
       </Layout>
     );
   }
