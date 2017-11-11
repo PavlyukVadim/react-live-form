@@ -10,6 +10,7 @@ import {
   Sidebar
 } from 'react-toolbox';
 import TestsList from './containers/TestsList';
+import TestPage from './containers/TestPage';
 
 class UserApp extends Component {
   constructor(props) {
@@ -48,13 +49,16 @@ class UserApp extends Component {
             <Route
               path='/user'
               exact
-              render={() => 
-                (<TestsList 
-                  history={this.props.history}
-                  path={this.props.match.path}
-                />)
+              render={
+                () => (
+                  <TestsList 
+                    history={this.props.history}
+                    path={this.props.match.path}
+                  />
+                )
               }
             />
+            <Route path='/user/test/:id' component={TestPage}/>
           </div>
         </Panel>
       </Layout>
