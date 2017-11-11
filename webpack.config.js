@@ -10,7 +10,7 @@ module.exports = {
   module: {
     rules: [
       {
-        use: 'babel-loader',
+        use: ['react-hot-loader/webpack', 'babel-loader'],
         test: /\.js$/,
         exclude: /node_modules/
       },

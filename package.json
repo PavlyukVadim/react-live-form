@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js",
     "build": "webpack",
-    "start": "webpack-dev-server --progress"
+    "start": "webpack-dev-server --progress --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -31,6 +31,7 @@
     "react": "^16.0.0",
     "react-apollo": "^2.0.0",
     "react-dom": "^16.0.0",
+    "react-hot-loader": "^3.1.2",
     "react-router-dom": "^4.2.2"
   },
   "devDependencies": {
