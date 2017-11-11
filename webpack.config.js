@@ -10,13 +10,35 @@ module.exports = {
   module: {
     rules: [
       {
-        use: ['react-hot-loader/webpack', 'babel-loader'],
         test: /\.js$/,
+        use: ['react-hot-loader/webpack', 'babel-loader'],
         exclude: /node_modules/
       },
       {
-        use: ['style-loader', 'css-loader'],
-        test: /\.css$/
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // default is false
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: "[name]--[local]--[hash:base64:8]"
+            }
+          },
+          "postcss-loader"
+        ]
+      },
+      {
+        test: /\.scss$/,
+        use: [{
+          loader: "style-loader"
+        }, {
+          loader: "css-loader"
+        }, {
+          loader: "sass-loader"
+        }]
       }
     ]
   },

@@ -4,6 +4,7 @@ import { ApolloClient } from 'apollo-client';
 import { createHttpLink } from 'apollo-link-http';
 import { InMemoryCache } from 'apollo-cache-inmemory';
 import { ApolloProvider } from 'react-apollo';
+import {Button, IconButton} from 'react-toolbox/lib/button';
 
 const client = new ApolloClient({
   link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
@@ -13,7 +14,7 @@ const client = new ApolloClient({
 const Root = () => {
   return (
     <ApolloProvider client={client}>
-      <div>Example</div>
+      <Button icon='add' label='Add this' flat primary />
     </ApolloProvider>
   )
 };
