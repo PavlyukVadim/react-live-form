@@ -17,14 +17,17 @@ const test = {
 };
 
 const analysisFormDeps = (fields) => {
-  return fields.map((field) => {
+  const formElements = {};
+  for (const field of fields) {
+    const formElement = {};
     if (field.state && field.state.value) {
-      var expr = parser.parse(field.state.value);
-      console.log(field.name, expr.variables());
+      const expr = parser.parse(field.state.value);
+      formElement.subscribers = expr.variables();
     }
-  });
+    formElements[field.name] = formElement;
+  }
+  return formElements;
 };
-analysisFormDeps(formConfig);
 
 const getForm = (fields = [], context) => {
   return fields.map((field) => {
@@ -36,6 +39,7 @@ const getForm = (fields = [], context) => {
           name={field.name}
           maxLength={16}
           value={context.state && context.state[field.name]}
+          ref={(input)=> context.formElements[field.name].ref = input}
           onChange={(e) => {
             const value = e.target.value;
             context.setState({
@@ -51,9 +55,12 @@ const getForm = (fields = [], context) => {
 class TestPage extends Component {
   constructor(props) {
     super(props);
+    this.formElements = analysisFormDeps(formConfig, this);
+    console.log('this.formElements', this.formElements)
   }
 
   render() {
+    console.log('this', this);
     return (
       <div>
         <h1>Test: {test.name}</h1>
