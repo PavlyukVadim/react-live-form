@@ -62,13 +62,13 @@ const getForm = (fields = [], context) => {
   return fields.map((field) => {
     return (
       <div key={field.name}>
+        <p>{field.title}</p>
         <input
           type='text'
           label={field.title}
           name={field.name}
           maxLength={16}
           value={context.state && context.state[field.name]}
-          ref={(input)=> context.formElements[field.name].ref = input}
           onChange={(e) => {
             const value = e.target.value;
             context.setState({
@@ -96,12 +96,22 @@ class TestPage extends Component {
       field2: 0,
       field3: 0,
       field4: 0,
+      field5: 0,
+      field6: 0,
+      field7: 0,
+      field8: 0,
+      field9: 0,
+      field10: 0,
+      field11: 0,
+      field12: 0,
+      field13: 0,
+      field14: 0,
+      field15: 0,
     };
     this.formElements = analysisFormDeps(formConfig, this);
   }
 
   render() {
-    console.log('this', this);
     return (
       <div>
         <h1>Test: {test.name}</h1>
