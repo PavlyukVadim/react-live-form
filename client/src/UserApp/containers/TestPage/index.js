@@ -16,7 +16,7 @@ const test = {
   description: 'description of test 1'
 };
 
-const analysisFormDeps = (fields) => {
+const analysisFormDeps = (fields, context) => {
   const formElements = {};
   for (const field of fields) {
     const formElement = {};
@@ -35,6 +35,23 @@ const analysisFormDeps = (fields) => {
 
       formElement.updateRule = field.state.value;
       formElement.updateExpr = expr;
+      formElement.update = () => {
+        const values = {};
+        formElement.parents.map((parentName) => {
+          values[parentName] = context.state[parentName];
+        });
+        const newValue = formElement.updateExpr.evaluate(values);
+        context.setState({
+          [fieldName]: newValue
+        }, () => {
+          const fieldSubscribers = context.formElements[field.name].subscribers;
+          if (fieldSubscribers) {
+            for (const subscriberName of fieldSubscribers) {
+              context.formElements[subscriberName].update();
+            }
+          }
+        });
+      };
     }
     formElements[fieldName] = formElement;
   }
@@ -50,12 +67,19 @@ const getForm = (fields = [], context) => {
           label={field.title}
           name={field.name}
           maxLength={16}
-          value={context.state && context.state[field.name] || 0}
+          value={context.state && context.state[field.name]}
           ref={(input)=> context.formElements[field.name].ref = input}
           onChange={(e) => {
             const value = e.target.value;
             context.setState({
               [field.name]: value
+            }, () => {
+              const fieldSubscribers = context.formElements[field.name].subscribers;
+              if (fieldSubscribers) {
+                for (const subscriberName of fieldSubscribers) {
+                  context.formElements[subscriberName].update();
+                }
+              }
             });
           }}
         />
@@ -67,8 +91,13 @@ const getForm = (fields = [], context) => {
 class TestPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      field1: 0,
+      field2: 0,
+      field3: 0,
+      field4: 0,
+    };
     this.formElements = analysisFormDeps(formConfig, this);
-    console.log('this.formElements', this.formElements)
   }
 
   render() {
