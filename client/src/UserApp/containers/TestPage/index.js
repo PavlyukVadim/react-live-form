@@ -20,11 +20,23 @@ const analysisFormDeps = (fields) => {
   const formElements = {};
   for (const field of fields) {
     const formElement = {};
+    const fieldName = field.name;
     if (field.state && field.state.value) {
       const expr = parser.parse(field.state.value);
-      formElement.subscribers = expr.variables();
+      const subscribers = expr.variables();
+      formElement.parents = subscribers;
+      subscribers.map((subscriberName) => {
+        if (formElements[subscriberName].subscribers) {
+          formElements[subscriberName].subscribers.push(fieldName);
+        } else {
+          formElements[subscriberName].subscribers = [fieldName];
+        }
+      });
+
+      formElement.updateRule = field.state.value;
+      formElement.updateExpr = expr;
     }
-    formElements[field.name] = formElement;
+    formElements[fieldName] = formElement;
   }
   return formElements;
 };
@@ -44,7 +56,7 @@ const getForm = (fields = [], context) => {
             const value = e.target.value;
             context.setState({
               [field.name]: value
-            })
+            });
           }}
         />
       </div>
