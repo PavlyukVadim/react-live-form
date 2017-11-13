@@ -32,13 +32,13 @@ const analysisFormDeps = (fields) => {
 const getForm = (fields = [], context) => {
   return fields.map((field) => {
     return (
-      <div>
+      <div key={field.name}>
         <input
           type='text'
           label={field.title}
           name={field.name}
           maxLength={16}
-          value={context.state && context.state[field.name]}
+          value={context.state && context.state[field.name] || 0}
           ref={(input)=> context.formElements[field.name].ref = input}
           onChange={(e) => {
             const value = e.target.value;
