@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Parser } from 'expr-eval';
 import {
   List,
   ListItem,
@@ -6,11 +7,8 @@ import {
   ListCheckbox
 } from 'react-toolbox/lib/list';
 import formConfig from './formConfig';
-import { Parser } from 'expr-eval';
 
-var parser = new Parser();
-var expr = parser.parse('2 * x(5) + 1');
-console.log(expr.evaluate({ x: () => 10 })); // 21
+const parser = new Parser();
 
 const test = {
   id: 1,
@@ -23,13 +21,16 @@ const hiddenClass = {
 };
 
 const analysisFormDeps = (fields) => {
-  // return fields.map((field) => {
-
-  // }
+  return fields.map((field) => {
+    if (field.state && field.state.value) {
+      var expr = parser.parse(field.state.value);
+      console.log(field.name, expr.variables());
+    }
+  });
 };
+analysisFormDeps(formConfig);
 
 const getForm = (fields = [], context) => {
-  console.log('context', context);
   return fields.map((field) => {
     return (
       <div>
@@ -38,7 +39,13 @@ const getForm = (fields = [], context) => {
           label={field.title}
           name={field.name}
           maxLength={16}
-          onChange={(e) => console.log(e)}
+          value={context.state && context.state[field.name]}
+          onChange={(e) => {
+            const value = e.target.value;
+            context.setState({
+              [field.name]: value
+            })
+          }}
         />
       </div>
     );
