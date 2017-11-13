@@ -16,10 +16,6 @@ const test = {
   description: 'description of test 1'
 };
 
-const hiddenClass = {
-  display: 'none'
-};
-
 const analysisFormDeps = (fields) => {
   return fields.map((field) => {
     if (field.state && field.state.value) {
