@@ -4,7 +4,7 @@ const formConfig = [
     fieldType: 'input',
     dataType: 'int',
     title: 'title for field1',
-    defaultValue: 0
+    defaultValue: 10,
   },
   {
     name: 'field2',
