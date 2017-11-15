@@ -7,6 +7,7 @@ import {
   ListCheckbox
 } from 'react-toolbox/lib/list';
 import formConfig from './formConfig';
+import Input from './FormComponents/Input';
 
 const parser = new Parser();
 
@@ -68,6 +69,7 @@ const getForm = (context, fields = []) => {
   return fields.map((field) => {
     return (
       <div key={field.name}>
+        <Input />
         <input
           type='text'
           label={field.title}
