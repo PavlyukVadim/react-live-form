@@ -1,21 +1,21 @@
 import React from 'react';
 
 const Input = ({
-  field,
-  value,
+  fieldConfig,
+  fieldState,
   onChange
 }) => (
   <div className="form-group">
     <input
       className="form-input"
       type="text"
-      name={field.name}
+      name={fieldConfig.name}
       maxLength={16}
-      label={field.title}
-      value={value}
+      label={fieldConfig.title}
+      value={fieldState.value}
       onChange={onChange}
     />
-    <label className="form-label">{`${field.title} = ${field.state && field.state.value}`}</label>
+    <label className="form-label">{`${fieldConfig.title} = ${fieldConfig.state && fieldConfig.state.value}`}</label>
   </div>
 );
 

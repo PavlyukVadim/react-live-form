@@ -117,8 +117,8 @@ const getForm = (context, fields = []) => {
     return (
       <div key={field.name}>
         <Input
-          field={field}
-          value={context.state && context.state[field.name].value}
+          fieldConfig={field}
+          fieldState={context.state[field.name]}
           onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
         />
       </div>
