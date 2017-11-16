@@ -30,7 +30,8 @@ const formConfig = [
     title: 'field4',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
+      value: 'field3 * 2',
+      display: 'field3 > 10'
     }
   },
   {

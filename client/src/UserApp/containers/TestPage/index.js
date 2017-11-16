@@ -10,6 +10,11 @@ import formConfig from './formConfig';
 import Input from './FormComponents/Input';
 
 const parser = new Parser();
+// const expr = parser.parse('x == 2');
+// const res = expr.evaluate({
+//   'x': 2
+// });
+// console.log('res', res);
 
 const test = {
   id: 1,
@@ -22,39 +27,68 @@ const analysisFormDeps = (context, fields) => {
   for (const field of fields) {
     const formElement = {};
     const fieldName = field.name;
-    const hasCalculatedValue = field.state && field.state.value;
-    if (hasCalculatedValue) {
-      const calculatedValue = field.state.value;
-      const expr = parser.parse(calculatedValue);
-      const subscribers = expr.variables();
-      formElement.parents = subscribers;
-      subscribers.map((subscriberName) => {
-        if (formElements[subscriberName].subscribers) {
-          formElements[subscriberName].subscribers.push(fieldName);
-        } else {
-          formElements[subscriberName].subscribers = [fieldName];
-        }
-      });
+    const isFieldHasOwnState = field.state && Object.keys(field.state).length > 0;
 
-      formElement.updateRule = calculatedValue;
-      formElement.updateExpr = expr;
+    if (isFieldHasOwnState) {
+      const fieldState = field.state;
+      const fieldStateProps = Object.keys(fieldState);
       formElement.update = () => {
-        const values = {};
-        formElement.parents.map((parentName) => {
-          values[parentName] = context.state[parentName];
-        });
-        const newValue = formElement.updateExpr.evaluate(values);
-        changeFormField(context, fieldName, newValue);
+        for (const updateFunction of formElement.updateFunctions) {
+          setTimeout(() => {
+            updateFunction();
+          }, 0)
+        }
       };
+
+      fieldStateProps.map((propName) => {
+        const propValue = fieldState[propName];
+        const expr = parser.parse(propValue);
+        const parents = expr.variables();
+        parents.map((parentName) => {
+          addSubscriberNameToField(formElements[parentName], fieldName);
+        });
+
+        const updateExpr = expr;
+        const updateFunction = () => {
+          const variablesValues = {};
+          parents.map((parentName) => {
+            variablesValues[parentName] = context.state[parentName].value;
+          });
+          const newPropValue = updateExpr.evaluate(variablesValues);
+          console.log(fieldName, propName, newPropValue);
+          changeFormField(context, fieldName, propName, newPropValue);
+        };
+        addUpdateFunction(formElement, updateFunction);
+      });
     }
     formElements[fieldName] = formElement;
   }
   return formElements;
 };
 
-const changeFormField = (context, fieldName, value) => {
+const addSubscriberNameToField = (field, subscriberName) => {
+  if (field.subscribers) {
+    if(!field.subscribers.includes(subscriberName)) {
+      field.subscribers.push(subscriberName);
+    }
+  } else {
+    field.subscribers = [subscriberName];
+  }
+};
+
+const addUpdateFunction = (formElement, updateFunction) => {
+  if (formElement.updateFunctions) {
+    formElement.updateFunctions.push(updateFunction);
+  } else {
+    formElement.updateFunctions = [updateFunction];
+  }
+};
+
+const changeFormField = (context, fieldName, propName, propValue) => {
+  const newFieldProps = Object.assign({}, context.state[fieldName]);
+  newFieldProps[propName] = propValue;
   context.setState({
-    [fieldName]: value
+    [fieldName]: newFieldProps
   }, () => {
     const fieldSubscribers = context.formElements[fieldName].subscribers;
     if (fieldSubscribers) {
@@ -71,8 +105,8 @@ const getForm = (context, fields = []) => {
       <div key={field.name}>
         <Input
           field={field}
-          value={context.state && context.state[field.name]}
-          onChange={(e) => changeFormField(context, field.name, e.target.value)}
+          value={context.state && context.state[field.name].value}
+          onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
         />
       </div>
     );
@@ -82,7 +116,9 @@ const getForm = (context, fields = []) => {
 const getFieldsInitialValues = (fields) => {
   const fieldsInitialValues = {};
   for (const field of fields) {
-    fieldsInitialValues[field.name] = field.defaultValue || 0;
+    fieldsInitialValues[field.name] = {
+      value: field.defaultValue || 0
+    };
   }
   return fieldsInitialValues;
 };
@@ -95,6 +131,7 @@ class TestPage extends Component {
   }
 
   render() {
+    // console.log('component state', this.state);
     return (
       <div>
         <h1>Test: {test.name}</h1>
