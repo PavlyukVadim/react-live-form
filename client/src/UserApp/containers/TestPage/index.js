@@ -32,12 +32,6 @@ const analysisFormDeps = (context, fields) => {
     if (isFieldHasOwnState) {
       const fieldState = field.state;
       const fieldStateProps = Object.keys(fieldState);
-      formElement.update = () => {
-        for (const updateFunction of formElement.updateFunctions) {
-          updateFunction();
-        }
-      };
-
       fieldStateProps.map((propName) => {
         const propValue = fieldState[propName];
         const expr = parser.parse(propValue);
@@ -46,18 +40,21 @@ const analysisFormDeps = (context, fields) => {
           addSubscriberNameToField(formElements[parentName], fieldName);
         });
 
-        const updateExpr = expr;
-        const updateFunction = () => {
-          const variablesValues = {};
-          parents.map((parentName) => {
-            variablesValues[parentName] = context.state[parentName].value;
-          });
-          const newPropValue = updateExpr.evaluate(variablesValues);
-          console.log(fieldName, propName, newPropValue);
-          changeFormField(context, fieldName, propName, newPropValue);
-        };
-        addUpdateFunction(formElement, updateFunction);
+        addUpdateFunction(
+          formElement,
+          context,
+          parents,
+          expr,
+          fieldName,
+          propName
+        );
       });
+
+      formElement.update = () => {
+        for (const updateFunction of formElement.updateFunctions) {
+          updateFunction();
+        }
+      };
     }
     formElements[fieldName] = formElement;
   }
@@ -74,7 +71,23 @@ const addSubscriberNameToField = (field, subscriberName) => {
   }
 };
 
-const addUpdateFunction = (formElement, updateFunction) => {
+const addUpdateFunction = (
+  formElement,
+  context,
+  parents,
+  updateExpr,
+  fieldName,
+  propName
+) => {
+  const updateFunction = () => {
+    const variablesValues = {};
+    parents.map((parentName) => {
+      variablesValues[parentName] = context.state[parentName].value;
+    });
+    const newPropValue = updateExpr.evaluate(variablesValues);
+    changeFormField(context, fieldName, propName, newPropValue);
+  };
+
   if (formElement.updateFunctions) {
     formElement.updateFunctions.push(updateFunction);
   } else {
