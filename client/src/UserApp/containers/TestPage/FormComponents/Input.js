@@ -1,15 +1,21 @@
 import React from 'react';
 
-const Input = (props) => (
+const Input = ({
+  field,
+  value,
+  onChange
+}) => (
   <div className="form-group">
-    <label className="form-label">{props.title}</label>
     <input
       className="form-input"
-      name={props.name}
-      type={props.inputType}
-      value={props.content}
-      onChange={props.controlFunc}
-      placeholder={props.placeholder} />
+      type="text"
+      name={field.name}
+      maxLength={16}
+      label={field.title}
+      value={value}
+      onChange={onChange}
+    />
+    <label className="form-label">{`${field.title} = ${field.state && field.state.value}`}</label>
   </div>
 );
 

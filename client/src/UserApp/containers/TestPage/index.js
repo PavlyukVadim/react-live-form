@@ -69,16 +69,11 @@ const getForm = (context, fields = []) => {
   return fields.map((field) => {
     return (
       <div key={field.name}>
-        <Input />
-        <input
-          type='text'
-          label={field.title}
-          name={field.name}
-          maxLength={16}
+        <Input
+          field={field}
           value={context.state && context.state[field.name]}
           onChange={(e) => changeFormField(context, field.name, e.target.value)}
         />
-        <label>{field.title}</label>
       </div>
     );
   });

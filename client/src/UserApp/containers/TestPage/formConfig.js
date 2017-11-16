@@ -3,21 +3,21 @@ const formConfig = [
     name: 'field1',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field1',
+    title: 'field1',
     defaultValue: 10,
   },
   {
     name: 'field2',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field2',
+    title: 'field2',
     defaultValue: 0,
   },
   {
     name: 'field3',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field3',
+    title: 'field3',
     defaultValue: 0,
     state: {
       value: 'field1 + field2'
@@ -27,7 +27,7 @@ const formConfig = [
     name: 'field4',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field4',
+    title: 'field4',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -37,7 +37,7 @@ const formConfig = [
     name: 'field5',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field5',
+    title: 'field5',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -47,7 +47,7 @@ const formConfig = [
     name: 'field6',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field6',
+    title: 'field6',
     defaultValue: 0,
     state: {
       value: 'field2 * 21'
@@ -57,7 +57,7 @@ const formConfig = [
     name: 'field7',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field7 (f3 * 3 + f2 * 2)',
+    title: 'field7',
     defaultValue: 0,
     state: {
       value: 'field3 * 3 + field2 * 2'
@@ -67,7 +67,7 @@ const formConfig = [
     name: 'field8',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field8 (f7 - 5)',
+    title: 'field8',
     defaultValue: 0,
     state: {
       value: 'field7 - 5'
@@ -77,7 +77,7 @@ const formConfig = [
     name: 'field9',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field9',
+    title: 'field9',
     defaultValue: 0,
     state: {
       value: 'field3 / 2'
@@ -87,7 +87,7 @@ const formConfig = [
     name: 'field10',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field10',
+    title: 'field10',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -97,7 +97,7 @@ const formConfig = [
     name: 'field11',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field11',
+    title: 'field11',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -107,7 +107,7 @@ const formConfig = [
     name: 'field12',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field12',
+    title: 'field12',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -117,7 +117,7 @@ const formConfig = [
     name: 'field13',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field13',
+    title: 'field13',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -127,7 +127,7 @@ const formConfig = [
     name: 'field14',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field14',
+    title: 'field14',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
@@ -137,7 +137,7 @@ const formConfig = [
     name: 'field15',
     fieldType: 'input',
     dataType: 'int',
-    title: 'title for field15',
+    title: 'field15',
     defaultValue: 0,
     state: {
       value: 'field3 * 2'
