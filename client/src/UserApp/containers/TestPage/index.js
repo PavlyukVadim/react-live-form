@@ -34,9 +34,7 @@ const analysisFormDeps = (context, fields) => {
       const fieldStateProps = Object.keys(fieldState);
       formElement.update = () => {
         for (const updateFunction of formElement.updateFunctions) {
-          setTimeout(() => {
-            updateFunction();
-          }, 0)
+          updateFunction();
         }
       };
 
@@ -85,10 +83,12 @@ const addUpdateFunction = (formElement, updateFunction) => {
 };
 
 const changeFormField = (context, fieldName, propName, propValue) => {
-  const newFieldProps = Object.assign({}, context.state[fieldName]);
-  newFieldProps[propName] = propValue;
-  context.setState({
-    [fieldName]: newFieldProps
+  context.setState((prevState) => {
+    const newFieldProps = Object.assign({}, prevState[fieldName]);
+    newFieldProps[propName] = propValue;
+    return {
+      [fieldName]: newFieldProps
+    };
   }, () => {
     const fieldSubscribers = context.formElements[fieldName].subscribers;
     if (fieldSubscribers) {
