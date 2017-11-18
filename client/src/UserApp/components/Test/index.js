@@ -27,20 +27,21 @@ const getForm = (
 ) => {
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
+    const fieldName = field.name;
     return (
       <ReactCSSTransitionGroup
-        key={field.name}
+        key={fieldName}
         component="div"
         transitionName="example"
         transitionEnterTimeout={1000}
         transitionLeaveTimeout={700}
       >
         {
-          formState[field.name].display !== false &&
+          formState[fieldName].display !== false &&
           <FormItem
             fieldConfig={field}
-            fieldState={formState[field.name]}
-            onChange={(e) => changeFormField(field.name, 'value', e.target.value)}
+            fieldState={formState[fieldName]}
+            onChange={(e) => changeFormField(fieldName, 'value', e.target.value)}
           />
         }
       </ReactCSSTransitionGroup>
@@ -61,7 +62,13 @@ class Test extends Component {
         <h1>Test: {test.name}</h1>
         Form:
         <div className="formWrapper" style={{backgroundColor: '#ccc', width: '500px'}}>
-          {getForm(formState, formConfig, changeFormField)}
+          {
+            getForm(
+              formState,
+              formConfig,
+              changeFormField
+            )
+          }
         </div>
       </div>
     );

@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
 import { Parser } from 'expr-eval';
-import {
-  List,
-  ListItem,
-  ListSubHeader,
-  ListCheckbox
-} from 'react-toolbox/lib/list';
 import Test from '../../components/Test';
 
 const parser = new Parser();
