@@ -6,6 +6,7 @@ import {
   ListSubHeader,
   ListCheckbox
 } from 'react-toolbox/lib/list';
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Input from './FormComponents/Input';
 
 const parser = new Parser();
@@ -114,7 +115,13 @@ const changeFormField = (context, fieldName, propName, propValue) => {
 const getForm = (context, fields = []) => {
   return fields.map((field) => {
     return (
-      <div key={field.name}>
+      <ReactCSSTransitionGroup
+        key={field.name}
+        component="div"
+        transitionName="example"
+        transitionEnterTimeout={5000}
+        transitionLeaveTimeout={3000}
+      >
         {
           context.state[field.name].display !== false &&
           <Input
@@ -123,7 +130,7 @@ const getForm = (context, fields = []) => {
             onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
           />
         }
-      </div>
+      </ReactCSSTransitionGroup>
     );
   });
 };
