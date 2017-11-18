@@ -6,15 +6,7 @@ import {
   ListSubHeader,
   ListCheckbox
 } from 'react-toolbox/lib/list';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Input from './FormComponents/Input';
-import Select from './FormComponents/Select';
-import './TestPage.scss';
-
-const kvArray = [
-  ['input', Input],
-  ['select', Select]
-];
+import Test from '../../components/Test';
 
 const parser = new Parser();
 // const expr = parser.parse("x == '2'");
@@ -22,12 +14,6 @@ const parser = new Parser();
 //   'x': '2'
 // });
 // console.log('res', res);
-
-const test = {
-  id: 1,
-  name: 'testName#1',
-  description: 'description of test 1'
-};
 
 const analysisFormDeps = (context, fields) => {
   const formElements = {};
@@ -102,7 +88,12 @@ const addUpdateFunction = (
   }
 };
 
-const changeFormField = (context, fieldName, propName, propValue) => {
+const changeFormField = (
+  context,
+  fieldName,
+  propName,
+  propValue
+) => {
   context.setState((prevState) => {
     const newFieldProps = Object.assign({}, prevState[fieldName]);
     newFieldProps[propName] = propValue;
@@ -116,35 +107,6 @@ const changeFormField = (context, fieldName, propName, propValue) => {
         context.formElements[subscriberName].update();
       }
     }
-  });
-};
-
-const formItemsMap = new Map(kvArray);
-const getFormItemByFieldType = (fieldType) => {
-  return formItemsMap.get(fieldType);
-};
-
-const getForm = (context, fields = []) => {
-  return fields.map((field) => {
-    const FormItem = getFormItemByFieldType(field.fieldType);
-    return (
-      <ReactCSSTransitionGroup
-        key={field.name}
-        component="div"
-        transitionName="example"
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={700}
-      >
-        {
-          context.state[field.name].display !== false &&
-          <FormItem
-            fieldConfig={field}
-            fieldState={context.state[field.name]}
-            onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
-          />
-        }
-      </ReactCSSTransitionGroup>
-    );
   });
 };
 
@@ -164,17 +126,21 @@ class TestPage extends Component {
     const { formConfig } = this.props;
     this.state = getFieldsInitialValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
+    this.changeFormField = this.changeFormField.bind(this);
+  }
+
+  changeFormField(fieldName, propName, propValue) {
+    changeFormField(this, fieldName, propName, propValue);
   }
 
   render() {
-    console.log('component state', this.state);
     return (
       <div>
-        <h1>Test: {test.name}</h1>
-        Form:
-        <div className="formWrapper" style={{backgroundColor: '#ccc', width: '500px'}}>
-          {getForm(this, this.props.formConfig)}
-        </div>
+        <Test
+          formState={this.state}
+          formConfig={this.props.formConfig}
+          changeFormField={this.changeFormField}
+        />
       </div>
     );
   }
