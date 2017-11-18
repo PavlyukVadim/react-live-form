@@ -8,6 +8,7 @@ import {
 } from 'react-toolbox/lib/list';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Input from './FormComponents/Input';
+import './TestPage.scss';
 
 const parser = new Parser();
 // const expr = parser.parse('x == 2');
@@ -119,8 +120,8 @@ const getForm = (context, fields = []) => {
         key={field.name}
         component="div"
         transitionName="example"
-        transitionEnterTimeout={5000}
-        transitionLeaveTimeout={3000}
+        transitionEnterTimeout={1000}
+        transitionLeaveTimeout={700}
       >
         {
           context.state[field.name].display !== false &&
