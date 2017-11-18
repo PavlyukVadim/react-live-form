@@ -11,6 +11,7 @@ import {
 } from 'react-toolbox';
 import TestsList from './containers/TestsList';
 import TestPage from './containers/TestPage';
+import formConfig from './containers/TestPage/formConfig';
 
 class UserApp extends Component {
   constructor(props) {
@@ -58,7 +59,16 @@ class UserApp extends Component {
                 )
               }
             />
-            <Route path='/user/test/:id' component={TestPage}/>
+            <Route
+              path='/user/test/:id'
+              render={
+                () => (
+                  <TestPage 
+                    formConfig={formConfig}
+                  />
+                )
+              }
+            />
           </div>
         </Panel>
       </Layout>

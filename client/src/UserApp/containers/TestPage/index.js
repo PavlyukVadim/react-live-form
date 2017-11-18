@@ -6,7 +6,6 @@ import {
   ListSubHeader,
   ListCheckbox
 } from 'react-toolbox/lib/list';
-import formConfig from './formConfig';
 import Input from './FormComponents/Input';
 
 const parser = new Parser();
@@ -116,11 +115,14 @@ const getForm = (context, fields = []) => {
   return fields.map((field) => {
     return (
       <div key={field.name}>
-        <Input
-          fieldConfig={field}
-          fieldState={context.state[field.name]}
-          onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
-        />
+        {
+          context.state[field.name].display !== false &&
+          <Input
+            fieldConfig={field}
+            fieldState={context.state[field.name]}
+            onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
+          />
+        }
       </div>
     );
   });
@@ -139,6 +141,7 @@ const getFieldsInitialValues = (fields) => {
 class TestPage extends Component {
   constructor(props) {
     super(props);
+    const { formConfig } = this.props;
     this.state = getFieldsInitialValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
   }
@@ -150,7 +153,7 @@ class TestPage extends Component {
         <h1>Test: {test.name}</h1>
         Form:
         <div className="formWrapper" style={{backgroundColor: '#ccc', width: '500px'}}>
-          {getForm(this, formConfig)}
+          {getForm(this, this.props.formConfig)}
         </div>
       </div>
     );
