@@ -8,12 +8,18 @@ import {
 } from 'react-toolbox/lib/list';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Input from './FormComponents/Input';
+import Select from './FormComponents/Select';
 import './TestPage.scss';
 
+const kvArray = [
+  ['input', Input],
+  ['select', Select]
+];
+
 const parser = new Parser();
-// const expr = parser.parse('x == 2');
+// const expr = parser.parse("x == '2'");
 // const res = expr.evaluate({
-//   'x': 2
+//   'x': '2'
 // });
 // console.log('res', res);
 
@@ -113,8 +119,14 @@ const changeFormField = (context, fieldName, propName, propValue) => {
   });
 };
 
+const formItemsMap = new Map(kvArray);
+const getFormItemByFieldType = (fieldType) => {
+  return formItemsMap.get(fieldType);
+};
+
 const getForm = (context, fields = []) => {
   return fields.map((field) => {
+    const FormItem = getFormItemByFieldType(field.fieldType);
     return (
       <ReactCSSTransitionGroup
         key={field.name}
@@ -125,7 +137,7 @@ const getForm = (context, fields = []) => {
       >
         {
           context.state[field.name].display !== false &&
-          <Input
+          <FormItem
             fieldConfig={field}
             fieldState={context.state[field.name]}
             onChange={(e) => changeFormField(context, field.name, 'value', e.target.value)}
@@ -155,7 +167,7 @@ class TestPage extends Component {
   }
 
   render() {
-    // console.log('component state', this.state);
+    console.log('component state', this.state);
     return (
       <div>
         <h1>Test: {test.name}</h1>

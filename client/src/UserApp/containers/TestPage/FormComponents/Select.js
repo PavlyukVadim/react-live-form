@@ -8,23 +8,26 @@ const Select = ({
   <div className="form-group">
     <select
       name={fieldConfig.name}
-      value={fieldConfig.selectedOption}
+      value={fieldState.value}
       onChange={onChange}
       className="form-select"
     >
       {
-        fieldConfig.options.map(opt => {
+        fieldConfig.options.map(option => {
           return (
             <option
-              key={opt}
-              value={opt}
+              key={option.value}
+              value={option.value}
             >
-              {opt}
+              {option.content}
             </option>
           );
         })
       }
     </select>
+    <label className="form-label">
+      {`${fieldConfig.title} = ${fieldConfig.state && fieldConfig.state.value}`}
+    </label>
   </div>
 );
 
