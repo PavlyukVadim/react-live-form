@@ -12,8 +12,8 @@ const parser = new Parser();
 const analysisFormDeps = (context, fields) => {
   const formElements = {};
   for (const field of fields) {
-    const formElement = {};
     const fieldName = field.name;
+    const formElement = formElements[fieldName] || {};
     const isFieldHasOwnState = field.state && Object.keys(field.state).length > 0;
 
     if (isFieldHasOwnState) {
@@ -24,6 +24,9 @@ const analysisFormDeps = (context, fields) => {
         const expr = parser.parse(propValue);
         const parents = expr.variables();
         parents.map((parentName) => {
+          if (!formElements[parentName]) {
+            formElements[parentName] = {};
+          }
           addSubscriberNameToField(formElements[parentName], fieldName);
         });
 

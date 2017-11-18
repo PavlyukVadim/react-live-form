@@ -138,7 +138,7 @@ const formConfig = [
     title: 'field14',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
+      value: 'field15 + 2'
     }
   },
   {
