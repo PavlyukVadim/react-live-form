@@ -40,11 +40,12 @@ export const analysisFormDeps = (context, fields) => {
         );
       });
 
-      formElement.update = () => {
+      const update = () => {
         for (const updateFunction of formElement.updateFunctions) {
           updateFunction();
         }
       };
+      formElement.update = update;
     }
     formElements[fieldName] = formElement;
   }
