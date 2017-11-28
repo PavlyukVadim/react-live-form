@@ -9,7 +9,7 @@ const parser = new Parser();
 // });
 // console.log('res', res);
 
-const analysisFormDeps = (context, fields) => {
+export const analysisFormDeps = (context, fields) => {
   const formElements = {};
   for (const field of fields) {
     const fieldName = field.name;

@@ -96,6 +96,10 @@ const formConfig = [
         content: 'option1'
       },
       {
+        value: 'option3',
+        content: 'option3'
+      },
+      {
         value: 'option2',
         content: 'content for value2'
       }
