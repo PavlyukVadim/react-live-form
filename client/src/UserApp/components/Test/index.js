@@ -25,8 +25,7 @@ const getFormItemByFieldType = (fieldType) => {
 const getForm = (
   formState,
   fields = [],
-  changeFormField,
-  changeMultipleFormField
+  changeFormField
 ) => {
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);

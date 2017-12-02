@@ -114,29 +114,6 @@ const changeFormField = (
   });
 };
 
-const changeMultipleFormField = (
-  context,
-  fieldName,
-  propName,
-  propValue
-) => {
-  console.log('changeMultipleFormField');
-  context.setState((prevState) => {
-    const newFieldProps = Object.assign({}, prevState[fieldName]);
-    newFieldProps[propName] = ['option2', 'option1'];
-    return {
-      [fieldName]: newFieldProps
-    };
-  }, () => {
-    const fieldSubscribers = context.formElements[fieldName].subscribers;
-    if (fieldSubscribers) {
-      for (const subscriberName of fieldSubscribers) {
-        context.formElements[subscriberName].update();
-      }
-    }
-  });
-};
-
 const getFieldsInitialValues = (fields) => {
   const fieldsInitialValues = {};
   for (const field of fields) {
@@ -154,15 +131,10 @@ class TestPage extends Component {
     this.state = getFieldsInitialValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
-    this.changeMultipleFormField = this.changeMultipleFormField.bind(this);
   }
 
   changeFormField(fieldName, propName, propValue) {
     changeFormField(this, fieldName, propName, propValue);
-  }
-
-  changeMultipleFormField(fieldName, propName, propValue) {
-    changeMultipleFormField(this, fieldName, propName, propValue);
   }
 
   render() {
@@ -173,7 +145,6 @@ class TestPage extends Component {
           formState={this.state}
           formConfig={this.props.formConfig}
           changeFormField={this.changeFormField}
-          changeMultipleFormField={this.changeMultipleFormField}
         />
       </div>
     );
