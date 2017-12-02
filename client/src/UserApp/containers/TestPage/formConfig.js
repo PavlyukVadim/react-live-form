@@ -118,17 +118,17 @@ const formConfig = [
   {
     name: 'field12',
     fieldType: 'input',
-    dataType: 'int',
+    dataType: 'string',
     title: 'field12',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
+      value: 'field13'
     }
   },
   {
     name: 'field13',
-    fieldType: 'input',
-    dataType: 'int',
+    fieldType: 'textarea',
+    dataType: 'string',
     title: 'field13',
     defaultValue: 0,
     state: {
