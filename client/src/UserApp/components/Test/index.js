@@ -60,8 +60,7 @@ class Test extends Component {
     const {
       formState,
       formConfig,
-      changeFormField,
-      changeMultipleFormField
+      changeFormField
     } = this.props;
 
     return (
@@ -73,8 +72,7 @@ class Test extends Component {
             getForm(
               formState,
               formConfig,
-              changeFormField,
-              changeMultipleFormField
+              changeFormField
             )
           }
         </div>

@@ -97,7 +97,6 @@ const changeFormField = (
   propName,
   propValue
 ) => {
-  console.log('changeFormField', propValue);
   context.setState((prevState) => {
     const newFieldProps = Object.assign({}, prevState[fieldName]);
     newFieldProps[propName] = propValue;
