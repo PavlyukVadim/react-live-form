@@ -154,6 +154,13 @@ const formConfig = [
     state: {
       value: 'field3 * 2'
     }
+  },
+  {
+    name: 'field16',
+    fieldType: 'checkbox',
+    dataType: 'int',
+    title: 'field16',
+    defaultValue: 0,
   }
 ];
 

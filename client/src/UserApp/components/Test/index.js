@@ -3,6 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import Input from './../FormComponents/Input';
 import Select from './../FormComponents/Select';
 import Textarea from './../FormComponents/Textarea';
+import Checkbox from './../FormComponents/Checkbox';
 import './Test.scss';
 
 const test = {
@@ -15,6 +16,7 @@ const kvArray = [
   ['input', Input],
   ['select', Select],
   ['textarea', Textarea],
+  ['checkbox', Checkbox],
 ];
 
 const formItemsMap = new Map(kvArray);
