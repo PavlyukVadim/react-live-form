@@ -3,3 +3,4 @@ client/static
 *.log
 .idea/
 package-lock.json
+coverage
