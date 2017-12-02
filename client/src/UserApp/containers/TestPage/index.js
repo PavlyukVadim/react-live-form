@@ -2,10 +2,15 @@ import React, { Component } from 'react';
 import { Parser } from 'expr-eval';
 import Test from '../../components/Test';
 
-const parser = new Parser();
-// const expr = parser.parse("x == '2'");
+const parser = new Parser({
+  operators: {
+    'in': true,
+  },
+});
+// const expr = parser.parse("x in arr");
 // const res = expr.evaluate({
-//   'x': '2'
+//   'x': 2,
+//   'arr': [1, 2, 3]
 // });
 // console.log('res', res);
 
@@ -92,9 +97,33 @@ const changeFormField = (
   propName,
   propValue
 ) => {
+  console.log('changeFormField', propValue);
   context.setState((prevState) => {
     const newFieldProps = Object.assign({}, prevState[fieldName]);
     newFieldProps[propName] = propValue;
+    return {
+      [fieldName]: newFieldProps
+    };
+  }, () => {
+    const fieldSubscribers = context.formElements[fieldName].subscribers;
+    if (fieldSubscribers) {
+      for (const subscriberName of fieldSubscribers) {
+        context.formElements[subscriberName].update();
+      }
+    }
+  });
+};
+
+const changeMultipleFormField = (
+  context,
+  fieldName,
+  propName,
+  propValue
+) => {
+  console.log('changeMultipleFormField');
+  context.setState((prevState) => {
+    const newFieldProps = Object.assign({}, prevState[fieldName]);
+    newFieldProps[propName] = ['option2', 'option1'];
     return {
       [fieldName]: newFieldProps
     };
@@ -125,10 +154,15 @@ class TestPage extends Component {
     this.state = getFieldsInitialValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
+    this.changeMultipleFormField = this.changeMultipleFormField.bind(this);
   }
 
   changeFormField(fieldName, propName, propValue) {
     changeFormField(this, fieldName, propName, propValue);
+  }
+
+  changeMultipleFormField(fieldName, propName, propValue) {
+    changeMultipleFormField(this, fieldName, propName, propValue);
   }
 
   render() {
@@ -139,6 +173,7 @@ class TestPage extends Component {
           formState={this.state}
           formConfig={this.props.formConfig}
           changeFormField={this.changeFormField}
+          changeMultipleFormField={this.changeMultipleFormField}
         />
       </div>
     );

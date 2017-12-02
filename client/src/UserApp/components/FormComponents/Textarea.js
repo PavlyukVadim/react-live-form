@@ -3,11 +3,11 @@ import React from 'react';
 const Textarea = ({
   fieldConfig,
   fieldState,
-  onChange
+  changeFormField
 }) => (  
   <div className="form-group">
     <textarea
-      onChange={onChange}
+      onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
       value={fieldState.value}
     />
   </div>

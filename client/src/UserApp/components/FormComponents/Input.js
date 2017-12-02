@@ -3,7 +3,7 @@ import React from 'react';
 const Input = ({
   fieldConfig,
   fieldState,
-  onChange
+  changeFormField
 }) => (
   <div className="form-group">
     <input
@@ -13,7 +13,7 @@ const Input = ({
       maxLength={16}
       label={fieldConfig.title}
       value={fieldState.value}
-      onChange={onChange}
+      onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
     />
     <label className="form-label">{`${fieldConfig.title} = ${fieldConfig.state && fieldConfig.state.value}`}</label>
   </div>

@@ -87,22 +87,22 @@ const formConfig = [
   {
     name: 'field10',
     fieldType: 'select',
+    multiple: true,
     dataType: 'string',
     title: 'field10',
-    defaultValue: 'option2',
     options: [
       {
         value: 'option1',
         content: 'option1'
       },
       {
+        value: 'option2',
+        content: 'content for value2'
+      },
+      {
         value: 'option3',
         content: 'option3'
       },
-      {
-        value: 'option2',
-        content: 'content for value2'
-      }
     ]
   },
   {
@@ -112,7 +112,7 @@ const formConfig = [
     title: 'field11',
     defaultValue: 'some value',
     state: {
-      display: "field10 == 'option1'"
+      display: "'option1' in field10 or 'option2' in field10"
     }
   },
   {

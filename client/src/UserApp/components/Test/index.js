@@ -25,11 +25,13 @@ const getFormItemByFieldType = (fieldType) => {
 const getForm = (
   formState,
   fields = [],
-  changeFormField
+  changeFormField,
+  changeMultipleFormField
 ) => {
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
+    
     return (
       <ReactCSSTransitionGroup
         key={fieldName}
@@ -43,7 +45,7 @@ const getForm = (
           <FormItem
             fieldConfig={field}
             fieldState={formState[fieldName]}
-            onChange={(e) => changeFormField(fieldName, 'value', e.target.value)}
+            changeFormField={changeFormField}
           />
         }
       </ReactCSSTransitionGroup>
@@ -57,8 +59,10 @@ class Test extends Component {
     const {
       formState,
       formConfig,
-      changeFormField
+      changeFormField,
+      changeMultipleFormField
     } = this.props;
+
     return (
       <div>
         <h1>Test: {test.name}</h1>
@@ -68,7 +72,8 @@ class Test extends Component {
             getForm(
               formState,
               formConfig,
-              changeFormField
+              changeFormField,
+              changeMultipleFormField
             )
           }
         </div>
