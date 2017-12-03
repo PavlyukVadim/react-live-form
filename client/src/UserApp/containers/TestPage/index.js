@@ -105,31 +105,47 @@ const changeFormField = (
     };
   }, () => {
     const fieldSubscribers = context.formElements[fieldName].subscribers;
-    if (fieldSubscribers) {
-      for (const subscriberName of fieldSubscribers) {
-        context.formElements[subscriberName].update();
-      }
-    }
+    updateFieldSubscribers(fieldSubscribers, context.formElements);
   });
 };
 
-const getFieldsInitialValues = (fields) => {
-  const fieldsInitialValues = {};
+const updateFieldSubscribers = (fieldSubscribers, formElements) => {
+  if (fieldSubscribers) {
+    for (const subscriberName of fieldSubscribers) {
+      formElements[subscriberName].update();
+    }
+  }
+};
+
+const getFieldsDefaultValues = (fields) => {
+  const fieldsDefaultValues = {};
   for (const field of fields) {
-    fieldsInitialValues[field.name] = {
+    fieldsDefaultValues[field.name] = {
       value: field.defaultValue || 0
     };
   }
-  return fieldsInitialValues;
+  return fieldsDefaultValues;
 };
 
 class TestPage extends Component {
   constructor(props) {
     super(props);
     const { formConfig } = this.props;
-    this.state = getFieldsInitialValues(formConfig);
+    this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
+  }
+
+  componentDidMount() {
+    this.firstFieldsUpdate();
+  }
+
+  firstFieldsUpdate() {
+    for (const key in this.formElements) {
+      const formElement = this.formElements[key];
+      const fieldSubscribers = formElement.subscribers
+      updateFieldSubscribers(fieldSubscribers, this.formElements);
+    }
   }
 
   changeFormField(fieldName, propName, propValue) {
