@@ -30,9 +30,11 @@ class TestConstructor extends Component {
             value: 'field1 + field2'
           }
         }
-      ]
+      ],
+      currentField: 'field1',
     };
-    this.addField = this.addField.bind(this); 
+    this.addField = this.addField.bind(this);
+    this.changeCurrentField = this.changeCurrentField.bind(this);
   }
 
   addField() {
@@ -46,17 +48,26 @@ class TestConstructor extends Component {
       };
       const formConfig = [...prevState.formConfig, newField];
       return {
-        formConfig
+        formConfig,
+        currentField: newField.name
       };
+    });
+  }
+
+  changeCurrentField(newCurrentField) {
+    this.setState({
+      currentField: newCurrentField,
     });
   }
 
   render() {
     const {
-      formConfig
+      formConfig,
+      currentField
     } = this.state;
     const namesOfFields = formConfig.map((field) => field.name);
     console.log('formConfig', formConfig);
+    
     return (
       <div className="row">
         <div className="col-sm-6">
@@ -67,6 +78,8 @@ class TestConstructor extends Component {
         <div className="col-sm-6">
           <SelectOfFields
             fields={namesOfFields}
+            value={currentField}
+            onChange={this.changeCurrentField}
           />
           <input
             type="button"
