@@ -1,4 +1,4 @@
-import updateFieldSubscribers from './../updateFieldSubscribers';
+import callUpdateOnSubscribers from './../callUpdateOnSubscribers';
 
 const changeFormField = (
   context,
@@ -14,7 +14,7 @@ const changeFormField = (
     };
   }, () => {
     const fieldSubscribers = context.formElements[fieldName].subscribers;
-    updateFieldSubscribers(fieldSubscribers, context.formElements);
+    callUpdateOnSubscribers(fieldSubscribers, context.formElements);
   });
 };
 

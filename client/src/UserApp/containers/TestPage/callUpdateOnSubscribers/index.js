@@ -1,4 +1,4 @@
-const updateFieldSubscribers = (fieldSubscribers, formElements) => {
+const callUpdateOnSubscribers = (fieldSubscribers, formElements) => {
   if (fieldSubscribers) {
     for (const subscriberName of fieldSubscribers) {
       formElements[subscriberName].update();
@@ -6,4 +6,4 @@ const updateFieldSubscribers = (fieldSubscribers, formElements) => {
   }
 };
 
-export default updateFieldSubscribers;
+export default callUpdateOnSubscribers;

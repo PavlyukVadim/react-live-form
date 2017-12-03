@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import analysisFormDeps from './analysisFormDeps';
-import updateFieldSubscribers from './updateFieldSubscribers';
+import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
 import Test from '../../components/Test';
 
@@ -31,8 +31,8 @@ class TestPage extends Component {
   firstFieldsUpdate() {
     for (const key in this.formElements) {
       const formElement = this.formElements[key];
-      const fieldSubscribers = formElement.subscribers
-      updateFieldSubscribers(fieldSubscribers, this.formElements);
+      const fieldSubscribers = formElement.subscribers;
+      callUpdateOnSubscribers(fieldSubscribers, this.formElements);
     }
   }
 
