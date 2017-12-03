@@ -2,39 +2,139 @@ import React, { Component } from 'react';
 import SelectOfFields from './../../components/SelectOfFields';
 import TestPage from './../../../UserApp/containers/TestPage';
 
+import Input from './../../../FormComponents/Input';
+import Select from './../../../FormComponents/Select';
+import Textarea from './../../../FormComponents/Textarea';
+import Checkbox from './../../../FormComponents/Checkbox';
+
+
+// {
+//   name: 'field1',
+//   fieldType: 'input',
+//   dataType: 'int',
+//   title: 'field1',
+//   defaultValue: 10,
+// },
+// {
+//   name: 'field2',
+//   fieldType: 'input',
+//   dataType: 'int',
+//   title: 'field2',
+//   defaultValue: 0,
+// },
+// {
+//   name: 'field3',
+//   fieldType: 'input',
+//   dataType: 'int',
+//   title: 'field3',
+//   defaultValue: 0,
+//   state: {
+//     value: 'field1 + field2'
+//   }
+// }
+
+
+const commonFieldSettings = [
+  {
+    name: 'name',
+    fieldType: 'input',
+    title: 'input name',
+  },
+  {
+    name: 'fieldType',
+    fieldType: 'select',
+    title: 'choose type of field',
+    defaultValue: 'input',
+    options: [
+      {
+        value: 'input',
+        content: 'input',
+      },
+      {
+        value: 'select',
+        content: 'select',
+      },
+      {
+        value: 'checkbox',
+        content: 'checkbox',
+      },
+      {
+        value: 'textarea',
+        content: 'textarea',
+      },
+    ],
+  },
+  {
+    name: 'title',
+    fieldType: 'input',
+    title: 'field title',
+  },
+];
+
+const kvArray = [
+  ['input', Input],
+  ['select', Select],
+  ['textarea', Textarea],
+  ['checkbox', Checkbox],
+];
+
+const formItemsMap = new Map(kvArray);
+const getFormItemByFieldType = (fieldType) => {
+  return formItemsMap.get(fieldType);
+};
+
+
+const getForm = (
+  formState,
+  fields = [],
+  changeFormField
+) => {
+  return fields.map((field) => {
+    const FormItem = getFormItemByFieldType(field.fieldType);
+    const fieldName = field.name;
+    
+    return (
+      <FormItem
+        key={field.name}
+        fieldConfig={field}
+        fieldState={formState}
+        changeFormField={changeFormField}
+      />
+    );
+  });
+};
+
+
+// const getcurrFormTestField = (fields, nameOfcurrFormTestFields) => {
+//   for (field of fields) {
+//     if (field.name === nameOfcurrFormTestFields) {
+//       return field;
+//     }
+//   }
+// };
+
+const getFieldsDefaultValues = (fields) => {
+  const fieldsDefaultValues = {};
+  for (const field of fields) {
+    fieldsDefaultValues[field.name] = {
+      value: field.defaultValue || 0
+    };
+  }
+  return fieldsDefaultValues;
+};
+
 class TestConstructor extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      formConfig: [{
-          name: 'field1',
-          fieldType: 'input',
-          dataType: 'int',
-          title: 'field1',
-          defaultValue: 10,
-        },
-        {
-          name: 'field2',
-          fieldType: 'input',
-          dataType: 'int',
-          title: 'field2',
-          defaultValue: 0,
-        },
-        {
-          name: 'field3',
-          fieldType: 'input',
-          dataType: 'int',
-          title: 'field3',
-          defaultValue: 0,
-          state: {
-            value: 'field1 + field2'
-          }
-        }
-      ],
-      currentField: 'field1',
+      formTestConfig: [],
+      formTestState: {},
+      formConstructorSettings: [].concat(commonFieldSettings),
+      currFormTestField: {},
     };
     this.addField = this.addField.bind(this);
-    this.changeCurrentField = this.changeCurrentField.bind(this);
+    this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
+    this.changeFormField = this.changeFormField.bind(this);
   }
 
   addField() {
@@ -46,46 +146,87 @@ class TestConstructor extends Component {
         title: 'field4',
         defaultValue: 0,
       };
-      const formConfig = [...prevState.formConfig, newField];
+      const formTestConfig = [...prevState.formTestConfig, newField];
       return {
-        formConfig,
-        currentField: newField.name
+        formTestConfig,
+        currFormTestField: newField
       };
     });
   }
 
-  changeCurrentField(newCurrentField) {
+  changeCurrFormTestField(newCurrFormTestField) {
     this.setState({
-      currentField: newCurrentField,
+      currFormTestField: newCurrFormTestField,
     });
   }
 
+  changeFormField(fieldName, propName, propValue) {
+    console.log(fieldName, propName, propValue);
+
+    this.setState((prevState) => {
+      const {
+        formTestConfig,
+        currFormTestField
+      } = prevState;
+
+      console.log('currFormTestField', currFormTestField);
+      
+      const field = Object.assign({}, currFormTestField);
+      field[fieldName] = propValue;
+      const newFormTestConfig = [].concat(formTestConfig);
+      
+      for(const key in newFormTestConfig) {
+        if (newFormTestConfig[key].name === field.name) {
+          newFormTestConfig[key] = field;
+        }
+      }
+
+
+
+      return {
+        formTestConfig: newFormTestConfig,
+        currFormTestField: field
+      };
+    }, () => {
+      console.log('2 currFormTestField', this.state.currFormTestField)
+    });
+  };
+
   render() {
     const {
-      formConfig,
-      currentField
+      formTestConfig,
+      currFormTestField,
+      formTestState,
     } = this.state;
-    const namesOfFields = formConfig.map((field) => field.name);
-    console.log('formConfig', formConfig);
+    const namesOfFields = formTestConfig.map((field) => field.name);
+    
+    console.log('render currFormTestField', currFormTestField);
     
     return (
       <div className="row">
         <div className="col-sm-6">
           <TestPage
-            formConfig={formConfig}
+            formConfig={formTestConfig}
           />
         </div>
         <div className="col-sm-6">
-          <SelectOfFields
-            fields={namesOfFields}
-            value={currentField}
-            onChange={this.changeCurrentField}
-          />
           <input
             type="button"
             value="add field"
             onClick={this.addField}
           />
+          <SelectOfFields
+            fields={namesOfFields}
+            value={currFormTestField.name}
+            onChange={this.changeCurrFormTestField}
+          />
+          {
+            getForm(
+              formTestState,
+              commonFieldSettings,
+              this.changeFormField
+            )
+          }
         </div>
       </div>
     );
