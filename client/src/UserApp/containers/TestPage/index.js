@@ -134,6 +134,7 @@ class TestPage extends Component {
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
+    this.formSubmit = this.formSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -152,6 +153,15 @@ class TestPage extends Component {
     changeFormField(this, fieldName, propName, propValue);
   }
 
+  formSubmit() {
+    const values = {};
+    for (const key in this.state) {
+      values[key] = this.state[key].value;
+    }
+    console.log(values);
+    return values;
+  }
+
   render() {
     console.log(this.state);
     return (
@@ -160,6 +170,7 @@ class TestPage extends Component {
           formState={this.state}
           formConfig={this.props.formConfig}
           changeFormField={this.changeFormField}
+          formSubmit={this.formSubmit}
         />
       </div>
     );

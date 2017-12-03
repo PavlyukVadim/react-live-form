@@ -60,7 +60,8 @@ class Test extends Component {
     const {
       formState,
       formConfig,
-      changeFormField
+      changeFormField,
+      formSubmit
     } = this.props;
 
     return (
@@ -75,6 +76,10 @@ class Test extends Component {
               changeFormField
             )
           }
+          <input
+            type="submit"
+            onClick={formSubmit}
+          />
         </div>
       </div>
     );
