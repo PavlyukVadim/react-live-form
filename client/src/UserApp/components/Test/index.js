@@ -68,7 +68,7 @@ class Test extends Component {
       <div>
         <h1>Test: {test.name}</h1>
         Form:
-        <div className="formWrapper" style={{backgroundColor: '#ccc', width: '500px'}}>
+        <div className="formWrapper" style={{backgroundColor: '#ccc'}}>
           {
             getForm(
               formState,
