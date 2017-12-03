@@ -1,4 +1,4 @@
-import updateFieldSubscribers from './updateFieldSubscribers';
+import updateFieldSubscribers from './../updateFieldSubscribers';
 
 const changeFormField = (
   context,

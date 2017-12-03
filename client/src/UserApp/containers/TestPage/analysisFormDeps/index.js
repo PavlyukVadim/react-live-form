@@ -1,6 +1,6 @@
 import { Parser } from 'expr-eval';
-import addSubscriberNameToField from './addSubscriberNameToField';
-import addUpdateFunction from './addUpdateFunction';
+import addSubscriberNameToField from './../addSubscriberNameToField';
+import addUpdateFunction from './../addUpdateFunction';
 
 const parser = new Parser({
   operators: {

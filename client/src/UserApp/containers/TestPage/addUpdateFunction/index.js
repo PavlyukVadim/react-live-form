@@ -1,4 +1,4 @@
-import changeFormField from './changeFormField';
+import changeFormField from './../changeFormField';
 
 const addUpdateFunction = (
   formElement,
