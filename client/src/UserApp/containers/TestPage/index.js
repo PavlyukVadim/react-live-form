@@ -28,6 +28,14 @@ class TestPage extends Component {
     this.firstFieldsUpdate();
   }
 
+  componentWillReceiveProps(newProps) {
+    this.setState(() => {
+      return getFieldsDefaultValues(newProps.formConfig);
+    }, () => {
+      this.firstFieldsUpdate();
+    });
+  }
+
   firstFieldsUpdate() {
     for (const key in this.formElements) {
       const formElement = this.formElements[key];
