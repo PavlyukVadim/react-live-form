@@ -1,18 +1,15 @@
-import {
-  analysisFormDeps
-} from './index.js';
+import analysisFormDeps from './index';
 
 describe('analysisFormDeps', () => {
+  
   let myContext;
   beforeEach(() => {
     myContext = {};
   });
 
-
   test('return {} for empty fields', () => {
     expect(analysisFormDeps(myContext, [])).toMatchObject({});
   });
-
   
   test('return {} with props as fields name for fields without own state', () => {
     const formConfig = [{
@@ -35,7 +32,6 @@ describe('analysisFormDeps', () => {
       field2: {},
     });
   });
-
 
   test('return {} with props as fields name for fields without own state', () => {
     const formConfig = [{
