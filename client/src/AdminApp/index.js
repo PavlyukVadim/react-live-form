@@ -10,7 +10,7 @@ import {
   Sidebar
 } from 'react-toolbox';
 import TestsList from './containers/TestsList';
-import TestPage from './containers/TestPage';
+import TestConstructor from './containers/TestConstructor';
 
 class AdminApp extends Component {
   constructor(props) {
@@ -62,7 +62,7 @@ class AdminApp extends Component {
               path='/admin/test/:id'
               render={
                 () => (
-                  <TestPage/>
+                  <TestConstructor/>
                 )
               }
             />
