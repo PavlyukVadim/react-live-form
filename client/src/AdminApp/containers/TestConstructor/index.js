@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import SelectOfFields from './../../components/SelectOfFields';
 import TestPage from './../../../UserApp/containers/TestPage';
 
 class TestConstructor extends Component {
@@ -54,9 +55,8 @@ class TestConstructor extends Component {
     const {
       formConfig
     } = this.state;
-
-    console.log('formConfig', formConfig)
-
+    const namesOfFields = formConfig.map((field) => field.name);
+    console.log('formConfig', formConfig);
     return (
       <div className="row">
         <div className="col-sm-6">
@@ -65,6 +65,9 @@ class TestConstructor extends Component {
           />
         </div>
         <div className="col-sm-6">
+          <SelectOfFields
+            fields={namesOfFields}
+          />
           <input
             type="button"
             value="add field"
