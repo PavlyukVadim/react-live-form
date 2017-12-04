@@ -15,6 +15,11 @@ const selectFieldConfig = [
       },
     ]
   },
+  {
+    name: 'options',
+    fieldType: 'options',
+    title: 'options',
+  }
 ];
 
 export default selectFieldConfig;

@@ -101,6 +101,8 @@ class TestConstructor extends Component {
       formConstructorConfig,
     } = this.state;
     
+    console.log('currFormTestField', currFormTestField)
+
     return (
       <div className="row">
         <div className="col-sm-6">
