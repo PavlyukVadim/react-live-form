@@ -1,41 +1,7 @@
 import React, { Component } from 'react';
-import SelectOfFields from './../../components/SelectOfFields';
 import TestPage from './../../../UserApp/containers/TestPage';
-import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
+import TestEditor from '../../components/TestEditor';
 import getFieldsConfigByFieldType from './../../../FormBuilder/getFieldsConfigByFieldType';
-
-const getForm = (
-  formState,
-  fields = [],
-  changeFormField
-) => {
-  return fields.map((field) => {
-    const FormItem = getFormItemByFieldType(field.fieldType);
-    const fieldName = field.name;
-    const fieldState = {
-      value: formState[fieldName],
-    };
-    
-    return (
-      <FormItem
-        key={field.name}
-        fieldConfig={field}
-        fieldState={fieldState}
-        changeFormField={changeFormField}
-      />
-    );
-  });
-};
-
-const getFieldsDefaultValues = (fields) => {
-  const fieldsDefaultValues = {};
-  for (const field of fields) {
-    fieldsDefaultValues[field.name] = {
-      value: field.defaultValue || 0
-    };
-  }
-  return fieldsDefaultValues;
-};
 
 class TestConstructor extends Component {
   constructor(props) {
@@ -44,7 +10,6 @@ class TestConstructor extends Component {
     this.state = {
       formTestConfig: [],
       formConstructorConfig,
-      formConstructorState: getFieldsDefaultValues(formConstructorConfig),
     };
     this.addFormTestField = this.addFormTestField.bind(this);
     this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
@@ -85,7 +50,7 @@ class TestConstructor extends Component {
       
       return {
         currFormTestField: newCurrFormTestField,  
-      }
+      };
     }, () => {
       this.changeFormConstructorConfig();
     });
@@ -134,43 +99,22 @@ class TestConstructor extends Component {
       formTestConfig,
       currFormTestField,
       formConstructorConfig,
-      formConstructorState,
     } = this.state;
-    const namesOfFields = formTestConfig.map((field) => field.name);
     
-    console.log('render formTestConfig', formTestConfig);
-    console.log('render currFormTestField', currFormTestField);
-    // console.log('render formConstructorState', formConstructorState);
-
     return (
       <div className="row">
         <div className="col-sm-6">
-          <TestPage
-            formConfig={formTestConfig}
-          />
+          <TestPage formConfig={formTestConfig} />
         </div>
         <div className="col-sm-6">
-          <input
-            type="button"
-            value="add field"
-            onClick={this.addFormTestField}
+          <TestEditor
+            formTestConfig={formTestConfig}
+            currFormTestField={currFormTestField}
+            formConstructorConfig={formConstructorConfig}
+            addFormTestField={this.addFormTestField}
+            changeCurrFormTestField={this.changeCurrFormTestField}
+            changeFormTestField={this.changeFormTestField}
           />
-          {
-            currFormTestField &&
-            <SelectOfFields
-              fields={namesOfFields}
-              value={currFormTestField.name}
-              onChange={this.changeCurrFormTestField}
-            />  
-          }
-          {
-            currFormTestField &&
-            getForm(
-              currFormTestField,
-              formConstructorConfig,
-              this.changeFormTestField
-            )
-          }
         </div>
       </div>
     );
