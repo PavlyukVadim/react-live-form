@@ -29,6 +29,7 @@ class TestPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
+    this.formElements = analysisFormDeps(this, newProps.formConfig);
     this.setState(() => {
       return getFieldsDefaultValues(newProps.formConfig);
     }, () => {
@@ -58,7 +59,7 @@ class TestPage extends Component {
   }
 
   render() {
-    console.log(this.state);
+    console.log('TestPage', this.state);
     return (
       <div>
         <Test
