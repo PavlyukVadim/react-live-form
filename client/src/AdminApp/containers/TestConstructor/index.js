@@ -4,31 +4,6 @@ import TestPage from './../../../UserApp/containers/TestPage';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import getFieldsConfigByFieldType from './../../../FormBuilder/getFieldsConfigByFieldType';
 
-// {
-//   name: 'field1',
-//   fieldType: 'input',
-//   dataType: 'int',
-//   title: 'field1',
-//   defaultValue: 10,
-// },
-// {
-//   name: 'field2',
-//   fieldType: 'input',
-//   dataType: 'int',
-//   title: 'field2',
-//   defaultValue: 0,
-// },
-// {
-//   name: 'field3',
-//   fieldType: 'input',
-//   dataType: 'int',
-//   title: 'field3',
-//   defaultValue: 0,
-//   state: {
-//     value: 'field1 + field2'
-//   }
-// }
-
 const getForm = (
   formState,
   fields = [],
@@ -37,16 +12,10 @@ const getForm = (
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
-    console.log('field', field)
     const fieldState = {
       value: formState[fieldName],
     };
     
-    // console.log('------------')
-    // console.log('field', field)
-    // console.log('fieldState', fieldState)
-    // console.log('------------')
-
     return (
       <FormItem
         key={field.name}
@@ -57,15 +26,6 @@ const getForm = (
     );
   });
 };
-
-
-// const getcurrFormTestField = (fields, nameOfcurrFormTestFields) => {
-//   for (field of fields) {
-//     if (field.name === nameOfcurrFormTestFields) {
-//       return field;
-//     }
-//   }
-// };
 
 const getFieldsDefaultValues = (fields) => {
   const fieldsDefaultValues = {};
@@ -86,10 +46,9 @@ class TestConstructor extends Component {
       formConstructorConfig,
       formConstructorState: getFieldsDefaultValues(formConstructorConfig),
     };
-    console.log('this.state', this.state);
     this.addFormTestField = this.addFormTestField.bind(this);
     this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
-    this.changeFormField = this.changeFormField.bind(this);
+    this.changeFormTestField = this.changeFormTestField.bind(this);
   }
 
   addFormTestField() {
@@ -123,46 +82,50 @@ class TestConstructor extends Component {
           newCurrFormTestField = formTestConfig[key];          
         }
       }
-      // const formConstructorConfig = getFieldsConfigByFieldType(field.fieldType);
+      
       return {
-        // formConstructorConfig,
         currFormTestField: newCurrFormTestField,  
       }
+    }, () => {
+      this.changeFormConstructorConfig();
     });
   }
 
-  
+  changeFormConstructorConfig() {
+    this.setState((prevState) => {
+      const {
+        currFormTestField
+      } = prevState;
+      const formConstructorConfig = getFieldsConfigByFieldType(currFormTestField.fieldType);
+      return {
+        formConstructorConfig,
+      };
+    });
+  }
 
-  changeFormField(fieldName, propName, propValue) {
-    console.log(fieldName, propName, propValue);
-
+  changeFormTestField(fieldName, propName, propValue) {
     this.setState((prevState) => {
       const {
         formTestConfig,
         currFormTestField
       } = prevState;
-
-      // console.log('currFormTestField', currFormTestField);
       
-      const field = Object.assign({}, currFormTestField);
-      field[fieldName] = propValue;
+      const newCurrFormTestField = Object.assign({}, currFormTestField);
+      newCurrFormTestField[fieldName] = propValue;
       const newFormTestConfig = [].concat(formTestConfig);
       
       for(const key in newFormTestConfig) {
         if (newFormTestConfig[key] === currFormTestField) {
-          newFormTestConfig[key] = field;
+          newFormTestConfig[key] = newCurrFormTestField;
         }
       }
 
-      const formConstructorConfig = getFieldsConfigByFieldType(field.fieldType);
-
       return {
-        formConstructorConfig,
         formTestConfig: newFormTestConfig,
-        currFormTestField: field
+        currFormTestField: newCurrFormTestField,
       };
     }, () => {
-      // console.log('2 currFormTestField', this.state.currFormTestField)
+      this.changeFormConstructorConfig();
     });
   };
 
@@ -205,7 +168,7 @@ class TestConstructor extends Component {
             getForm(
               currFormTestField,
               formConstructorConfig,
-              this.changeFormField
+              this.changeFormTestField
             )
           }
         </div>
