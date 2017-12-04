@@ -61,7 +61,8 @@ const Select = ({
         fieldState={fieldState}
         onChange={onChange}
       >
-        {
+        { 
+          fieldConfig.options &&
           fieldConfig.options.map(option => {
             return (
               <option

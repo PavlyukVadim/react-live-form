@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SelectOfFields from './../../components/SelectOfFields';
 import TestPage from './../../../UserApp/containers/TestPage';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
+import getFieldsConfigByFieldType from './../../../FormBuilder/getFieldsConfigByFieldType';
 
 // {
 //   name: 'field1',
@@ -27,45 +28,6 @@ import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldTyp
 //     value: 'field1 + field2'
 //   }
 // }
-
-
-const commonFieldSettings = [
-  {
-    name: 'name',
-    fieldType: 'input',
-    title: 'input name',
-  },
-  {
-    name: 'fieldType',
-    fieldType: 'select',
-    title: 'choose type of field',
-    defaultValue: 'input',
-    options: [
-      {
-        value: 'input',
-        content: 'input',
-      },
-      {
-        value: 'select',
-        content: 'select',
-      },
-      {
-        value: 'checkbox',
-        content: 'checkbox',
-      },
-      {
-        value: 'textarea',
-        content: 'textarea',
-      },
-    ],
-  },
-  {
-    name: 'title',
-    fieldType: 'input',
-    title: 'field title',
-  },
-];
-
 
 const getForm = (
   formState,
@@ -112,7 +74,7 @@ class TestConstructor extends Component {
     this.state = {
       formTestConfig: [],
       formTestState: {},
-      formConstructorSettings: [].concat(commonFieldSettings),
+      formConstructorConfig: getFieldsConfigByFieldType(),
       currFormTestField: {},
     };
     this.addField = this.addField.bind(this);
@@ -132,7 +94,7 @@ class TestConstructor extends Component {
       const formTestConfig = [...prevState.formTestConfig, newField];
       return {
         formTestConfig,
-        currFormTestField: newField
+        currFormTestField: newField,
       };
     });
   }
@@ -164,9 +126,10 @@ class TestConstructor extends Component {
         }
       }
 
-
+      const formConstructorConfig = getFieldsConfigByFieldType(field.fieldType);
 
       return {
+        formConstructorConfig,
         formTestConfig: newFormTestConfig,
         currFormTestField: field
       };
@@ -180,6 +143,7 @@ class TestConstructor extends Component {
       formTestConfig,
       currFormTestField,
       formTestState,
+      formConstructorConfig
     } = this.state;
     const namesOfFields = formTestConfig.map((field) => field.name);
     
@@ -206,7 +170,7 @@ class TestConstructor extends Component {
           {
             getForm(
               formTestState,
-              commonFieldSettings,
+              formConstructorConfig,
               this.changeFormField
             )
           }
