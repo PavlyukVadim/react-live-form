@@ -1,12 +1,7 @@
 import React, { Component } from 'react';
 import SelectOfFields from './../../components/SelectOfFields';
 import TestPage from './../../../UserApp/containers/TestPage';
-
-import Input from './../../../FormComponents/Input';
-import Select from './../../../FormComponents/Select';
-import Textarea from './../../../FormComponents/Textarea';
-import Checkbox from './../../../FormComponents/Checkbox';
-
+import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 
 // {
 //   name: 'field1',
@@ -70,18 +65,6 @@ const commonFieldSettings = [
     title: 'field title',
   },
 ];
-
-const kvArray = [
-  ['input', Input],
-  ['select', Select],
-  ['textarea', Textarea],
-  ['checkbox', Checkbox],
-];
-
-const formItemsMap = new Map(kvArray);
-const getFormItemByFieldType = (fieldType) => {
-  return formItemsMap.get(fieldType);
-};
 
 
 const getForm = (

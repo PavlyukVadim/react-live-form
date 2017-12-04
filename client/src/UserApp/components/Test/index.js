@@ -1,27 +1,12 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import Input from './../../../FormComponents/Input';
-import Select from './../../../FormComponents/Select';
-import Textarea from './../../../FormComponents/Textarea';
-import Checkbox from './../../../FormComponents/Checkbox';
+import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
 const test = {
   id: 1,
   name: 'testName#1',
   description: 'description of test 1'
-};
-
-const kvArray = [
-  ['input', Input],
-  ['select', Select],
-  ['textarea', Textarea],
-  ['checkbox', Checkbox],
-];
-
-const formItemsMap = new Map(kvArray);
-const getFormItemByFieldType = (fieldType) => {
-  return formItemsMap.get(fieldType);
 };
 
 const getForm = (
