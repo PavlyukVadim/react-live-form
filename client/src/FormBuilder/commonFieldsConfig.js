@@ -33,6 +33,11 @@ const commonFieldsConfig = [
     fieldType: 'input',
     title: 'field title',
   },
+  {
+    name: 'state',
+    fieldType: 'state',
+    title: 'field state',
+  },
 ];
 
 export default commonFieldsConfig;
