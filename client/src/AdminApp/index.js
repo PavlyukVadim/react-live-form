@@ -21,6 +21,13 @@ class AdminApp extends Component {
     this.toggleDrawerActive = this.toggleDrawerActive.bind(this);
   }
 
+  componentWillMount() {
+    const login = window.localStorage.getItem('rr_login');
+    if (login !== 'admin') {
+      this.props.history.push('/');
+    }
+  }
+
   toggleDrawerActive() {
     this.setState((prevState) => {
       return {
@@ -45,7 +52,7 @@ class AdminApp extends Component {
           <AppBar leftIcon='menu' onLeftIconClick={this.toggleDrawerActive} />
           <div className="container">
             <h1>Main Content</h1>
-            <p>Main content goes here.</p>
+            <p>Main content for admin goes here.</p>
             <Route
               path='/admin'
               exact
