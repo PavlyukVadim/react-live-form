@@ -40,7 +40,7 @@ class TestsList extends Component {
     return (
       <div>
         <List selectable ripple>
-          <ListSubHeader caption='Tests' />
+          <ListSubHeader caption="Tests that you can pass" />
             {
               tests.map((test) => {
                 return (
@@ -49,7 +49,6 @@ class TestsList extends Component {
                     avatar=''
                     caption={test.name}
                     legend={test.description}
-                    rightIcon='star'
                     onClick={() => this.goToTestPage(test.id)}
                   />
                 );

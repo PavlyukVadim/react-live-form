@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Checkbox,
@@ -7,11 +7,12 @@ import {
   Layout,
   NavDrawer,
   Panel,
-  Sidebar
+  Sidebar,
+  Navigation,
+  List,
+  ListItem,
 } from 'react-toolbox';
-import TestsList from './containers/TestsList';
-import TestPage from './containers/TestPage';
-import formConfig from './containers/TestPage/formConfig';
+import UserAppRouter from './userAppRouter';
 
 class UserApp extends Component {
   constructor(props) {
@@ -31,6 +32,11 @@ class UserApp extends Component {
   };
 
   render() {
+    const {
+      history,
+      match,
+    } = this.props;
+
     return (
       <Layout>
         <NavDrawer
@@ -38,36 +44,28 @@ class UserApp extends Component {
           onOverlayClick={this.toggleDrawerActive}
           permanentAt='xxxl'
         >
-          <p>
-            Navigation, account switcher, etc. go here.
-          </p>
+          <List selectable ripple>
+            <ListItem caption='New test' leftIcon='add_box' />
+            <ListItem caption='Passed tests' leftIcon='undo' />
+            <ListItem caption='Assessed tests' leftIcon='assessment' />
+          </List>
         </NavDrawer>
         <Panel>
-          <AppBar leftIcon='menu' onLeftIconClick={this.toggleDrawerActive} />
+          <AppBar
+            leftIcon='menu'
+            title="User cabinet"
+            onLeftIconClick={this.toggleDrawerActive}
+          >
+            <Navigation type="horizontal">
+              <Link className="identification-link" to='/signin'>Log out</Link>
+            </Navigation>
+          </AppBar>
           <div className="container">
             <h1>Main Content</h1>
             <p>Main content goes here.</p>
-            <Route
-              path='/user'
-              exact
-              render={
-                () => (
-                  <TestsList 
-                    history={this.props.history}
-                    path={this.props.match.path}
-                  />
-                )
-              }
-            />
-            <Route
-              path='/user/test/:id'
-              render={
-                () => (
-                  <TestPage 
-                    formConfig={formConfig}
-                  />
-                )
-              }
+            <UserAppRouter
+              history={history}
+              match={match}
             />
           </div>
         </Panel>
