@@ -31,29 +31,34 @@ class TestsList extends Component {
   }
 
   goToTestPage(id) {
-    const currentPath = this.props.path;
-    const path = `${currentPath}/test/${id}`;
-    this.props.history.push(path);
+    const newPath = `${this.props.history.location.pathname}/test/${id}`;
+    this.props.history.push(newPath);
   }
 
   render() {
+    const {
+      subHeader,
+    } = this.props;
+
+    console.log('props', this.props);
+
+    const TestItems = tests.map((test) => {
+      return (
+        <ListItem
+          key={test.id}
+          avatar=""
+          caption={test.name}
+          legend={test.description}
+          onClick={() => this.goToTestPage(test.id)}
+        />
+      );
+    });
+
     return (
       <div>
         <List selectable ripple>
-          <ListSubHeader caption="Tests that you can pass" />
-            {
-              tests.map((test) => {
-                return (
-                  <ListItem
-                    key={test.id}
-                    avatar=''
-                    caption={test.name}
-                    legend={test.description}
-                    onClick={() => this.goToTestPage(test.id)}
-                  />
-                );
-              })
-            }
+          <ListSubHeader caption={subHeader} />
+          {TestItems}
         </List>
       </div>
     );

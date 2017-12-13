@@ -14,9 +14,33 @@ const UserAppRouter = ({
       exact
       render={
         () => (
-          <TestsList 
+          <TestsList
             history={history}
-            path={match.path}
+            subHeader="Tests that you can pass"
+          />
+        )
+      }
+    />
+    <Route
+      path='/user/passed'
+      exact
+      render={
+        () => (
+          <TestsList
+            history={history}
+            subHeader="Tests that you passed"
+          />
+        )
+      }
+    />
+    <Route
+      path='/user/assessed'
+      exact
+      render={
+        () => (
+          <TestsList
+            history={history}
+            subHeader="Tests that have assessment"
           />
         )
       }
@@ -25,7 +49,7 @@ const UserAppRouter = ({
       path='/user/test/:id'
       render={
         () => (
-          <TestPage 
+          <TestPage
             formConfig={formConfig}
           />
         )

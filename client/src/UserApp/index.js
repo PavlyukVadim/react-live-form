@@ -14,6 +14,8 @@ import {
 } from 'react-toolbox';
 import UserAppRouter from './userAppRouter';
 
+const goToPage = (history, page) => (history.push(`/user${page}`));
+
 class UserApp extends Component {
   constructor(props) {
     super(props);
@@ -45,9 +47,21 @@ class UserApp extends Component {
           permanentAt='xxxl'
         >
           <List selectable ripple>
-            <ListItem caption='New test' leftIcon='add_box' />
-            <ListItem caption='Passed tests' leftIcon='undo' />
-            <ListItem caption='Assessed tests' leftIcon='assessment' />
+            <ListItem
+              caption='New test'
+              onClick={() => goToPage(history, '')}
+              leftIcon='add_box'
+            />
+            <ListItem
+              caption='Passed tests'
+              onClick={() => goToPage(history, '/passed')}
+              leftIcon='undo'
+            />
+            <ListItem
+              caption='Assessed tests'
+              onClick={() => goToPage(history, '/assessed')}
+              leftIcon='assessment'
+            />
           </List>
         </NavDrawer>
         <Panel>
