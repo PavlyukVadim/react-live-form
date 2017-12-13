@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 import TestsList from './containers/TestsList';
 import TestPage from './containers/TestPage';
 import formConfig from './containers/TestPage/formConfig';
+import answers from './containers/TestPage/answers';
 
 const UserAppRouter = ({
   history,
@@ -51,6 +52,19 @@ const UserAppRouter = ({
         () => (
           <TestPage
             formConfig={formConfig}
+            status="new"
+          />
+        )
+      }
+    />
+    <Route
+      path='/user/passed/test/:id'
+      render={
+        () => (
+          <TestPage
+            formConfig={formConfig}
+            answers={answers}
+            status="passed"
           />
         )
       }

@@ -60,10 +60,15 @@ class TestPage extends Component {
 
   render() {
     console.log('TestPage', this.state);
+    const {
+      status,
+      answers,
+    } = this.props;
+    const formState = status === 'new' ? this.state : answers;
     return (
       <div>
         <Test
-          formState={this.state}
+          formState={formState}
           formConfig={this.props.formConfig}
           changeFormField={this.changeFormField}
           formSubmit={this.formSubmit}

@@ -49,18 +49,18 @@ class Test extends Component {
       formSubmit
     } = this.props;
 
+    const form = getForm(
+      formState,
+      formConfig,
+      changeFormField
+    );
+
     return (
       <div>
         <h1>Test: {test.name}</h1>
         Form:
         <div className="formWrapper" style={{backgroundColor: '#ccc'}}>
-          {
-            getForm(
-              formState,
-              formConfig,
-              changeFormField
-            )
-          }
+          {form}
           <input
             type="submit"
             onClick={formSubmit}
