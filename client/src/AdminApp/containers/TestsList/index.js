@@ -39,7 +39,6 @@ class TestsList extends Component {
                     avatar=''
                     caption={test.name}
                     legend={test.description}
-                    rightIcon='star'
                     onClick={() => this.goToTestPage(test.id)}
                   />
                 );

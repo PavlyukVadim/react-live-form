@@ -7,10 +7,12 @@ import {
   Layout,
   NavDrawer,
   Panel,
-  Sidebar
+  Sidebar,
+  Navigation,
+  List,
+  ListItem,
 } from 'react-toolbox';
-import TestsList from './containers/TestsList';
-import TestConstructor from './containers/TestConstructor';
+import AdminAppRouter from './adminAppRouter';
 
 class AdminApp extends Component {
   constructor(props) {
@@ -19,6 +21,7 @@ class AdminApp extends Component {
       drawerActive: false,
     };
     this.toggleDrawerActive = this.toggleDrawerActive.bind(this);
+    this.goToPage = this.goToPage.bind(this);
   }
 
   componentWillMount() {
@@ -36,7 +39,17 @@ class AdminApp extends Component {
     });
   };
 
+  goToPage(page) {
+    this.props.history.push(`/admin${page}`);
+    this.toggleDrawerActive();
+  };
+
   render() {
+    const {
+      history,
+      match,
+    } = this.props;
+
     return (
       <Layout>
         <NavDrawer
@@ -44,42 +57,32 @@ class AdminApp extends Component {
           onOverlayClick={this.toggleDrawerActive}
           permanentAt='xxxl'
         >
-          <p>
-            Navigation, account switcher, etc. go here.
-          </p>
+          <List selectable ripple>
+            <ListItem
+              caption='Create test'
+              onClick={() => this.goToPage('')}
+              leftIcon='add_box'
+            />
+            <ListItem
+              caption='Passed tests'
+              onClick={() => this.goToPage('/passed')}
+              leftIcon='undo'
+            />
+            <ListItem
+              caption='Assessed tests'
+              onClick={() => this.goToPage('/assessed')}
+              leftIcon='assessment'
+            />
+          </List>
         </NavDrawer>
         <Panel>
           <AppBar leftIcon='menu' onLeftIconClick={this.toggleDrawerActive} />
           <div className="container">
             <h1>Main Content</h1>
             <p>Main content for admin goes here.</p>
-            <Route
-              path='/admin'
-              exact
-              render={
-                () => (
-                  <TestsList 
-                    history={this.props.history}
-                    path={this.props.match.path}
-                  />
-                )
-              }
-            />
-            <Route
-              path='/admin/test/:id'
-              render={
-                () => (
-                  <TestConstructor/>
-                )
-              }
-            />
-            <Route
-              path='/admin/test/new'
-              render={
-                () => (
-                  <CreateTest/>
-                )
-              }
+            <AdminAppRouter
+              history={history}
+              match={match}
             />
           </div>
         </Panel>

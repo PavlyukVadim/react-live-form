@@ -84,7 +84,6 @@ class UserApp extends Component {
             <UserAppRouter
               history={history}
               match={match}
-              toggleDrawerActive={this.toggleDrawerActive}
             />
           </div>
         </Panel>
