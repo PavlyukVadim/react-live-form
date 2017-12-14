@@ -68,6 +68,7 @@ class TestPage extends Component {
     return (
       <div>
         <Test
+          testStatus={status}
           formState={formState}
           formConfig={this.props.formConfig}
           changeFormField={this.changeFormField}

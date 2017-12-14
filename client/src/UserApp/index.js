@@ -14,8 +14,6 @@ import {
 } from 'react-toolbox';
 import UserAppRouter from './userAppRouter';
 
-const goToPage = (history, page) => (history.push(`/user${page}`));
-
 class UserApp extends Component {
   constructor(props) {
     super(props);
@@ -23,6 +21,7 @@ class UserApp extends Component {
       drawerActive: false,
     };
     this.toggleDrawerActive = this.toggleDrawerActive.bind(this);
+    this.goToPage = this.goToPage.bind(this);
   }
 
   toggleDrawerActive() {
@@ -31,6 +30,11 @@ class UserApp extends Component {
         drawerActive: !prevState.drawerActive,
       };
     });
+  };
+
+  goToPage(page) {
+    this.props.history.push(`/user${page}`);
+    this.toggleDrawerActive();
   };
 
   render() {
@@ -49,17 +53,17 @@ class UserApp extends Component {
           <List selectable ripple>
             <ListItem
               caption='New test'
-              onClick={() => goToPage(history, '')}
+              onClick={() => this.goToPage('')}
               leftIcon='add_box'
             />
             <ListItem
               caption='Passed tests'
-              onClick={() => goToPage(history, '/passed')}
+              onClick={() => this.goToPage('/passed')}
               leftIcon='undo'
             />
             <ListItem
               caption='Assessed tests'
-              onClick={() => goToPage(history, '/assessed')}
+              onClick={() => this.goToPage('/assessed')}
               leftIcon='assessment'
             />
           </List>
@@ -80,6 +84,7 @@ class UserApp extends Component {
             <UserAppRouter
               history={history}
               match={match}
+              toggleDrawerActive={this.toggleDrawerActive}
             />
           </div>
         </Panel>

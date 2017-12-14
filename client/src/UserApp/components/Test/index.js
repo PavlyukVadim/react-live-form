@@ -46,7 +46,8 @@ class Test extends Component {
       formState,
       formConfig,
       changeFormField,
-      formSubmit
+      formSubmit,
+      testStatus,
     } = this.props;
 
     const form = getForm(
@@ -55,16 +56,28 @@ class Test extends Component {
       changeFormField
     );
 
+    const getTestsControlPanel = () => {
+      if (testStatus === 'new') {
+        return (
+          <input
+            type="submit"
+            onClick={formSubmit}
+          />
+        );
+      } else {
+        return (
+          <textarea />
+        );
+      }
+    }
+
     return (
       <div>
         <h1>Test: {test.name}</h1>
         Form:
         <div className="formWrapper" style={{backgroundColor: '#ccc'}}>
           {form}
-          <input
-            type="submit"
-            onClick={formSubmit}
-          />
+          {getTestsControlPanel()}
         </div>
       </div>
     );
