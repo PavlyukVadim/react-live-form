@@ -88,10 +88,7 @@ class TestPage extends Component {
   }
 
   formSubmit() {
-    const values = {};
-    for (const key in this.state) {
-      values[key] = this.state[key].value;
-    }
+    const values = this.state;
     console.log(values);
     return values;
   }
