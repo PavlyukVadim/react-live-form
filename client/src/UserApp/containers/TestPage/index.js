@@ -14,6 +14,18 @@ const getFieldsDefaultValues = (fields) => {
   return fieldsDefaultValues;
 };
 
+const getFormState = (status, state, answers) => {
+  if (status === 'new') {
+    return state;
+  }
+  const newAnswers = {};
+  for (const key in answers) {
+    newAnswers[key] = answers[key];
+    newAnswers[key].disabled = true;
+  }
+  return newAnswers;
+};
+
 class TestPage extends Component {
   constructor(props) {
     super(props);
@@ -64,7 +76,8 @@ class TestPage extends Component {
       status,
       answers,
     } = this.props;
-    const formState = status === 'new' ? this.state : answers;
+
+    const formState = getFormState(status, this.state, answers);
     return (
       <div>
         <Test
