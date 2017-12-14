@@ -4,6 +4,7 @@ import TestsList from './containers/TestsList';
 import TestPage from './containers/TestPage';
 import formConfig from './containers/TestPage/formConfig';
 import answers from './containers/TestPage/answers';
+import comment from './containers/TestPage/comment';
 
 const UserAppRouter = ({
   history,
@@ -23,6 +24,17 @@ const UserAppRouter = ({
       }
     />
     <Route
+      path='/user/test/:id'
+      render={
+        () => (
+          <TestPage
+            formConfig={formConfig}
+            status="new"
+          />
+        )
+      }
+    />
+    <Route
       path='/user/passed'
       exact
       render={
@@ -30,6 +42,18 @@ const UserAppRouter = ({
           <TestsList
             history={history}
             subHeader="Tests that you passed"
+          />
+        )
+      }
+    />
+    <Route
+      path='/user/passed/test/:id'
+      render={
+        () => (
+          <TestPage
+            formConfig={formConfig}
+            answers={answers}
+            status="passed"
           />
         )
       }
@@ -47,24 +71,14 @@ const UserAppRouter = ({
       }
     />
     <Route
-      path='/user/test/:id'
-      render={
-        () => (
-          <TestPage
-            formConfig={formConfig}
-            status="new"
-          />
-        )
-      }
-    />
-    <Route
-      path='/user/passed/test/:id'
+      path='/user/assessed/test/:id'
       render={
         () => (
           <TestPage
             formConfig={formConfig}
             answers={answers}
-            status="passed"
+            comment={comment}
+            status="assessed"
           />
         )
       }

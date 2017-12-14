@@ -14,7 +14,12 @@ const getFieldsDefaultValues = (fields) => {
   return fieldsDefaultValues;
 };
 
-const getFormState = (status, state, answers) => {
+const getFormState = (
+  status,
+  state,
+  answers,
+  comment,
+) => {
   if (status === 'new') {
     return state;
   }
@@ -23,7 +28,28 @@ const getFormState = (status, state, answers) => {
     newAnswers[key] = answers[key];
     newAnswers[key].disabled = true;
   }
+  if (status === 'assessed') {
+    newAnswers['comment'] = {
+      value: comment,
+    };
+  }
+
   return newAnswers;
+};
+
+const updateFormConfig = (formConfig, status) => {
+  const updatedFormConfig = [].concat(formConfig);
+  if (status === 'assessed') {
+    const commentField = {
+      name: 'comment',
+      fieldType: 'textarea',
+      dataType: 'string',
+      title: 'comment',
+      defaultValue: '',
+    };
+    updatedFormConfig.push(commentField);
+  }
+  return updatedFormConfig;
 };
 
 class TestPage extends Component {
@@ -73,17 +99,27 @@ class TestPage extends Component {
   render() {
     console.log('TestPage', this.state);
     const {
+      formConfig,
       status,
       answers,
+      comment,
     } = this.props;
 
-    const formState = getFormState(status, this.state, answers);
+    const formState = getFormState(
+      status,
+      this.state,
+      answers,
+      comment,
+    );
+
+    const updatedFormConfig = updateFormConfig(formConfig, status);
+
     return (
       <div>
         <Test
           testStatus={status}
           formState={formState}
-          formConfig={this.props.formConfig}
+          formConfig={updatedFormConfig}
           changeFormField={this.changeFormField}
           formSubmit={this.formSubmit}
         />
