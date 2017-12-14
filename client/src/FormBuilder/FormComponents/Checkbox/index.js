@@ -17,6 +17,7 @@ const Checkbox = ({
         id={`checkbox-${fieldConfig.name}`}
         checked={fieldState.value}
         onChange={(e) => onChange(e.target)}
+        disabled={fieldState.disabled}
       />
       <label htmlFor={`checkbox-${fieldConfig.name}`}>
         {fieldConfig.title}

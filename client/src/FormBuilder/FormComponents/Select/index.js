@@ -15,6 +15,7 @@ const SelectByType = (props) => {
         value={fieldState.value}
         multiple={true}
         onChange={(e) => onChange(e.target)}
+        disabled={fieldState.disabled}
       >
         {props.children}
       </select>
@@ -26,6 +27,7 @@ const SelectByType = (props) => {
         name={fieldConfig.name}
         value={fieldState.value}
         onChange={(e) => onChange(e.target)}
+        disabled={fieldState.disabled}
       >
         {props.children}
       </select>
@@ -61,7 +63,7 @@ const Select = ({
         fieldState={fieldState}
         onChange={onChange}
       >
-        { 
+        {
           fieldConfig.options &&
           fieldConfig.options.map(option => {
             return (

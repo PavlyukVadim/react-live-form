@@ -14,6 +14,7 @@ const Input = ({
       label={fieldConfig.title}
       value={fieldState.value}
       onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
+      disabled={fieldState.disabled}
     />
     <label className="form-label">{`${fieldConfig.title} = ${fieldConfig.state && fieldConfig.state.value}`}</label>
   </div>
