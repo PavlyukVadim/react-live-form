@@ -64,10 +64,6 @@ class Test extends Component {
             onClick={formSubmit}
           />
         );
-      } else {
-        return (
-          <textarea />
-        );
       }
     }
 
