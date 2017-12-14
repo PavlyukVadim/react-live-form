@@ -5,6 +5,7 @@ import Textarea from './FormComponents/Textarea';
 import Checkbox from './FormComponents/Checkbox';
 import OptionsSetter from './FormComponents/OptionsSetter';
 import StateSetter from './FormComponents/StateSetter';
+import './FormComponents/basicStyles.scss';
 
 const kvArray = [
   ['input', Input],

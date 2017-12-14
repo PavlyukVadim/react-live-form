@@ -60,6 +60,7 @@ class Test extends Component {
       if (testStatus === 'new') {
         return (
           <input
+            className="form-submit"
             type="submit"
             onClick={formSubmit}
           />
@@ -71,7 +72,7 @@ class Test extends Component {
       <div>
         <h1>Test: {test.name}</h1>
         Form:
-        <div className="formWrapper" style={{backgroundColor: '#ccc'}}>
+        <div className="formWrapper">
           {form}
           {getTestsControlPanel()}
         </div>

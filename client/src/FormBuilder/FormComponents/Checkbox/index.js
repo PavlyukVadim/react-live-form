@@ -11,7 +11,10 @@ const Checkbox = ({
   };
 
   return (
-    <div className="form-group">
+    <div className="form-group row">
+      <label className="col-sm-6" htmlFor={`checkbox-${fieldConfig.name}`}>
+        {fieldConfig.title}
+      </label>
       <input
         type="checkbox"
         id={`checkbox-${fieldConfig.name}`}
@@ -19,9 +22,6 @@ const Checkbox = ({
         onChange={(e) => onChange(e.target)}
         disabled={fieldState.disabled}
       />
-      <label htmlFor={`checkbox-${fieldConfig.name}`}>
-        {fieldConfig.title}
-      </label>
     </div>
   );
 };

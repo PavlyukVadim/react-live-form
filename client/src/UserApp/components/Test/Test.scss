@@ -18,3 +18,12 @@
   transform: translateX(-25%);
   transition: 700ms ease-in;
 }
+
+.formWrapper {
+	max-width: 600px;
+}
+
+.form-submit {
+	display: block;
+	margin: 30px auto;
+}

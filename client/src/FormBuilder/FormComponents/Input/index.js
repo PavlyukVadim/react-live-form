@@ -5,9 +5,10 @@ const Input = ({
   fieldState,
   changeFormField
 }) => (
-  <div className="form-group">
+  <div className="form-group row">
+    <label className="form-label col-sm-6">{fieldConfig.title}</label>
     <input
-      className="form-input"
+      className="form-input col-sm-6"
       type="text"
       name={fieldConfig.name}
       maxLength={16}
@@ -16,7 +17,6 @@ const Input = ({
       onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
       disabled={fieldState.disabled}
     />
-    <label className="form-label">{`${fieldConfig.title} = ${fieldConfig.state && fieldConfig.state.value}`}</label>
   </div>
 );
 
