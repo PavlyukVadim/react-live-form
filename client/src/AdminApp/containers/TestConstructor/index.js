@@ -106,12 +106,6 @@ class TestConstructor extends Component {
     return (
       <div className="row">
         <div className="col-sm-6">
-          <TestPage
-            formConfig={formTestConfig}
-            status="new"
-          />
-        </div>
-        <div className="col-sm-6">
           <TestEditor
             formTestConfig={formTestConfig}
             currFormTestField={currFormTestField}
@@ -119,6 +113,12 @@ class TestConstructor extends Component {
             addFormTestField={this.addFormTestField}
             changeCurrFormTestField={this.changeCurrFormTestField}
             changeFormTestField={this.changeFormTestField}
+          />
+        </div>
+        <div className="col-sm-6">
+          <TestPage
+            formConfig={formTestConfig}
+            status="new"
           />
         </div>
       </div>

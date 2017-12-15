@@ -6,9 +6,9 @@ const Textarea = ({
   changeFormField
 }) => (
   <div className="form-group row">
-    <label className="form-label col-sm-6">{fieldConfig.title}</label>
+    <label className="form-label col-xxxs-6">{fieldConfig.title}</label>
     <textarea
-      className="form-textarea col-sm-6"
+      className="form-textarea col-xxxs-6"
       value={fieldState.value}
       onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
       disabled={fieldState.disabled}

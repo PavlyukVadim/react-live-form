@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import SelectOfFields from './../SelectOfFields';
+import './TestEditor.scss';
 
 const getFormConstructor = (
   currFormTestField,
@@ -35,8 +36,9 @@ const TestEditor = ({
 }) => {
   const namesOfFields = formTestConfig.map((field) => field.name);
   return (
-    <div>
+    <div className="testEditor-wrapper">
       <input
+        className="newField-btn"
         type="button"
         value="add field"
         onClick={addFormTestField}

@@ -17,12 +17,16 @@ const SelectOfFields = ({
   });
 
   return (
-    <select
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-    >
-      {options}
-    </select>
+    <div className="row">
+      <label className="col-sm-6">Select field:</label>
+      <select
+        className="col-sm-6"
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+      >
+        {options}
+      </select>
+    </div>
   );
 };
 

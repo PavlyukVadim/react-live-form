@@ -1,0 +1,15 @@
+.optionsSetter {
+  
+  & > div {
+    flex-direction: row;
+  }
+
+  .form-input {
+    width: 80%;
+  }
+
+  .form-button {
+    width: 20%;
+    text-align: center;
+  }
+}

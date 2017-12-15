@@ -12,7 +12,7 @@ const Checkbox = ({
 
   return (
     <div className="form-group row">
-      <label className="col-sm-6" htmlFor={`checkbox-${fieldConfig.name}`}>
+      <label className="col-xxxs-6" htmlFor={`checkbox-${fieldConfig.name}`}>
         {fieldConfig.title}
       </label>
       <input

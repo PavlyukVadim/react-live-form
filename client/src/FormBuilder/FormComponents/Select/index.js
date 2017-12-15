@@ -10,7 +10,7 @@ const SelectByType = (props) => {
   if (fieldConfig.multiple) {
     return (
       <select
-        className="form-select col-sm-6"
+        className="form-select col-xxxs-6"
         name={fieldConfig.name}
         value={fieldState.value}
         multiple={true}
@@ -23,7 +23,7 @@ const SelectByType = (props) => {
   } else {
     return (
       <select
-        className="form-select col-sm-6"
+        className="form-select col-xxxs-6"
         name={fieldConfig.name}
         value={fieldState.value}
         onChange={(e) => onChange(e.target)}
@@ -58,7 +58,7 @@ const Select = ({
 
   return (
     <div className="form-group row">
-      <label className="form-label col-sm-6">{fieldConfig.title}</label>
+      <label className="form-label col-xxxs-6">{fieldConfig.title}</label>
       <SelectByType
         fieldConfig={fieldConfig}
         fieldState={fieldState}

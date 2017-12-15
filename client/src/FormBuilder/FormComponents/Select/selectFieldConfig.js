@@ -2,7 +2,7 @@ const selectFieldConfig = [
   {
     name: 'multiple',
     fieldType: 'select',
-    title: 'is multiple',
+    title: 'Is multiple:',
     defaultValue: 'no',
     options: [
       {

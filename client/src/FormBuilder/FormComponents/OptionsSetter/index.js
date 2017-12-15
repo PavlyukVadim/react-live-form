@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import './OptionsSetter.scss';
 
 class OptionsSetter extends Component { 
   constructor(props) {
@@ -34,17 +35,21 @@ class OptionsSetter extends Component {
 
   render() {
     return (
-      <div className="form-group">
-        <input
-          className="form-input"
-          type="text"
-          ref={(input) => {this.optionInput = input;}}
-        />
-        <input
-          type="button"
-          value="add option"
-          onClick={this.addOption}
-        />
+      <div className="optionsSetter form-group row">
+        <div className="col-xxxs-6">Add new option:</div>
+        <div className="col-xxxs-6">
+          <input
+            className="form-input"
+            type="text"
+            ref={(input) => {this.optionInput = input;}}
+          />
+          <input
+            className="form-button"
+            type="button"
+            value="ok"
+            onClick={this.addOption}
+          />  
+        </div>
       </div>
     );
   }

@@ -6,9 +6,9 @@ const Input = ({
   changeFormField
 }) => (
   <div className="form-group row">
-    <label className="form-label col-sm-6">{fieldConfig.title}</label>
+    <label className="form-label col-xxxs-6">{fieldConfig.title}</label>
     <input
-      className="form-input col-sm-6"
+      className="form-input col-xxxs-6"
       type="text"
       name={fieldConfig.name}
       maxLength={16}

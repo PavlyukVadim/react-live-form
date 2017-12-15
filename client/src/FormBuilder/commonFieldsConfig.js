@@ -2,12 +2,12 @@ const commonFieldsConfig = [
   {
     name: 'name',
     fieldType: 'input',
-    title: 'input name',
+    title: 'Input name:',
   },
   {
     name: 'fieldType',
     fieldType: 'select',
-    title: 'choose type of field',
+    title: 'Choose type of field:',
     defaultValue: 'input',
     options: [
       {
@@ -31,12 +31,12 @@ const commonFieldsConfig = [
   {
     name: 'title',
     fieldType: 'input',
-    title: 'field title',
+    title: 'Field title:',
   },
   {
     name: 'state',
     fieldType: 'state',
-    title: 'field state',
+    title: 'Field state:',
   },
 ];
 

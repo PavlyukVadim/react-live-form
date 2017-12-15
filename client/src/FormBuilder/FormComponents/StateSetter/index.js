@@ -36,24 +36,27 @@ class StateSetter extends Component {
 
   render() {
     return (
-      <div className="form-group">
-        <input
-          className="form-input"
-          type="text"
-          ref={(input) => {this.statePropInput = input;}}
-          placeholder="name"
-        />
-        <input
-          className="form-input"
-          type="text"
-          ref={(input) => {this.stateValueInput = input;}}
-          placeholder="value"
-        />
-        <input
-          type="button"
-          value="add state"
-          onClick={this.addState}
-        />
+      <div className="form-group row">
+        <title className="col-xxxs-6">Change State:</title>
+        <div className="col-xxxs-6">
+          <input
+            className="form-input"
+            type="text"
+            ref={(input) => {this.statePropInput = input;}}
+            placeholder="name"
+          />
+          <input
+            className="form-input"
+            type="text"
+            ref={(input) => {this.stateValueInput = input;}}
+            placeholder="value"
+          />
+          <input
+            type="button"
+            value="add state"
+            onClick={this.addState}
+          />
+        </div>
       </div>
     );
   }
