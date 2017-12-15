@@ -121,6 +121,9 @@ class TestConstructor extends Component {
             status="new"
           />
         </div>
+        <div>
+          {JSON.stringify(formTestConfig, undefined, 2)}
+        </div>
       </div>
     );
   }

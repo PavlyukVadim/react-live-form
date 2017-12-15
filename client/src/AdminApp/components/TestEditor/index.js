@@ -59,6 +59,11 @@ const TestEditor = ({
           changeFormTestField
         )
       }
+      <input
+        className="saveTest"
+        type="button"
+        value="Save Test"
+      />
     </div>
   );
 };
