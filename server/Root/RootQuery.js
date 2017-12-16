@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const Users = require('./../Users');
 const Tests = require('./../Tests');
+const Answers = require('./../Answers');
 
 const {
   GraphQLObjectType,
@@ -21,6 +22,12 @@ const {
   AllTestsResolver,
 } = Tests;
 
+const {
+  AnswerType,
+  AnswerResolver,
+  AnswersByStatusResolver,
+} = Answers;
+
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -38,6 +45,16 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(TestType),
       args: { },
       resolve: AllTestsResolver,
+    },
+    getAnswerById: {
+      type: AnswerType,
+      args: { id: { type: GraphQLString }},
+      resolve: AnswerResolver,
+    },
+    getAnswersByStatus: {
+      type: new GraphQLList(AnswerType),
+      args: { status: { type: GraphQLString }},
+      resolve: AnswersByStatusResolver,
     },
   }
 });
