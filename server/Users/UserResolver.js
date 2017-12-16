@@ -1,14 +1,12 @@
-const users = [
-  { id: '25', firstName: 'Walter', lastName: 'White', companyId: '1'},
-  { id: '47', firstName: 'Jesse', lastName: 'Pinkman'},
-];
+const db = require('../config/db');
 
-const UserResolver = (parentValue, args) => {
-  for (user of users) {
-    if (user.id === args.id) {
-      return user;
-    }
-  }
+const getUserById = (id) => {
+  return db.one('SELECT * FROM users Where user_id = $1', id);
+};
+
+const UserResolver = async(parentValue, args) => {
+  const user = await getUserById(args.id);
+  return user;
 };
 
 module.exports = UserResolver;
