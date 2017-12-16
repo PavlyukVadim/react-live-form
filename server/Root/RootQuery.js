@@ -6,7 +6,8 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLList,
 } = graphql;
 
 const {
@@ -17,6 +18,7 @@ const {
 const {
   TestType,
   TestResolver,
+  AllTestsResolver,
 } = Tests;
 
 const RootQuery = new GraphQLObjectType({
@@ -31,6 +33,11 @@ const RootQuery = new GraphQLObjectType({
       type: TestType,
       args: { id: { type: GraphQLString }},
       resolve: TestResolver,
+    },
+    getAllTests: {
+      type: new GraphQLList(TestType),
+      args: { },
+      resolve: AllTestsResolver,
     },
   }
 });
