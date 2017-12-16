@@ -6,31 +6,17 @@ const {
   GraphQLNonNull
 } = graphql;
 
+const Users = require('./../Users');
+const {
+  UserType,
+  UserResolver,
+} = Users;
 
 const CompanyType = new GraphQLObjectType({
   name: 'Company',
   fields: {
     id: { type: GraphQLString },
     name: { type: GraphQLString }
-  }
-});
-
-const UserType = new GraphQLObjectType({
-  name: 'User',
-  fields: {
-    id: { type: GraphQLString },
-    firstName: { type: GraphQLString },
-    lastName: { type: GraphQLString },
-    company: {
-      type: CompanyType,
-      resolve(parentValue, args) {
-        for (company of companies) {
-          if (company.id === parentValue.companyId) {
-            return company;
-          }
-        }
-      }
-    }
   }
 });
 
@@ -49,13 +35,7 @@ const RootQuery = new GraphQLObjectType({
     user: {
       type: UserType,
       args: { id: { type: GraphQLString }},
-      resolve(parentValue, args) {
-        for (user of users) {
-          if (user.id === args.id) {
-            return user;
-          }
-        }
-      }
+      resolve: UserResolver,
     },
     company: {
       type: CompanyType,
