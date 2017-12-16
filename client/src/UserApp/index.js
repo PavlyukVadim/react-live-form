@@ -70,12 +70,12 @@ class UserApp extends Component {
         </NavDrawer>
         <Panel>
           <AppBar
-            leftIcon='menu'
+            leftIcon="menu"
             title="User cabinet"
             onLeftIconClick={this.toggleDrawerActive}
           >
             <Navigation type="horizontal">
-              <Link className="identification-link" to='/signin'>Log out</Link>
+              <Link className="identification-link" to="/signin">Log out</Link>
             </Navigation>
           </AppBar>
           <div className="container">

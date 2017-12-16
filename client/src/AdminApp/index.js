@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   AppBar,
   Checkbox,
@@ -76,7 +76,15 @@ class AdminApp extends Component {
           </List>
         </NavDrawer>
         <Panel>
-          <AppBar leftIcon='menu' onLeftIconClick={this.toggleDrawerActive} />
+          <AppBar
+            leftIcon="menu"
+            title="Admin cabinet"
+            onLeftIconClick={this.toggleDrawerActive}
+          >
+            <Navigation type="horizontal">
+              <Link className="identification-link" to="/signin">Log out</Link>
+            </Navigation>
+          </AppBar>
           <div className="container">
             <h1>Main Content</h1>
             <p>Main content for admin goes here.</p>
