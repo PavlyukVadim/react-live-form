@@ -56,8 +56,8 @@ class TestPage extends Component {
   constructor(props) {
     super(props);
     const { formConfig } = this.props;
-    this.state = getFieldsDefaultValues(formConfig);
-    this.formElements = analysisFormDeps(this, formConfig);
+    this.state = {};//getFieldsDefaultValues(formConfig);
+    this.formElements = {}; //analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
@@ -67,9 +67,13 @@ class TestPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    this.formElements = analysisFormDeps(this, newProps.formConfig);
+    if (!newProps.data && !newProps.data.testById) {
+      return;
+    }
+    const formConfig = newProps.data.testById.formConfig;
+    this.formElements = analysisFormDeps(this, formConfig);
     this.setState(() => {
-      return getFieldsDefaultValues(newProps.formConfig);
+      return getFieldsDefaultValues(formConfig);
     }, () => {
       this.firstFieldsUpdate();
     });
@@ -94,13 +98,22 @@ class TestPage extends Component {
   }
 
   render() {
-    console.log('TestPage', this.state);
+    const {
+      data,
+      status,
+    } = this.props;
+
+    if (data.loading) {
+      return (
+        <div>loading</div>
+      );
+    }
+
     const {
       formConfig,
-      status,
       answers,
       comment,
-    } = this.props;
+    } = data.testById;
 
     const formState = getFormState(
       status,

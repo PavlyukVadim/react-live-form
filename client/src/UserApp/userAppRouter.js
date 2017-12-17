@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import TestsList from './containers/TestsList';
 import TestPage from './containers/TestPage';
+import NewTest from './containers/NewTest';
 import formConfig from './containers/TestPage/formConfig';
 import answers from './containers/TestPage/answers';
 import comment from './containers/TestPage/comment';
@@ -27,8 +28,7 @@ const UserAppRouter = ({
       path='/user/test/:id'
       render={
         () => (
-          <TestPage
-            formConfig={formConfig}
+          <NewTest
             status="new"
           />
         )

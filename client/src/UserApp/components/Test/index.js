@@ -15,6 +15,7 @@ const getForm = (
   changeFormField
 ) => {
   return fields.map((field) => {
+    console.log('field', field);
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
     
@@ -49,6 +50,8 @@ class Test extends Component {
       formSubmit,
       testStatus,
     } = this.props;
+
+    console.log('Test', this.props);
 
     const form = getForm(
       formState,

@@ -5,7 +5,8 @@ const getTestById = (id) => {
 };
 
 const TestResolver = async(parentValue, args) => {
-  const test = await getTestById(args.id);
+  let test = await getTestById(args.id);
+  test.formConfig = test.form_config;
   return test;
 };
 

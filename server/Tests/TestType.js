@@ -3,8 +3,10 @@ const {
   GraphQLObjectType,
   GraphQLString,
   GraphQLSchema,
-  GraphQLNonNull
+  GraphQLNonNull,
+  GraphQLList,
 } = graphql;
+const GraphQLJSON = require('graphql-type-json');
 
 const TestType = new GraphQLObjectType({
   name: 'Test',
@@ -12,6 +14,7 @@ const TestType = new GraphQLObjectType({
     test_id: { type: GraphQLString },
     title: { type: GraphQLString },
     description: { type: GraphQLString },
+    formConfig: { type: GraphQLJSON },
   }
 });
 
