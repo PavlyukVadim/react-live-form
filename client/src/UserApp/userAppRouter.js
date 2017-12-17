@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import TestsList from './containers/TestsList';
 import AllTestsList from './containers/TestsList/allTests';
+import PassedTestsList from './containers/TestsList/passedTests';
 import TestPage from './containers/TestPage';
 import NewTest from './containers/NewTest';
 import formConfig from './containers/TestPage/formConfig';
@@ -40,7 +41,7 @@ const UserAppRouter = ({
       exact
       render={
         () => (
-          <TestsList
+          <PassedTestsList
             history={history}
             subHeader="Tests that you passed"
           />

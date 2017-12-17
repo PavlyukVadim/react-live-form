@@ -9,10 +9,14 @@ const getAnswersByStatusAndUserId = (userId, status) => {
       form_answers,
       status_id,
       passage_date,
-      statuses.type
+      statuses.type,
+      tests.title,
+      tests.description
     FROM answers
     JOIN statuses
     USING (status_id)
+    JOIN tests
+    USING (test_id)
     WHERE user_id = $1
     AND statuses.type = $2
   `, [userId, status]);

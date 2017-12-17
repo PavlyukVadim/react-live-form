@@ -31,9 +31,14 @@ class TestsList extends Component {
     }
 
     let tests = [];
-    if (data && data.allTests) {
+    if (!data) {
+      tests = [];
+    } else if (data.allTests) {
       tests = data.allTests;
+    } else if (data.answersByStatusAndUserId) {
+      tests = data.answersByStatusAndUserId;
     }
+
     const TestItems = tests.map((test) => {
       return (
         <ListItem
