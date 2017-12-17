@@ -8,24 +8,6 @@ import {
   ListCheckbox
 } from 'react-toolbox/lib/list';
 
-const tests = [
-  {
-    id: 1,
-    name: 'testName#1',
-    description: 'description of test 1'
-  },
-  {
-    id: 2,
-    name: 'testName#2',
-    description: 'description of test 2'
-  },
-  {
-    id: 3,
-    name: 'testName#3',
-    description: 'description of test 3'
-  }
-];
-
 class TestsList extends Component {
   constructor(props) {
     super(props);
@@ -40,18 +22,24 @@ class TestsList extends Component {
   render() {
     const {
       subHeader,
+      data,
     } = this.props;
 
-    console.log('props', this.props);
+    if (data.error) {
+      return(
+        <div>error</div>
+      );
+    }
 
+    const tests = data.allTests || [];
     const TestItems = tests.map((test) => {
       return (
         <ListItem
-          key={test.id}
+          key={test.test_id}
           avatar=""
-          caption={test.name}
+          caption={test.title}
           legend={test.description}
-          onClick={() => this.goToTestPage(test.id)}
+          onClick={() => this.goToTestPage(test.test_id)}
         />
       );
     });
@@ -69,9 +57,9 @@ class TestsList extends Component {
 
 // export default TestsList;
 
-const CurrentUserForLayout = gql`
-  query CurrentUserForLayout {
-    getAllTests {
+const AllTests = gql`
+  query AllTests {
+    allTests {
     test_id
     title
     description
@@ -79,6 +67,6 @@ const CurrentUserForLayout = gql`
 }
 `;
 
-const ProfileWithData = graphql(CurrentUserForLayout)(TestsList);
+const TestsListWithData = graphql(AllTests)(TestsList);
 
-export default ProfileWithData;
+export default TestsListWithData;

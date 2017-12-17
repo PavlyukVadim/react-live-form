@@ -31,27 +31,27 @@ const {
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
-    getUserById: {
+    userById: {
       type: UserType,
       args: { id: { type: GraphQLString }},
       resolve: UserResolver,
     },
-    getTestById: {
+    testById: {
       type: TestType,
       args: { id: { type: GraphQLString }},
       resolve: TestResolver,
     },
-    getAllTests: {
+    allTests: {
       type: new GraphQLList(TestType),
       args: { },
       resolve: AllTestsResolver,
     },
-    getAnswerById: {
+    answerById: {
       type: AnswerType,
       args: { id: { type: GraphQLString }},
       resolve: AnswerResolver,
     },
-    getAnswersByStatus: {
+    answersByStatus: {
       type: new GraphQLList(AnswerType),
       args: { status: { type: GraphQLString }},
       resolve: AnswersByStatusResolver,
