@@ -52,8 +52,9 @@ const UserAppRouter = ({
     <Route
       path='/user/passed/test/:id'
       render={
-        () => (
+        (props) => (
           <PassedTest
+            answerId={props.match.params.id}
             status="passed"
           />
         )

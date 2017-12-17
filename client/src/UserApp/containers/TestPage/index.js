@@ -25,7 +25,7 @@ const getFormState = (
   }
   const newAnswers = {};
   for (const key in answers) {
-    newAnswers[key] = answers[key];
+    newAnswers[key] = Object.assign({}, answers[key]);
     newAnswers[key].disabled = true;
   }
   if (status === 'assessed') {
@@ -52,11 +52,32 @@ const updateFormConfig = (formConfig, status) => {
   return updatedFormConfig;
 };
 
+const getFormConfig = (props) => {
+  let formConfig = [];
+  if (props.data && props.data.loading) {
+    return formConfig;
+  }
+  if (props.status === 'new') {
+    console.log('new---------------');
+    if (!props.data && !props.data.testById) {
+      return;
+    }
+    formConfig = props.data.testById.formConfig;  
+  } else if (props.status === 'passed') {
+    if (!props.data && !props.data.answerById) {
+      return;
+    }
+    formConfig = props.data.answerById.test.formConfig;
+  }
+  return formConfig;
+};
+
 class TestPage extends Component {
   constructor(props) {
     super(props);
-    const { formConfig } = this.props;
-    this.state = {};//getFieldsDefaultValues(formConfig);
+    console.log('props', props)
+    const formConfig = getFormConfig(props);
+    this.state = getFieldsDefaultValues(formConfig);
     this.formElements = {}; //analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
@@ -67,10 +88,20 @@ class TestPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (!newProps.data && !newProps.data.testById) {
-      return;
+    let formConfig;
+    if (this.props.status === 'new') {
+      console.log('new---------------');
+      if (!newProps.data && !newProps.data.testById) {
+        return;
+      }
+      formConfig = newProps.data.testById.formConfig;  
+    } else if (this.props.status === 'passed') {
+      if (!newProps.data && !newProps.data.answerById) {
+        return;
+      }
+      formConfig = newProps.data.answerById.test.formConfig;
     }
-    const formConfig = newProps.data.testById.formConfig;
+    
     this.formElements = analysisFormDeps(this, formConfig);
     this.setState(() => {
       return getFieldsDefaultValues(formConfig);
@@ -109,12 +140,24 @@ class TestPage extends Component {
       );
     }
 
-    const {
-      formConfig,
-      answers,
-      comment,
-    } = data.testById;
+    console.log('TetsPage', this.props);
 
+    let formConfig, answers, comment;
+    if (status === 'new') {
+      formConfig = [].concat(data.testById.formConfig);
+    } else if (status === 'passed') {
+      formConfig = [].concat(data.answerById.test.formConfig);
+      answers = Object.assign({}, data.answerById.form_answers);
+
+      // let {
+      //   answers,
+      //   comment,
+      // } = data.;
+    }
+
+    console.log('aaa', status, );
+    console.log('this.state', this.state);
+    
     const formState = getFormState(
       status,
       this.state,
@@ -122,6 +165,7 @@ class TestPage extends Component {
       comment,
     );
 
+    console.log('formState', formState);
     const updatedFormConfig = updateFormConfig(formConfig, status);
 
     return (
