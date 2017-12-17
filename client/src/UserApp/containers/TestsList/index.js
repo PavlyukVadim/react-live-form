@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import {
   List,
   ListItem,
@@ -20,18 +18,22 @@ class TestsList extends Component {
   }
 
   render() {
+    console.log('Test list', this.props)
     const {
       subHeader,
       data,
     } = this.props;
 
-    if (data.error) {
+    if (data && data.error) {
       return(
         <div>error</div>
       );
     }
 
-    const tests = data.allTests || [];
+    let tests = [];
+    if (data && data.allTests) {
+      tests = data.allTests;
+    }
     const TestItems = tests.map((test) => {
       return (
         <ListItem
@@ -55,18 +57,4 @@ class TestsList extends Component {
   }
 }
 
-// export default TestsList;
-
-const AllTests = gql`
-  query AllTests {
-    allTests {
-    test_id
-    title
-    description
-  }
-}
-`;
-
-const TestsListWithData = graphql(AllTests)(TestsList);
-
-export default TestsListWithData;
+export default TestsList;

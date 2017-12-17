@@ -26,6 +26,7 @@ const {
   AnswerType,
   AnswerResolver,
   AnswersByStatusResolver,
+  AnswersByStatusAndUserIdResolver,
 } = Answers;
 
 const RootQuery = new GraphQLObjectType({
@@ -55,6 +56,14 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(AnswerType),
       args: { status: { type: GraphQLString }},
       resolve: AnswersByStatusResolver,
+    },
+    answersByStatusAndUserId: {
+      type: new GraphQLList(AnswerType),
+      args: {
+        userId: { type: GraphQLString },
+        status: { type: GraphQLString },
+      },
+      resolve: AnswersByStatusAndUserIdResolver,
     },
   }
 });
