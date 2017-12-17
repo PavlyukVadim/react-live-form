@@ -34,19 +34,27 @@ class TestsList extends Component {
     if (!data) {
       tests = [];
     } else if (data.allTests) {
-      tests = data.allTests;
+      tests = data.allTests.map((e) => {
+        const test = Object.assign({}, e);
+        test.link = e.test_id;
+        return test;
+      });
     } else if (data.answersByStatusAndUserId) {
-      tests = data.answersByStatusAndUserId;
+      tests = data.answersByStatusAndUserId.map((e) => {
+        const test = Object.assign({}, e.test);
+        test.link = e.answer_id;
+        return test;
+      });
     }
 
     const TestItems = tests.map((test) => {
       return (
         <ListItem
-          key={test.test_id}
+          key={test.link}
           avatar=""
           caption={test.title}
           legend={test.description}
-          onClick={() => this.goToTestPage(test.test_id)}
+          onClick={() => this.goToTestPage(test.link)}
         />
       );
     });

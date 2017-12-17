@@ -5,6 +5,7 @@ import AllTestsList from './containers/TestsList/allTests';
 import PassedTestsList from './containers/TestsList/passedTests';
 import TestPage from './containers/TestPage';
 import NewTest from './containers/NewTest';
+import PassedTest from './containers/PassedTest';
 import formConfig from './containers/TestPage/formConfig';
 import answers from './containers/TestPage/answers';
 import comment from './containers/TestPage/comment';
@@ -52,9 +53,7 @@ const UserAppRouter = ({
       path='/user/passed/test/:id'
       render={
         () => (
-          <TestPage
-            formConfig={formConfig}
-            answers={answers}
+          <PassedTest
             status="passed"
           />
         )

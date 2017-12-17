@@ -7,9 +7,11 @@ const PassedTests = gql`
     answersByStatusAndUserId(userId:"1", status:"passed") {
       answer_id
       status_id
-      test_id
-      title
-      description
+      test {
+        test_id
+        title
+        description  
+      }
 	  }
   }
 `;
