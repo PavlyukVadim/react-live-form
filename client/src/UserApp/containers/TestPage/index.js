@@ -32,6 +32,7 @@ const getFormState = (
     newAnswers['comment'] = {
       value: comment,
     };
+    newAnswers['comment'].disabled = true;
   }
 
   return newAnswers;
@@ -44,7 +45,7 @@ const updateFormConfig = (formConfig, status) => {
       name: 'comment',
       fieldType: 'textarea',
       dataType: 'string',
-      title: 'comment',
+      title: 'Admin comment:',
       defaultValue: '',
     };
     updatedFormConfig.push(commentField);
@@ -100,6 +101,11 @@ class TestPage extends Component {
         return;
       }
       formConfig = newProps.data.answerById.test.formConfig;
+    } else if (this.props.status === 'assessed') {
+      if (!newProps.data && !newProps.data.answerById) {
+        return;
+      }
+      formConfig = newProps.data.answerById.test.formConfig;
     }
     
     this.formElements = analysisFormDeps(this, formConfig);
@@ -148,14 +154,12 @@ class TestPage extends Component {
     } else if (status === 'passed') {
       formConfig = [].concat(data.answerById.test.formConfig);
       answers = Object.assign({}, data.answerById.form_answers);
-
-      // let {
-      //   answers,
-      //   comment,
-      // } = data.;
+    } else if (status === 'assessed') {
+      formConfig = [].concat(data.answerById.test.formConfig);
+      answers = Object.assign({}, data.answerById.form_answers);
+      comment = data.answerById.comment.content;
     }
 
-    console.log('aaa', status, );
     console.log('this.state', this.state);
     
     const formState = getFormState(

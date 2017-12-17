@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import TestsList from './containers/TestsList';
+
 import AllTestsList from './containers/TestsList/allTests';
 import PassedTestsList from './containers/TestsList/passedTests';
-import TestPage from './containers/TestPage';
+import AssessedTestsList from './containers/TestsList/assessedTests';
+
 import NewTest from './containers/NewTest';
 import PassedTest from './containers/PassedTest';
-import formConfig from './containers/TestPage/formConfig';
-import answers from './containers/TestPage/answers';
-import comment from './containers/TestPage/comment';
+import AssessedTest from './containers/AssessedTest';
 
 const UserAppRouter = ({
   history,
@@ -65,7 +64,7 @@ const UserAppRouter = ({
       exact
       render={
         () => (
-          <TestsList
+          <AssessedTestsList
             history={history}
             subHeader="Tests that have assessment"
           />
@@ -75,11 +74,9 @@ const UserAppRouter = ({
     <Route
       path='/user/assessed/test/:id'
       render={
-        () => (
-          <TestPage
-            formConfig={formConfig}
-            answers={answers}
-            comment={comment}
+        (props) => (
+          <AssessedTest
+            answerId={props.match.params.id}
             status="assessed"
           />
         )
