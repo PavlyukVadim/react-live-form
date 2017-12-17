@@ -1,6 +1,7 @@
 const RootQuery = require('./RootQuery.js');
-// const UserResolver = require('./UserResolver.js');
+const Mutation = require('./Mutation.js');
 
 module.exports = {
   RootQuery,
+  Mutation,
 };
