@@ -10,7 +10,10 @@ import './stylesheets/normalize.css';
 import './stylesheets/main.scss';
 
 const client = new ApolloClient({
-  link: createHttpLink({ uri: 'http://localhost:4000/graphql' }),
+  link: createHttpLink({
+    uri: 'http://localhost:4000/graphql',
+    credentials: 'include',
+  }),
   cache: new InMemoryCache(),
 });
 

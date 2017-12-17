@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import {
   List,
   ListItem,
@@ -65,4 +67,18 @@ class TestsList extends Component {
   }
 }
 
-export default TestsList;
+// export default TestsList;
+
+const CurrentUserForLayout = gql`
+  query CurrentUserForLayout {
+    getAllTests {
+    test_id
+    title
+    description
+  }
+}
+`;
+
+const ProfileWithData = graphql(CurrentUserForLayout)(TestsList);
+
+export default ProfileWithData;
