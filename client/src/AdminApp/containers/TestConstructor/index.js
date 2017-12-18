@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import TestPage from './../../../UserApp/containers/TestPage';
 import TestEditor from '../../components/TestEditor';
 import getFieldsConfigByFieldType from './../../../FormBuilder/getFieldsConfigByFieldType';
@@ -14,6 +16,7 @@ class TestConstructor extends Component {
     this.addFormTestField = this.addFormTestField.bind(this);
     this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
     this.changeFormTestField = this.changeFormTestField.bind(this);
+    this.saveTest = this.saveTest.bind(this);
   }
 
   addFormTestField() {
@@ -94,6 +97,22 @@ class TestConstructor extends Component {
     });
   };
 
+  saveTest(
+    userId,
+    title,
+    description,
+    formConfig
+  ) {
+    this.props.mutation({
+      variables: {
+        userId,
+        title,
+        description,
+        formConfig,
+      }
+    });
+  }
+
   render() {
     const {
       formTestConfig,
@@ -106,8 +125,7 @@ class TestConstructor extends Component {
         formConfig: formTestConfig, 
       },
     };
-    console.log('currFormTestField', currFormTestField)
-
+    
     return (
       <div className="row">
         <div className="col-sm-6">
@@ -118,6 +136,7 @@ class TestConstructor extends Component {
             addFormTestField={this.addFormTestField}
             changeCurrFormTestField={this.changeCurrFormTestField}
             changeFormTestField={this.changeFormTestField}
+            saveTest={this.saveTest}
           />
         </div>
         <div className="col-sm-6">
@@ -134,4 +153,26 @@ class TestConstructor extends Component {
   }
 }
 
-export default TestConstructor;
+// export default TestConstructor;
+
+const AddTest = gql`
+  mutation AddTest(
+    $userId: String!,
+    $title: String!,
+    $description: String!,
+    $formConfig: JSON!
+  ) {
+    AddTest(
+      userId: $userId,
+      title: $title,
+      description: $description,
+      formConfig: $formConfig
+    ) {
+      test_id
+    }
+  }
+`;
+
+const TestConstructorWithData = graphql(AddTest)(TestConstructor);
+
+export default TestConstructorWithData;
