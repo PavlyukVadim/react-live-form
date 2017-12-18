@@ -1,5 +1,7 @@
 const graphql = require('graphql');
+const GraphQLJSON = require('graphql-type-json');
 const Answers = require('./../Answers');
+
 const {
   GraphQLObjectType,
   GraphQLString,
@@ -17,7 +19,12 @@ const Mutation = new GraphQLObjectType({
   fields: {
     AddAnswerByUser: {
       type: AnswerType,
-      args: { id: { type: GraphQLString }},
+      args: {
+        testId: { type: GraphQLString },
+        userId: { type: GraphQLString },
+        formAnswers: { type: GraphQLJSON },
+        statusId: { type: GraphQLString }, 
+      },
       resolve: AddAnswerByUserResolver,
     },
   }

@@ -130,8 +130,19 @@ class TestPage extends Component {
 
   formSubmit() {
     const values = this.state;
-    console.log(values);
-    return values;
+    const testId = this.props.data.testById.test_id;
+    const userId = '1';
+    const formAnswers = JSON.stringify(values);
+    const statusId = '1';
+    
+    this.props.mutate({
+      variables: {
+        testId,
+        userId,
+        formAnswers,
+        statusId,
+      }
+    }).then(() => this.props.history.push('/user/passed'));
   }
 
   render() {
@@ -159,8 +170,6 @@ class TestPage extends Component {
       answers = Object.assign({}, data.answerById.form_answers);
       comment = data.answerById.comment.content;
     }
-
-    console.log('this.state', this.state);
     
     const formState = getFormState(
       status,
@@ -169,8 +178,10 @@ class TestPage extends Component {
       comment,
     );
 
-    console.log('formState', formState);
-    const updatedFormConfig = updateFormConfig(formConfig, status);
+    const updatedFormConfig = updateFormConfig(
+      formConfig,
+      status
+    );
 
     return (
       <div>

@@ -1,46 +1,37 @@
-const graphql = require('graphql');
+const db = require('../config/db');
 const Answers = require('./AnswerType');
 
 const {
-  GraphQLObjectType,
-  GraphQLString,
-  GraphQLSchema,
-  GraphQLNonNull
-} = graphql;
-
-const {
   AnswerType,
+  AnswerResolver,
 } = Answers;
 
-
-const AddAnswerByUserResolver = (parentValue, args) => {
-  // const test = await getAnswerById(args.id);
-  console.log(parentValue, args);
-  return {};
+const addAnswerByUser = (
+  testId,
+  userId,
+  formAnswers,
+  statusId
+) => {
+  return db.one(`
+    INSERT INTO answers (test_id, user_id, form_answers, status_id)
+    VALUES ($1, $2, $3::jsonb, $4);
+  `, [testId, userId, formAnswers, statusId]);
 };
 
-
-// const AddAnswerByUser = new GraphQLObjectType({
-//   name: 'AddAnswerByUser',
-//   fields: {
-//     addAnswer: {
-//       type: AnswerType,
-//       args: {
-//         firstName: { type: new GraphQLNonNull(GraphQLString) },
-//         lastName: { type: new GraphQLNonNull(GraphQLString) },
-//         companyId: { type: GraphQLString }
-//       },
-//       resolve(parentValue, args) {
-//         console.log(args)
-//         // users.push({
-//         //   id: users.length + '',
-//         //   firstName,
-//         //   lastName
-//         // });
-//         // return users[users.length - 1];
-//       }
-//     }
-//   }
-// });
+const AddAnswerByUserResolver = async(
+  parentValue, {
+    testId,
+    userId,
+    formAnswers,
+    statusId,
+  }) => {
+  const answer = addAnswerByUser(
+    testId,
+    userId,
+    formAnswers,
+    statusId
+  );
+  return {};
+};
 
 module.exports = AddAnswerByUserResolver;

@@ -29,9 +29,10 @@ const UserAppRouter = ({
     <Route
       path='/user/test/:id'
       render={
-        () => (
+        (props) => (
           <NewTest
             status="new"
+            history={props.history}
           />
         )
       }
