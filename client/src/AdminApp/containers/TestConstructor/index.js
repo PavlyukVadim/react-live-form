@@ -101,6 +101,11 @@ class TestConstructor extends Component {
       formConstructorConfig,
     } = this.state;
     
+    const data = {
+      testById: {
+        formConfig: formTestConfig, 
+      },
+    };
     console.log('currFormTestField', currFormTestField)
 
     return (
@@ -117,7 +122,7 @@ class TestConstructor extends Component {
         </div>
         <div className="col-sm-6">
           <TestPage
-            formConfig={formTestConfig}
+            data={data}
             status="new"
           />
         </div>
