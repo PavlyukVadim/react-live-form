@@ -28,6 +28,7 @@ const AnswerType = new GraphQLObjectType({
     answer_id: { type: GraphQLString },
     status_id: { type: GraphQLString },
     form_answers: { type: GraphQLJSON },
+    passage_date: { type: GraphQLJSON },
     test: {
       type: TestType,
       resolve: TestResolver,

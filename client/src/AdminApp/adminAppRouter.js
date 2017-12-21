@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 import TestsList from './containers/TestsList';
 import TestConstructor from './containers/TestConstructor';
+import PassedTest from './containers/PassedTest';
+import PassedTestsList from './containers/TestsList/passedTests';
 
 const AdminAppRouter = ({
   history,
@@ -33,6 +35,29 @@ const AdminAppRouter = ({
       render={
         () => (
           <CreateTest />
+        )
+      }
+    />
+    <Route
+      path='/admin/passed'
+      exact
+      render={
+        (props) => (
+          <PassedTestsList
+            history={history}
+            subHeader="Tests that were pass"
+          />
+        )
+      }
+    />
+    <Route
+      path='/admin/passed/test/:id'
+      render={
+        (props) => (
+          <PassedTest
+            answerId={props.match.params.id}
+            status="passed"
+          />
         )
       }
     />
