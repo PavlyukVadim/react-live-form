@@ -60,18 +60,13 @@ class AdminApp extends Component {
           <List selectable ripple>
             <ListItem
               caption='Create test'
-              onClick={() => this.goToPage('')}
+              onClick={() => this.goToPage('/test/new')}
               leftIcon='add_box'
             />
             <ListItem
               caption='Passed tests'
               onClick={() => this.goToPage('/passed')}
               leftIcon='undo'
-            />
-            <ListItem
-              caption='Assessed tests'
-              onClick={() => this.goToPage('/assessed')}
-              leftIcon='assessment'
             />
           </List>
         </NavDrawer>
