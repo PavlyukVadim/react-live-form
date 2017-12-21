@@ -33,6 +33,7 @@ const TestEditor = ({
   addFormTestField,
   changeCurrFormTestField,
   changeFormTestField,
+  saveTest,
 }) => {
   const namesOfFields = formTestConfig.map((field) => field.name);
   return (
@@ -63,6 +64,7 @@ const TestEditor = ({
         className="saveTest"
         type="button"
         value="Save Test"
+        onClick={saveTest}
       />
     </div>
   );

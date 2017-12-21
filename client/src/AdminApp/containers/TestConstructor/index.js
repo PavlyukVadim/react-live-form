@@ -12,11 +12,15 @@ class TestConstructor extends Component {
     this.state = {
       formTestConfig: [],
       formConstructorConfig,
+      testTitle: '',
+      testDesc: '',
     };
     this.addFormTestField = this.addFormTestField.bind(this);
     this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
     this.changeFormTestField = this.changeFormTestField.bind(this);
     this.saveTest = this.saveTest.bind(this);
+    this.changeTestTitle = this.changeTestTitle.bind(this);
+    this.changeTestDesc = this.changeTestDesc.bind(this);
   }
 
   addFormTestField() {
@@ -97,23 +101,41 @@ class TestConstructor extends Component {
     });
   };
 
-  saveTest(
-    userId,
-    title,
-    description,
-    formConfig
-  ) {
-    this.props.mutation({
+  saveTest() {
+    const userId = '6';
+    const title = this.state.testTitle;
+    const description = this.state.testDesc;
+    const formConfig = JSON.stringify(this.state.formTestConfig);
+
+    console.log(userId, title, description, formConfig);
+
+    this.props.mutate({
       variables: {
         userId,
         title,
         description,
         formConfig,
       }
+    }).then(() => this.props.history.push('/admin'));
+  }
+
+  changeTestTitle(e) {
+    const value = e.target.value;
+    this.setState({
+      testTitle: value,
+    });
+  }
+
+  changeTestDesc(e) {
+    const value = e.target.value;
+    this.setState({
+      testDesc: value,
     });
   }
 
   render() {
+
+    console.log(this.props)
     const {
       formTestConfig,
       currFormTestField,
@@ -128,6 +150,25 @@ class TestConstructor extends Component {
     
     return (
       <div className="row">
+        
+        <div className="col-sm-6 new-title">
+          <p>Test title:</p>
+          <input
+            type="text"
+            value={this.state.testTitle}
+            onChange={this.changeTestTitle}
+          />
+        </div>
+        <div className="col-sm-6 new-description">
+          <p>Test description:</p>
+          <input
+            type="text"
+            value={this.state.testDesc}
+            onChange={this.changeTestDesc}
+          />
+        </div>
+
+
         <div className="col-sm-6">
           <TestEditor
             formTestConfig={formTestConfig}

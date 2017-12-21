@@ -23,8 +23,8 @@ const AdminAppRouter = ({
     <Route
       path='/admin/test/:id'
       render={
-        () => (
-          <TestConstructor />
+        (props) => (
+          <TestConstructor history={props.history} />
         )
       }
     />
