@@ -1,7 +1,7 @@
 const db = require('../config/db');
 
 const getCommentByAnswerId = (id) => {
-  return db.one(`
+  return db.any(`
     SELECT
       answer_id,
       comment_id,
@@ -14,7 +14,12 @@ const getCommentByAnswerId = (id) => {
 
 const CommentByAnswerResolver = async(parentValue, args) => {
   let answerId = args.id || parentValue.answer_id;
-  let comment = await getCommentByAnswerId(answerId);
+  console.log('answerId', answerId )
+  let comments = await getCommentByAnswerId(answerId);
+  let comment = comments[0];
+  if(!comment.content) {
+    return {};
+  }
   return comment;
 };
 

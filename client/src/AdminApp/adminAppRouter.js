@@ -48,7 +48,7 @@ const AdminAppRouter = ({
         (props) => (
           <PassedTest
             answerId={props.match.params.id}
-            status="passed"
+            status="assessed"
           />
         )
       }

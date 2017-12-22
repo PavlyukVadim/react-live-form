@@ -24,10 +24,6 @@ const PassedTests = gql`
         title
         description
       }
-      comment {
-        comment_id
-        content
-      }
     }
   }
 `;

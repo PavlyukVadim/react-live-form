@@ -35,7 +35,6 @@ const getFormState = (
     newAnswers['comment'] = {
       value: comment,
     };
-    newAnswers['comment'].disabled = true;
   }
 
   return newAnswers;
@@ -43,16 +42,16 @@ const getFormState = (
 
 const updateFormConfig = (formConfig, status) => {
   const updatedFormConfig = [].concat(formConfig);
-  if (status === 'assessed') {
-    const commentField = {
-      name: 'comment',
-      fieldType: 'textarea',
-      dataType: 'string',
-      title: 'Admin comment:',
-      defaultValue: '',
-    };
-    updatedFormConfig.push(commentField);
-  }
+  // if (status === 'assessed') {
+  //   const commentField = {
+  //     name: 'comment',
+  //     fieldType: 'textarea',
+  //     dataType: 'string',
+  //     title: 'Admin comment:',
+  //     defaultValue: '',
+  //   };
+  //   updatedFormConfig.push(commentField);
+  // }
   return updatedFormConfig;
 };
 
@@ -62,7 +61,6 @@ const getFormConfig = (props) => {
     return formConfig;
   }
   if (props.status === 'new') {
-    console.log('new---------------');
     if (!props.data && !props.data.testById) {
       return;
     }
@@ -79,7 +77,6 @@ const getFormConfig = (props) => {
 class TestPage extends Component {
   constructor(props) {
     super(props);
-    console.log('props', props)
     const formConfig = getFormConfig(props);
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = {}; //analysisFormDeps(this, formConfig);
@@ -93,19 +90,8 @@ class TestPage extends Component {
 
   componentWillReceiveProps(newProps) {
     let formConfig;
-    if (this.props.status === 'new') {
-      console.log('new---------------');
-      if (!newProps.data && !newProps.data.testById) {
-        return;
-      }
-      formConfig = newProps.data.testById.formConfig;  
-    } else if (this.props.status === 'passed') {
-      if (!newProps.data && !newProps.data.answerById) {
-        return;
-      }
-      formConfig = newProps.data.answerById.test.formConfig;
-    } else if (this.props.status === 'assessed') {
-      if (!newProps.data && !newProps.data.answerById) {
+    if (this.props.status === 'assessed') {
+      if (!(newProps.data && newProps.data.answerById)) {
         return;
       }
       formConfig = newProps.data.answerById.test.formConfig;
@@ -160,8 +146,6 @@ class TestPage extends Component {
       );
     }
 
-    console.log('TetsPage', this.props);
-
     let formConfig, answers, comment;
     if (status === 'new') {
       formConfig = [].concat(data.testById.formConfig);
@@ -195,6 +179,12 @@ class TestPage extends Component {
           changeFormField={this.changeFormField}
           formSubmit={this.formSubmit}
         />
+        <div className="admin-Comment">
+          <div className="form-group row">
+            <label className="form-label col-xxxs-6">Admin comment:</label>
+            <textarea className="form-textarea col-xxxs-6">{comment}</textarea>
+          </div>
+        </div>
       </div>
     );
   }
@@ -210,6 +200,10 @@ const AnswerById = gql`
         test_id
         title
         formConfig
+      }
+      comment {
+        comment_id
+        content
       }
     }
   }
