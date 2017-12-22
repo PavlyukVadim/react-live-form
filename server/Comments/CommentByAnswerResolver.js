@@ -17,7 +17,8 @@ const CommentByAnswerResolver = async(parentValue, args) => {
   console.log('answerId', answerId )
   let comments = await getCommentByAnswerId(answerId);
   let comment = comments[0];
-  if(!comment.content) {
+  
+  if(!comment || !comment.content) {
     return {};
   }
   return comment;

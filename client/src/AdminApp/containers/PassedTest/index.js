@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import analysisFormDeps from './../../../UserApp/containers/TestPage/analysisFormDeps';
@@ -135,6 +135,8 @@ class TestPage extends Component {
   }
 
   render() {
+    console.log('Test Page', this.props);
+
     const {
       data,
       status,
@@ -146,13 +148,14 @@ class TestPage extends Component {
       );
     }
 
+    if (!data.answerById) {
+     return (
+        <div>loading</div>
+      ); 
+    }
+
     let formConfig, answers, comment;
-    if (status === 'new') {
-      formConfig = [].concat(data.testById.formConfig);
-    } else if (status === 'passed') {
-      formConfig = [].concat(data.answerById.test.formConfig);
-      answers = Object.assign({}, data.answerById.form_answers);
-    } else if (status === 'assessed') {
+    if (status === 'assessed') {
       formConfig = [].concat(data.answerById.test.formConfig);
       answers = Object.assign({}, data.answerById.form_answers);
       comment = data.answerById.comment.content;
@@ -185,6 +188,10 @@ class TestPage extends Component {
             <textarea className="form-textarea col-xxxs-6">{comment}</textarea>
           </div>
         </div>
+        <input
+          type="button"
+          value="Change comment"
+        />
       </div>
     );
   }
@@ -209,10 +216,32 @@ const AnswerById = gql`
   }
 `;
 
-const TestPageWithData = graphql(
+const AddComment = gql`
+  mutation AddComment(
+    $answerId: String!,
+    $userId: String!,
+    $content: String!
+  ) {
+    AddComment(
+      answerId: $answerId,
+      userId: $userId,
+      content: $content
+    ) {
+      answer_id
+    }
+  }
+`;
+
+const testPageWithAnswer = graphql(
   AnswerById, {
     options: ({ answerId }) => ({ variables: { answerId } }),
-  }
+  });
+
+const testPageWithMutation = graphql(AddComment);
+
+const TestPageWithData = compose(
+  testPageWithAnswer,
+  testPageWithMutation,
 )(TestPage);
 
 export default TestPageWithData;

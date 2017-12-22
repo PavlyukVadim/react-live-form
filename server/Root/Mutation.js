@@ -2,6 +2,7 @@ const graphql = require('graphql');
 const GraphQLJSON = require('graphql-type-json');
 const Answers = require('./../Answers');
 const Tests = require('./../Tests');
+const Comments = require('./../Comments');
 
 const {
   GraphQLObjectType,
@@ -19,6 +20,12 @@ const {
   TestType,
   AddTestResolver,
 } = Tests;
+
+const {
+  CommentType,
+  AddCommentResolver,
+} = Comments;
+
 
 const Mutation = new GraphQLObjectType({
   name: 'Mutation',
@@ -43,6 +50,15 @@ const Mutation = new GraphQLObjectType({
       },
       resolve: AddTestResolver,
     },
+    AddComment: {
+      type: CommentType,
+      args: {
+        answerId: { type: GraphQLString },
+        userId: { type: GraphQLString },
+        content: { type: GraphQLString },
+      },
+      resolve: AddCommentResolver,
+    }
   }
 });
 
