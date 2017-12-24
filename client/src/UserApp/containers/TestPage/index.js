@@ -131,7 +131,7 @@ class TestPage extends Component {
   formSubmit() {
     const values = this.state;
     const testId = this.props.data.testById.test_id;
-    const userId = '1';
+    const userId = window.localStorage.getItem('rr_userId');
     const formAnswers = JSON.stringify(values);
     const statusId = '1';
     
