@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 import SignIn from './../../components/SignIn';
 
 class Authorization extends Component {
@@ -7,6 +9,7 @@ class Authorization extends Component {
     this.state = {
       userName: '',
       password: '',
+      isError: false,
     };
     this.changeValue = this.changeValue.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
@@ -23,13 +26,27 @@ class Authorization extends Component {
       userName,
       password
     } = this.state;
-    if (userName === 'user') {
-      window.localStorage.setItem('rr_login', userName);
-      this.props.history.push('user');
-    } else if (userName === 'admin') {
-      window.localStorage.setItem('rr_login', userName);
-      this.props.history.push('admin');
-    }
+
+    this.props.data.refetch({
+      name: userName,
+    }).then((result) => {
+      console.log('result', result);
+      if (!result.data.error && result.data.userByName.user_id) {
+        const userId = result.data.userByName.user_id;
+        const roleId = result.data.userByName.role_id;
+        
+        window.localStorage.setItem('rr_userId', userId);
+        window.localStorage.setItem('rr_roleId', roleId);
+
+        if (roleId === '1') {
+          this.props.history.push('user');
+        } else {
+          this.props.history.push('admin');
+        }
+      } else {
+        this.setState({isError: true});
+      }
+    });
   }
 
 	render() {
@@ -43,4 +60,24 @@ class Authorization extends Component {
   }
 }
 
-export default Authorization;
+// export default Authorization;
+
+const UserByName = gql`
+  query UserByName($name: String) {
+    userByName(name: $name) {
+      user_id,
+      name,
+      role_id
+    }
+  }
+`;
+
+const AuthorizationWithData = graphql(UserByName, {
+  options: {
+    variables: {
+      name: '',
+    },
+  },
+})(Authorization);
+
+export default AuthorizationWithData;

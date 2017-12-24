@@ -11,6 +11,7 @@ const SignIn = ({
   password,
   changeValue,
   onSubmit,
+  isError,
 }) => {
   return (
     <div className="signIn-wrapper">
@@ -20,6 +21,7 @@ const SignIn = ({
           type='mail'
           label='Name'
           name='name'
+          error={isError && <span>User doesn't exist!!</span>}
           value={userName}
           onChange={(value) => changeValue('userName', value)}
           maxLength={16}

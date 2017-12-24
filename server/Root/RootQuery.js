@@ -14,6 +14,7 @@ const {
 const {
   UserType,
   UserResolver,
+  UserByNameResolver,
 } = Users;
 
 const {
@@ -36,6 +37,11 @@ const RootQuery = new GraphQLObjectType({
       type: UserType,
       args: { id: { type: GraphQLString }},
       resolve: UserResolver,
+    },
+    userByName: {
+      type: UserType,
+      args: { name: { type: GraphQLString }},
+      resolve: UserByNameResolver,
     },
     testById: {
       type: TestType,
