@@ -1,23 +1,6 @@
 import { graphql } from 'react-apollo';
-import gql from 'graphql-tag';
 import TestsList from './index.js';
-
-const PassedTests = gql`
-  query PassedTests($userId: String) {
-    answersByStatusAndUserId(
-      userId: $userId,
-      status: "passed"
-    ) {
-      answer_id
-      status_id
-      test {
-        test_id
-        title
-        description  
-      }
-	  }
-  }
-`;
+import PassedTests from './queries/fetchPassedTests';
 
 const TestsListWithData = graphql(PassedTests, {
   options: {

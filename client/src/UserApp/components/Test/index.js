@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {
+  Dialog,
+} from 'react-toolbox';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
@@ -43,6 +46,8 @@ class Test extends Component {
       changeFormField,
       formSubmit,
       testStatus,
+      isDialogActive,
+      goToPassed,
     } = this.props;
 
     console.log('Test', this.props);
@@ -65,6 +70,8 @@ class Test extends Component {
       }
     }
 
+    const actions = [{ label: "Ok", onClick: goToPassed }];
+
     return (
       <div>
         <h1>Test: {testTitle}</h1>
@@ -74,6 +81,15 @@ class Test extends Component {
           {form}
           {getTestsControlPanel()}
         </div>
+        <Dialog
+          active={!!isDialogActive}
+          actions={actions}
+          onEscKeyDown={goToPassed}
+          onOverlayClick={goToPassed}
+          title='Success!'
+        >
+          <p>Yours answers were successfully saved!</p>
+        </Dialog>
       </div>
     );
   }

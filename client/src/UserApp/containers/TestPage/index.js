@@ -3,6 +3,7 @@ import analysisFormDeps from './analysisFormDeps';
 import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
 import Test from '../../components/Test';
+import fetchPassedTests from './../TestsList/queries/fetchPassedTests';
 
 const getFieldsDefaultValues = (fields) => {
   const fieldsDefaultValues = {};
@@ -82,6 +83,7 @@ class TestPage extends Component {
     this.formElements = {}; //analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
+    this.goToPassed = this.goToPassed.bind(this);
   }
 
   componentDidMount() {
@@ -141,8 +143,18 @@ class TestPage extends Component {
         userId,
         formAnswers,
         statusId,
-      }
-    }).then(() => this.props.history.push('/user/passed'));
+      },
+      refetchQueries: [{
+        query: fetchPassedTests,
+        variables: {
+          userId: window.localStorage.getItem('rr_userId'),
+        },
+      }]
+    }).then(() => this.setState({isDialogActive: true}));
+  }
+
+  goToPassed() {
+    this.props.history.push('/user/passed');
   }
 
   render() {
@@ -199,6 +211,8 @@ class TestPage extends Component {
           formConfig={updatedFormConfig}
           changeFormField={this.changeFormField}
           formSubmit={this.formSubmit}
+          isDialogActive={this.state.isDialogActive}
+          goToPassed={this.goToPassed}
         />
       </div>
     );
