@@ -8,6 +8,7 @@ const fetchPassedTests = gql`
     ) {
       answer_id
       status_id
+      passage_date
       test {
         test_id
         title
