@@ -50,6 +50,7 @@ class TestsList extends Component {
         const test = Object.assign({}, e.test);
         test.link = e.answer_id;
         test.passage_date = e.passage_date;
+        test.status_id = e.status_id;
         return test;
       });
     }
@@ -57,12 +58,19 @@ class TestsList extends Component {
     const TestItems = tests.map((test) => {
       const legend = data.allTests ? test.title
                     : timeAgoEnglish.format(new Date(test.passage_date));
+      let icon = 'add_box';
+      if (test.status_id === '1') {
+        icon = 'undo';
+      } else if (test.status_id === '2') {
+        icon = 'assessment';
+      }
+
       return (
         <ListItem
           key={test.link}
-          avatar=""
           caption={test.title}
           legend={legend}
+          leftIcon={icon}
           onClick={() => this.goToTestPage(test.link)}
         />
       );
