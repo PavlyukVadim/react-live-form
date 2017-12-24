@@ -7,6 +7,7 @@ const TestsListWithData = graphql(PassedTests, {
     variables: {
       userId: window.localStorage.getItem('rr_userId'),
     },
+    fetchPolicy: 'network-only'
   }
 })(TestsList);
 

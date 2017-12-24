@@ -3,8 +3,8 @@ import gql from 'graphql-tag';
 import TestPage from './../TestPage';
 
 const TestById = gql`
-  query TestById {
-    testById(id:"1") {
+  query TestById($id: String) {
+    testById(id: $id) {
       test_id
       title
       description
@@ -33,7 +33,13 @@ const AddAnswerByUser = gql`
   }
 `;
 
-const withTestById = graphql(TestById);
+const withTestById = graphql(TestById, {
+  options: ({testId}) => ({
+    variables: {
+      id: testId,
+    },
+  })
+});
 const withAddAnswers = graphql(AddAnswerByUser);
 
 const TestPageWithData = compose(

@@ -19,6 +19,8 @@ const getAnswersByStatusAndUserId = (userId, status) => {
     USING (test_id)
     WHERE user_id = $1
     AND statuses.type = $2
+    ORDER BY passage_date
+    DESC
   `, [userId, status]);
 };
 

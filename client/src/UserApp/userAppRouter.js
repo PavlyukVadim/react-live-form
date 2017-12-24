@@ -33,6 +33,7 @@ const UserAppRouter = ({
           <NewTest
             status="new"
             history={props.history}
+            testId={props.match.params.id}
           />
         )
       }
