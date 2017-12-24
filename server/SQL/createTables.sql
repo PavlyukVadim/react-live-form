@@ -10,7 +10,7 @@ CREATE TABLE users (
   name character(20),
   password text,
   role_id integer references roles("role_id"),
-  reg_date date not null default now()
+  reg_date timestamp not null default now()
 );
 
 CREATE TABLE tests (
@@ -19,7 +19,7 @@ CREATE TABLE tests (
   title character(50),
   description character(150),
   form_config jsonb,
-  creation_date date not null default now()
+  creation_date timestamp not null default now()
 );
 
 CREATE TABLE statuses (
@@ -33,7 +33,7 @@ CREATE TABLE answers (
   user_id int references users("user_id"),
   form_answers jsonb,
   status_id int references statuses("status_id"),
-  passage_date date not null default now()
+  passage_date timestamp not null default now()
 );
 
 CREATE TABLE comments (
@@ -41,7 +41,7 @@ CREATE TABLE comments (
   answer_id int references answers("answer_id"),
   user_id int references users("user_id"),
   content character(150),
-  creation_date date not null default now()
+  creation_date timestamp not null default now()
 );
 
 ----------------------------------------------------
