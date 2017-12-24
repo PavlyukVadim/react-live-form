@@ -159,16 +159,22 @@ class TestPage extends Component {
 
     console.log('TetsPage', this.props);
 
-    let formConfig, answers, comment;
+    let formConfig, answers, comment, title, description;
     if (status === 'new') {
       formConfig = [].concat(data.testById.formConfig);
+      title = data.testById.title;
+      description = data.testById.description;
     } else if (status === 'passed') {
       formConfig = [].concat(data.answerById.test.formConfig);
       answers = Object.assign({}, data.answerById.form_answers);
+      title = data.answerById.test.title;
+      description = data.answerById.test.description;
     } else if (status === 'assessed') {
       formConfig = [].concat(data.answerById.test.formConfig);
       answers = Object.assign({}, data.answerById.form_answers);
       comment = data.answerById.comment.content;
+      title = data.answerById.test.title;
+      description = data.answerById.test.description;
     }
     
     const formState = getFormState(
@@ -186,6 +192,8 @@ class TestPage extends Component {
     return (
       <div>
         <Test
+          testTitle={title}
+          testDesc={description}
           testStatus={status}
           formState={formState}
           formConfig={updatedFormConfig}

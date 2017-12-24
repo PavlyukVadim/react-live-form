@@ -11,6 +11,7 @@ const AnswerById = gql`
       test {
         test_id
         title
+        description
         formConfig
       }
       comment {

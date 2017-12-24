@@ -3,23 +3,14 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
-const test = {
-  id: 1,
-  name: 'testName#1',
-  description: 'description of test 1'
-};
-
 const getForm = (
   formState,
   fields = [],
   changeFormField
 ) => {
   return fields.map((field) => {
-    console.log('formState', formState);
-    console.log('field', field);
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
-    console.log(field, fieldName, formState[fieldName]);
     
     return (
       <ReactCSSTransitionGroup
@@ -42,10 +33,11 @@ const getForm = (
   });
 };
 
-
 class Test extends Component {
   render() {
     const {
+      testTitle,
+      testDesc,
       formState,
       formConfig,
       changeFormField,
@@ -75,7 +67,8 @@ class Test extends Component {
 
     return (
       <div>
-        <h1>Test: {test.name}</h1>
+        <h1>Test: {testTitle}</h1>
+        <h3>{testDesc}</h3>
         Form:
         <div className="formWrapper">
           {form}
