@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
+  Button,
   Dialog,
 } from 'react-toolbox';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
@@ -50,8 +51,6 @@ class Test extends Component {
       goToPassed,
     } = this.props;
 
-    console.log('Test', this.props);
-
     const form = getForm(
       formState,
       formConfig,
@@ -61,10 +60,13 @@ class Test extends Component {
     const getTestsControlPanel = () => {
       if (testStatus === 'new') {
         return (
-          <input
+          <Button
             className="form-submit"
-            type="submit"
             onClick={formSubmit}
+            icon='send'
+            label='Send'
+            raised
+            primary
           />
         );
       }
