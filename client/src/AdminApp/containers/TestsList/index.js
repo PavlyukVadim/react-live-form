@@ -20,7 +20,7 @@ class TestsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      sortValue: 'all',  
+      sortValue: window.localStorage.getItem('rr_filterBy') || 'all',
     };
     this.goToTestPage = this.goToTestPage.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -28,6 +28,7 @@ class TestsList extends Component {
 
   handleChange(sortValue) {
     this.setState({sortValue});
+    window.localStorage.setItem('rr_filterBy', sortValue)
   }
 
   goToTestPage(id) {
