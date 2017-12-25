@@ -3,6 +3,7 @@ const GraphQLJSON = require('graphql-type-json');
 
 const Tests = require('./../Tests');
 const Comments = require('./../Comments');
+const Users = require('./../Users');
 
 const {
   GraphQLObjectType,
@@ -22,6 +23,11 @@ const {
   CommentByAnswerResolver,
 } = Comments;
 
+const {
+  UserType,
+  UserByAnswerResolver,
+} = Users;
+
 const AnswerType = new GraphQLObjectType({
   name: 'Answer',
   fields: {
@@ -29,6 +35,10 @@ const AnswerType = new GraphQLObjectType({
     status_id: { type: GraphQLString },
     form_answers: { type: GraphQLJSON },
     passage_date: { type: GraphQLJSON },
+    user: {
+      type: UserType,
+      resolve: UserByAnswerResolver,
+    },
     test: {
       type: TestType,
       resolve: TestResolver,
