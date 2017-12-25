@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import Welcome from './components/Welcome';
+import Dashboard from './containers/Dashboard';
 import TestConstructor from './containers/TestConstructor';
 import PassedTest from './containers/PassedTest';
 import PassedTestsList from './containers/TestsList/passedTests';
@@ -13,9 +13,9 @@ const AdminAppRouter = ({
       path='/admin'
       exact
       render={
-        () => (
-          <Welcome
-            history={history}
+        (props) => (
+          <Dashboard
+            history={props.history}
           />
         )
       }

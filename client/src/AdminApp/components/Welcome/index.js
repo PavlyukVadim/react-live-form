@@ -7,11 +7,12 @@ import './Welcome.scss';
 
 const TooltipButton = Tooltip(Button);
 
-const Welcome = () => {
+const Welcome = ({goToCreateTest}) => {
   return (
     <div className="row">
       <TooltipButton
         className="addTest-btn"
+        onClick={goToCreateTest}
         icon='add'
         floating
         primary
