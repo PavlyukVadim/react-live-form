@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {
+  Button,
+  Dialog,
+} from 'react-toolbox';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import SelectOfFields from './../SelectOfFields';
 import './TestEditor.scss';
@@ -34,8 +38,11 @@ const TestEditor = ({
   changeCurrFormTestField,
   changeFormTestField,
   saveTest,
+  isDialogActive,
+  goToPassed,
 }) => {
   const namesOfFields = formTestConfig.map((field) => field.name);
+  const actions = [{ label: "Ok", onClick: goToPassed }];
   return (
     <div className="testEditor-wrapper">
       <input
@@ -60,12 +67,23 @@ const TestEditor = ({
           changeFormTestField
         )
       }
-      <input
+      <Button
         className="saveTest"
-        type="button"
-        value="Save Test"
         onClick={saveTest}
+        icon='send'
+        label='Save Test'
+        raised
+        primary
       />
+      <Dialog
+        active={!!isDialogActive}
+        actions={actions}
+        onEscKeyDown={goToPassed}
+        onOverlayClick={goToPassed}
+        title='Success!'
+      >
+        <p>Your test was successfully saved!</p>
+      </Dialog>
     </div>
   );
 };

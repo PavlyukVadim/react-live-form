@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import {
+  Input,
+} from 'react-toolbox';
+
 import TestPage from './../../../UserApp/containers/TestPage';
 import TestEditor from '../../components/TestEditor';
 import getFieldsConfigByFieldType from './../../../FormBuilder/getFieldsConfigByFieldType';
@@ -14,6 +18,7 @@ class TestConstructor extends Component {
       formConstructorConfig,
       testTitle: '',
       testDesc: '',
+      isDialogActive: false,
     };
     this.addFormTestField = this.addFormTestField.bind(this);
     this.changeCurrFormTestField = this.changeCurrFormTestField.bind(this);
@@ -21,6 +26,7 @@ class TestConstructor extends Component {
     this.saveTest = this.saveTest.bind(this);
     this.changeTestTitle = this.changeTestTitle.bind(this);
     this.changeTestDesc = this.changeTestDesc.bind(this);
+    this.goToPassed = this.goToPassed.bind(this);
   }
 
   addFormTestField() {
@@ -102,12 +108,10 @@ class TestConstructor extends Component {
   };
 
   saveTest() {
-    const userId = '6';
+    const userId = window.localStorage.getItem('rr_userId');
     const title = this.state.testTitle;
     const description = this.state.testDesc;
     const formConfig = JSON.stringify(this.state.formTestConfig);
-
-    console.log(userId, title, description, formConfig);
 
     this.props.mutate({
       variables: {
@@ -116,30 +120,31 @@ class TestConstructor extends Component {
         description,
         formConfig,
       }
-    }).then(() => this.props.history.push('/admin'));
+    }).then(() => this.setState({isDialogActive: true}));
   }
 
-  changeTestTitle(e) {
-    const value = e.target.value;
+  goToPassed() {
+    this.props.history.push('/admin');
+  }
+
+  changeTestTitle(value) {
     this.setState({
       testTitle: value,
     });
   }
 
-  changeTestDesc(e) {
-    const value = e.target.value;
+  changeTestDesc(value) {
     this.setState({
       testDesc: value,
     });
   }
 
   render() {
-
-    console.log(this.props)
     const {
       formTestConfig,
       currFormTestField,
       formConstructorConfig,
+      isDialogActive,
     } = this.state;
     
     const data = {
@@ -150,25 +155,24 @@ class TestConstructor extends Component {
     
     return (
       <div className="row">
-        
         <div className="col-sm-6 new-title">
-          <p>Test title:</p>
-          <input
-            type="text"
+          <Input
+            type='text'
+            label='Test title'
             value={this.state.testTitle}
             onChange={this.changeTestTitle}
+            maxLength={25}
           />
         </div>
         <div className="col-sm-6 new-description">
-          <p>Test description:</p>
-          <input
-            type="text"
+           <Input
+            type='text'
+            label='Test description'
             value={this.state.testDesc}
             onChange={this.changeTestDesc}
+            maxLength={50}
           />
         </div>
-
-
         <div className="col-sm-6">
           <TestEditor
             formTestConfig={formTestConfig}
@@ -178,6 +182,8 @@ class TestConstructor extends Component {
             changeCurrFormTestField={this.changeCurrFormTestField}
             changeFormTestField={this.changeFormTestField}
             saveTest={this.saveTest}
+            isDialogActive={isDialogActive}
+            goToPassed={this.goToPassed}
           />
         </div>
         <div className="col-sm-6">
