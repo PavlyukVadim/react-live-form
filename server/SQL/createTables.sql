@@ -213,4 +213,33 @@ FROM (
 WHERE rank < 2;
 
 
---
+-- Add pivot table for output number of users registration by each year
+
+CREATE EXTENSION IF NOT EXISTS tablefunc;
+
+SELECT * FROM crosstab(
+  $$
+    SELECT
+      date_part('year', reg_date) AS year,
+      date_part('month', reg_date) AS month,
+      COUNT(*)
+    FROM users
+    GROUP BY year, month
+    ORDER BY 1
+  $$,
+  $$ SELECT m FROM generate_series(1, 12) m $$
+) AS (
+  year int,
+  "Jan" int,
+  "Feb" int,
+  "Mar" int,
+  "Apr" int,
+  "May" int,
+  "Jun" int,
+  "Jul" int,
+  "Aug" int,
+  "Sep" int,
+  "Oct" int,
+  "Nov" int,
+  "Dec" int
+);
