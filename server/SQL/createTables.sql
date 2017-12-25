@@ -7,7 +7,7 @@ CREATE TABLE roles (
 
 CREATE TABLE users (
   user_id serial PRIMARY KEY,
-  name character(20),
+  name character(40),
   password text,
   role_id integer references roles("role_id"),
   reg_date timestamp not null default now()
