@@ -111,3 +111,26 @@ VALUES
 INSERT INTO comments (answer_id, user_id, content)
 VALUES
   (2, 6, 'Ok!');
+
+
+-- add triger for auto changing status of answer by inserting comment
+CREATE OR REPLACE FUNCTION auto_status()
+  RETURNS trigger AS $auto_status$
+  BEGIN
+    UPDATE answers
+    SET
+      status_id = '2'
+    WHERE answer_id = NEW.answer_id;
+    RETURN NULL;
+  END;
+$auto_status$ LANGUAGE plpgsql;
+
+CREATE TRIGGER auto_status
+AFTER INSERT OR UPDATE ON comments
+FOR EACH ROW EXECUTE PROCEDURE auto_status();
+
+-- example
+INSERT INTO
+  comments (answer_id, user_id, content)
+  VALUES (3, 6, 'example');
+

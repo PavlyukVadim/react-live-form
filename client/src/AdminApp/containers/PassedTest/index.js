@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
+import {
+  Button,
+  Dialog,
+} from 'react-toolbox';
 import analysisFormDeps from './../../../UserApp/containers/TestPage/analysisFormDeps';
 import callUpdateOnSubscribers from './../../../UserApp/containers/TestPage/callUpdateOnSubscribers';
 import changeFormField from './../../../UserApp/containers/TestPage/changeFormField';
@@ -82,6 +86,8 @@ class TestPage extends Component {
     this.formElements = {}; //analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
+    this.changeComment = this.changeComment.bind(this);
+    this.goToPassed = this.goToPassed.bind(this);
   }
 
   componentDidMount() {
@@ -134,6 +140,31 @@ class TestPage extends Component {
     }).then(() => this.props.history.push('/user/passed'));
   }
 
+  changeComment() {
+    const answerId = this.props.data.answerById.answer_id;
+    const userId = window.localStorage.getItem('rr_userId');
+    const content = 'aaa';
+    
+    this.props.mutate({
+      variables: {
+        answerId,
+        userId,
+        content
+      },
+      // refetchQueries: [{
+      //   query: fetchPassedTests,
+      //   variables: {
+      //     userId: window.localStorage.getItem('rr_userId'),
+      //   },
+      // }]
+    }).then(() => this.setState({isDialogActive: true}));
+  }
+
+  goToPassed() {
+    alert('goToPassed');
+    this.props.history.push('/admin/passed');
+  }
+
   render() {
     console.log('Test Page', this.props);
 
@@ -173,6 +204,9 @@ class TestPage extends Component {
       status
     );
 
+    const actions = [{ label: "Ok", onClick: this.goToPassed }];
+    const isDialogActive = this.state.isDialogActive;
+
     return (
       <div>
         <Test
@@ -187,11 +221,24 @@ class TestPage extends Component {
             <label className="form-label col-xxxs-6">Admin comment:</label>
             <textarea className="form-textarea col-xxxs-6">{comment}</textarea>
           </div>
+          <Button
+            className="form-submit"
+            onClick={this.changeComment}
+            icon='send'
+            label='Change comment'
+            raised
+            primary
+          />
+          <Dialog
+            active={!!isDialogActive}
+            actions={actions}
+            onEscKeyDown={this.goToPassed}
+            onOverlayClick={this.goToPassed}
+            title='Success!'
+          >
+            <p>Your comment was successfully saved!</p>
+          </Dialog>
         </div>
-        <input
-          type="button"
-          value="Change comment"
-        />
       </div>
     );
   }
