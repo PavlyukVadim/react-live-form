@@ -38,6 +38,7 @@ const withTestById = graphql(TestById, {
     variables: {
       id: testId,
     },
+    fetchPolicy: 'network-only',
   })
 });
 const withAddAnswers = graphql(AddAnswerByUser);

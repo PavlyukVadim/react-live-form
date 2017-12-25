@@ -9,7 +9,9 @@ const getCommentByAnswerId = (id) => {
     FROM comments
     JOIN answers
     USING (answer_id)
-    WHERE answer_id = $1`, id);
+    WHERE answer_id = $1
+    ORDER BY comment_id
+    DESC`, id);
 };
 
 const CommentByAnswerResolver = async(parentValue, args) => {

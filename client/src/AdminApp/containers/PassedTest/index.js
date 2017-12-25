@@ -143,8 +143,8 @@ class TestPage extends Component {
   changeComment() {
     const answerId = this.props.data.answerById.answer_id;
     const userId = window.localStorage.getItem('rr_userId');
-    const content = 'aaa';
-    
+    const content = this.commentInput.value;
+
     this.props.mutate({
       variables: {
         answerId,
@@ -161,7 +161,6 @@ class TestPage extends Component {
   }
 
   goToPassed() {
-    alert('goToPassed');
     this.props.history.push('/admin/passed');
   }
 
@@ -190,6 +189,9 @@ class TestPage extends Component {
       formConfig = [].concat(data.answerById.test.formConfig);
       answers = Object.assign({}, data.answerById.form_answers);
       comment = data.answerById.comment.content;
+      if (comment) {
+        comment = comment.trim();
+      }
     }
     
     const formState = getFormState(
@@ -219,7 +221,12 @@ class TestPage extends Component {
         <div className="admin-Comment">
           <div className="form-group row">
             <label className="form-label col-xxxs-6">Admin comment:</label>
-            <textarea className="form-textarea col-xxxs-6">{comment}</textarea>
+            <textarea
+              className="form-textarea col-xxxs-6"
+              ref={(input) => { this.commentInput = input; }}
+            >
+              {comment}
+            </textarea>
           </div>
           <Button
             className="form-submit"
@@ -279,10 +286,12 @@ const AddComment = gql`
   }
 `;
 
-const testPageWithAnswer = graphql(
-  AnswerById, {
-    options: ({ answerId }) => ({ variables: { answerId } }),
-  });
+const testPageWithAnswer = graphql(AnswerById, {
+  options: ({ answerId }) => ({
+    variables: { answerId },
+    fetchPolicy: 'network-only',
+  }),
+});
 
 const testPageWithMutation = graphql(AddComment);
 

@@ -34,8 +34,10 @@ const PassedTests = gql`
   }
 `;
 
-const TestsListWithData = graphql(
-  PassedTests
-)(TestsList);
+const TestsListWithData = graphql(PassedTests, {
+  options: {
+    fetchPolicy: 'network-only',
+  }
+})(TestsList);
 
 export default TestsListWithData;

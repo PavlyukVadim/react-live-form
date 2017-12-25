@@ -20,7 +20,10 @@ const AnswerById = gql`
 
 const TestPageWithData = graphql(
   AnswerById, {
-    options: ({ answerId }) => ({ variables: { answerId } }),
+    options: ({ answerId }) => ({
+      variables: { answerId },
+      fetchPolicy: 'network-only',
+    }),
   }
 )(TestPage);
 
