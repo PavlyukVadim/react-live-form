@@ -7,6 +7,7 @@ class Dashboard extends Component {
     super(props);
     this.state = {
       statsData: {},
+      lastPassage: [],
     };
     this.goToCreateTest = this.goToCreateTest.bind(this);
   }
@@ -35,6 +36,12 @@ class Dashboard extends Component {
         }
         this.setState({statsData: newData});
       });
+
+    fetch('http:/\/localhost:4000/lastPassege')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({lastPassage: data});
+      });
   }
 
   goToCreateTest() {
@@ -46,6 +53,7 @@ class Dashboard extends Component {
       <div>
         <Welcome
           statsData={this.state.statsData}
+          lastPassage={this.state.lastPassage}
           goToCreateTest={this.goToCreateTest}
         />
       </div>

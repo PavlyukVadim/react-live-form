@@ -198,16 +198,20 @@ ORDER BY "user_id";
 -- get time of last passage by each test
 SELECT
   title,
-  passage_date
+  passage_date,
+  name
 FROM (
   SELECT
     "test_id",
     "title",
     "passage_date",
+    "name",
     rank() OVER (PARTITION BY "test_id" ORDER BY "passage_date" DESC) AS rank
   FROM answers
   JOIN tests
   USING("test_id")
+  JOIN users
+  USING("user_id")
   ORDER BY "test_id"
 ) top_by_date
 WHERE rank < 2;

@@ -12,14 +12,39 @@ import {
   Tooltip as T,
   Legend
 } from 'recharts';
+import {
+  List,
+  ListItem,
+  ListSubHeader,
+  ListCheckbox
+} from 'react-toolbox/lib/list';
+import javascriptTimeAgo from 'javascript-time-ago';
+import en from 'javascript-time-ago/locales/en'
+import 'javascript-time-ago/intl-messageformat-global'
+import 'intl-messageformat/dist/locale-data/en';
+javascriptTimeAgo.locale(en)
+const timeAgoEnglish = new javascriptTimeAgo('en-US');
+
 import './Welcome.scss';
 
 const TooltipButton = Tooltip(Button);
 
 const Welcome = ({
+  lastPassage,
   statsData,
   goToCreateTest
 }) => {
+
+  const list = lastPassage.map((test) => {
+    return (
+     <ListItem
+        key={test.title}
+        caption={test.title}
+        legend={`${timeAgoEnglish.format(new Date(test.passage_date))} by ${test.name}`}
+      />
+    );
+  });
+
   return (
     <div className="row">
       <div className="row">
@@ -46,6 +71,12 @@ const Welcome = ({
         primary
         tooltip='Create new test'
       />
+      <div className="row" style={{margin: '50px'}}>
+        <h4>Time of last passages of lets: </h4>
+        <List selectable ripple>
+          {list}
+        </List>
+      </div>
     </div>
   );
 };
