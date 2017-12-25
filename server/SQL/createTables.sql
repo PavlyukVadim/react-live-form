@@ -134,3 +134,34 @@ INSERT INTO
   comments (answer_id, user_id, content)
   VALUES (3, 6, 'example');
 
+
+-- get number of answers by each user 
+SELECT DISTINCT 
+  name,
+  user_id,
+  count(*) OVER (PARTITION BY "user_id") as "numberOfAnswers"
+from answers
+JOIN users
+USING (user_id)
+ORDER BY "user_id";
+
+
+-- get time of last passage by each test
+SELECT
+  title,
+  passage_date
+FROM (
+  SELECT
+    "test_id",
+    "title",
+    "passage_date",
+    rank() OVER (PARTITION BY "test_id" ORDER BY "passage_date" DESC) AS rank
+  FROM answers
+  JOIN tests
+  USING("test_id")
+  ORDER BY "test_id"
+) top_by_date
+WHERE rank < 2;
+
+
+--
