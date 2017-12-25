@@ -26,19 +26,24 @@ const data = [
 
 const TooltipButton = Tooltip(Button);
 
-const Welcome = ({goToCreateTest}) => {
+const Welcome = ({
+  statsData,
+  goToCreateTest
+}) => {
   return (
     <div className="row">
       <LineChart
-        width={600} height={300} data={data}
-        margin={{top: 5, right: 30, left: 20, bottom: 5}}
+        width={600} height={300} data={statsData}
+        margin={{top: 25, right: 30, left: 20, bottom: 5}}
       >
         <XAxis dataKey="name"/>
         <YAxis/>
         <CartesianGrid strokeDasharray="3 3"/>
         <T/>
         <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{r: 8}}/>
+        <Line type="monotone" dataKey="2017" stroke="#fb3425" activeDot={{r: 8}}/>
+        <Line type="monotone" dataKey="2016" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="2015" stroke="#8884d8" />
       </LineChart>
       <TooltipButton
         className="addTest-btn"
