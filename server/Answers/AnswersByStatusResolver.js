@@ -14,6 +14,8 @@ const getAnswersByStatus = (status) => {
     JOIN statuses
     USING (status_id)
     WHERE statuses.type = $1
+    ORDER BY passage_date
+    DESC
   `, status);
 };
 
