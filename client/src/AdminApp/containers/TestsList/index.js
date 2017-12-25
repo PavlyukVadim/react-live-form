@@ -7,6 +7,7 @@ import {
   RadioGroup,
   RadioButton,
 } from 'react-toolbox';
+import './ControlBar.scss';
 
 import javascriptTimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locales/en'
@@ -18,7 +19,15 @@ const timeAgoEnglish = new javascriptTimeAgo('en-US');
 class TestsList extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      sortValue: 'all',  
+    };
     this.goToTestPage = this.goToTestPage.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(sortValue) {
+    this.setState({sortValue});
   }
 
   goToTestPage(id) {
@@ -28,6 +37,7 @@ class TestsList extends Component {
 
   render() {
     console.log('Test list', this.props)
+    const sortValue = this.state.sortValue;
     const {
       subHeader,
       data,
@@ -56,6 +66,13 @@ class TestsList extends Component {
       tests = [...passedAnswers, ...assessedAnswers];
     }
 
+    if(sortValue !== 'all') {
+      tests = tests.filter((answer) => {
+        return (sortValue === answer.status_id);
+      });
+    }
+    
+
     const TestItems = tests.map((answer) => {
       const userName = answer.user.name;
       const timeAgo = timeAgoEnglish.format(new Date(answer.passage_date));
@@ -79,11 +96,25 @@ class TestsList extends Component {
     });
 
     return (
-      <div>
-        <List selectable ripple>
-          <ListSubHeader caption={subHeader} />
-          {TestItems}
-        </List>
+      <div className="row">
+        <div className="col-md-3 controlBar">
+          <p>Filter by status: </p>
+          <RadioGroup
+            name='comic'
+            value={sortValue}
+            onChange={this.handleChange}
+          >
+            <RadioButton label='All tests' value='all'/>
+            <RadioButton label='Passed tests' value='1'/>
+            <RadioButton label='Assessed tests' value='2'/>
+          </RadioGroup>
+        </div>
+        <div className="col-md-9">
+          <List selectable ripple>
+            <ListSubHeader caption={subHeader} />
+            {TestItems}
+          </List>  
+        </div>
       </div>
     );
   }
