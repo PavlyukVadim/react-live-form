@@ -8,6 +8,13 @@ class Dashboard extends Component {
     this.goToCreateTest = this.goToCreateTest.bind(this);
   }
 
+  componentDidMount() {
+    fetch('http:/\/localhost:4000/stat')
+      .then(function(response) {
+        console.log('response', response);
+      });
+  }
+
   goToCreateTest() {
     this.props.history.push('/admin/test/new');
   }
