@@ -9,6 +9,9 @@ const PassedTests = gql`
       status_id
       form_answers
       passage_date
+      user {
+        name
+      }
       test {
         title
         description
@@ -20,6 +23,9 @@ const PassedTests = gql`
       status_id
       form_answers
       passage_date
+      user {
+        name
+      }
       test {
         title
         description

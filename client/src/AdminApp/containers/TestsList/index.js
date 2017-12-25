@@ -3,8 +3,10 @@ import {
   List,
   ListItem,
   ListSubHeader,
-  ListCheckbox
-} from 'react-toolbox/lib/list';
+  ListCheckbox,
+  RadioGroup,
+  RadioButton,
+} from 'react-toolbox';
 
 import javascriptTimeAgo from 'javascript-time-ago';
 import en from 'javascript-time-ago/locales/en'
@@ -52,17 +54,26 @@ class TestsList extends Component {
         return answer;
       });
       tests = [...passedAnswers, ...assessedAnswers];
-
     }
 
-    const TestItems = tests.map((test) => {
+    const TestItems = tests.map((answer) => {
+      const userName = answer.user.name;
+      const timeAgo = timeAgoEnglish.format(new Date(answer.passage_date));
+      
+      let icon = 'add_box';
+      if (answer.status_id === '1') {
+        icon = 'undo';
+      } else if (answer.status_id === '2') {
+        icon = 'assessment';
+      }
+
       return (
         <ListItem
-          key={test.link}
-          avatar=""
-          caption={test.test.title}
-          legend={`User passed ${timeAgoEnglish.format(new Date(test.passage_date))}`}
-          onClick={() => this.goToTestPage(test.link)}
+          key={answer.link}
+          leftIcon={icon}
+          caption={answer.test.title}
+          legend={`User '${userName}' passed ${timeAgo}`}
+          onClick={() => this.goToTestPage(answer.link)}
         />
       );
     });
