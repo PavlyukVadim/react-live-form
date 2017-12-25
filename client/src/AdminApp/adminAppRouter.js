@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
-import TestsList from './containers/TestsList';
+import Welcome from './components/Welcome';
 import TestConstructor from './containers/TestConstructor';
 import PassedTest from './containers/PassedTest';
 import PassedTestsList from './containers/TestsList/passedTests';
 
 const AdminAppRouter = ({
   history,
-  match,
 }) => (
   <div>
     <Route
@@ -15,9 +14,8 @@ const AdminAppRouter = ({
       exact
       render={
         () => (
-          <TestsList 
+          <Welcome
             history={history}
-            path={match.path}
           />
         )
       }
