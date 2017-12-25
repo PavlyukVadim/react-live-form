@@ -113,6 +113,55 @@ VALUES
   (2, 6, 'Ok!');
 
 
+-- function for generation random data 
+CREATE OR REPLACE FUNCTION get_random_data(arr text[])
+  RETURNS text AS
+$$
+BEGIN
+  RETURN arr[floor(random() * array_length(arr, 1)) + 1];
+END
+$$ LANGUAGE plpgsql;
+
+
+-- function for generation user
+CREATE OR REPLACE FUNCTION generate_data_for_users()
+  RETURNS void AS
+$$
+DECLARE
+  second_name text := get_random_data(ARRAY['Smith', 'Johnson', 'Williams', 'Jones', 'Brown', 'Davis', 'Miller', 'Wilson', 'Moore', 'Taylor']);
+  first_name text := get_random_data(ARRAY['Anthony', 'Daniel', 'Angel', 'Alexander', 'Jacob', 'Michael', 'Ethan', 'Jose', 'Jesus', 'Joshua']);
+  name text := first_name || ' ' || second_name;
+  reg_date date := NOW() - (random() * (NOW() + '3000 days' - NOW()));
+BEGIN
+  INSERT INTO users ("name", "password", "role_id", "reg_date")
+  VALUES (name, md5(random()::text), 1, reg_date);
+END
+$$ LANGUAGE plpgsql;
+
+-- example of using
+-- SELECT * FROM generate_data_for_users();
+
+
+-- function for filling users table
+
+CREATE OR REPLACE FUNCTION fill_users_table(n int)
+  RETURNS bigint AS
+$$
+DECLARE
+  number_of_users bigint;
+BEGIN
+  FOR i IN 1 .. n
+  LOOP
+    PERFORM generate_data_for_users();
+  END LOOP;
+  SELECT count(*) INTO number_of_users FROM users;
+  RETURN number_of_users;
+END;
+$$ LANGUAGE plpgsql;
+
+-- SELECT * FROM fill_users_table(20);
+
+
 -- add triger for auto changing status of answer by inserting comment
 CREATE OR REPLACE FUNCTION auto_status()
   RETURNS trigger AS $auto_status$
