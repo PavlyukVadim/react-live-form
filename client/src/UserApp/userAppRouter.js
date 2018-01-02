@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import AvailableTests from './containers/TestsLists/AvailableTests';
-import PassedTestsList from './containers/TestsList/passedTests';
-import AssessedTestsList from './containers/TestsList/assessedTests';
+import {
+  AvailableTestsList,
+  PassedTestsList,
+  AssessedTestsList,
+} from './containers/TestsLists';
 
 import NewTest from './containers/NewTest';
 import PassedTest from './containers/PassedTest';
@@ -16,7 +18,7 @@ const UserAppRouter = () => (
       exact
       render={
         (props) => (
-          <AvailableTests
+          <AvailableTestsList
             history={props.history}
             subHeader="Tests that you can pass"
           />
