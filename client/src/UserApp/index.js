@@ -81,10 +81,7 @@ class UserApp extends Component {
           <div className="container">
             <h1>Main Content</h1>
             <p>Main content goes here.</p>
-            <UserAppRouter
-              history={history}
-              match={match}
-            />
+            <UserAppRouter />
           </div>
         </Panel>
       </Layout>

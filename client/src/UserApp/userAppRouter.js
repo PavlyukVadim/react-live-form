@@ -9,18 +9,15 @@ import NewTest from './containers/NewTest';
 import PassedTest from './containers/PassedTest';
 import AssessedTest from './containers/AssessedTest';
 
-const UserAppRouter = ({
-  history,
-  match,
-}) => (
+const UserAppRouter = () => (
   <div>
     <Route
       path='/user'
       exact
       render={
-        () => (
+        (props) => (
           <AllTestsList
-            history={history}
+            history={props.history}
             subHeader="Tests that you can pass"
           />
         )
@@ -42,9 +39,9 @@ const UserAppRouter = ({
       path='/user/passed'
       exact
       render={
-        () => (
+        (props) => (
           <PassedTestsList
-            history={history}
+            history={props.history}
             subHeader="Tests that you passed"
           />
         )
@@ -65,9 +62,9 @@ const UserAppRouter = ({
       path='/user/assessed'
       exact
       render={
-        () => (
+        (props) => (
           <AssessedTestsList
-            history={history}
+            history={props.history}
             subHeader="Tests that have assessment"
           />
         )

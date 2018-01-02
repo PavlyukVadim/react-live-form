@@ -11,7 +11,7 @@ const Input = ({
       className="form-input col-xxxs-6"
       type="text"
       name={fieldConfig.name}
-      maxLength={16}
+      maxLength={50}
       label={fieldConfig.title}
       value={fieldState.value}
       onChange={(e) => changeFormField(fieldConfig.name, 'value', e.target.value)}
