@@ -3,7 +3,7 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import {
   Input,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 
 import TestPage from './../../../UserApp/containers/TestPage';
 import TestEditor from '../../components/TestEditor';
@@ -57,12 +57,12 @@ class TestConstructor extends Component {
       let newCurrFormTestField = {};
       for(const key in formTestConfig) {
         if (formTestConfig[key].name === nameOfNewCurrFormTestField) {
-          newCurrFormTestField = formTestConfig[key];          
+          newCurrFormTestField = formTestConfig[key];
         }
       }
-      
+
       return {
-        currFormTestField: newCurrFormTestField,  
+        currFormTestField: newCurrFormTestField,
       };
     }, () => {
       this.changeFormConstructorConfig();
@@ -87,11 +87,11 @@ class TestConstructor extends Component {
         formTestConfig,
         currFormTestField
       } = prevState;
-      
+
       const newCurrFormTestField = Object.assign({}, currFormTestField);
       newCurrFormTestField[fieldName] = propValue;
       const newFormTestConfig = [].concat(formTestConfig);
-      
+
       for(const key in newFormTestConfig) {
         if (newFormTestConfig[key] === currFormTestField) {
           newFormTestConfig[key] = newCurrFormTestField;
@@ -146,13 +146,13 @@ class TestConstructor extends Component {
       formConstructorConfig,
       isDialogActive,
     } = this.state;
-    
+
     const data = {
       testById: {
-        formConfig: formTestConfig, 
+        formConfig: formTestConfig,
       },
     };
-    
+
     return (
       <div className="row">
         <div className="col-sm-6 new-title">

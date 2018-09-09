@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Button,
   Tooltip,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import {
   LineChart,
   Line,

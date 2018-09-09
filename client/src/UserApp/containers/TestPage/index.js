@@ -3,7 +3,7 @@ import analysisFormDeps from './analysisFormDeps';
 import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
 import Test from '../../components/Test';
-import fetchPassedTests from './../TestsList/queries/fetchPassedTests';
+import fetchPassedTests from './../TestsLists/queries/fetchPassedTests';
 
 const getFieldsDefaultValues = (fields) => {
   const fieldsDefaultValues = {};
@@ -64,7 +64,7 @@ const getFormConfig = (props) => {
     if (!props.data && !props.data.testById) {
       return;
     }
-    formConfig = props.data.testById.formConfig;  
+    formConfig = props.data.testById.formConfig;
   } else if (props.status === 'passed') {
     if (!props.data && !props.data.answerById) {
       return;
@@ -97,7 +97,7 @@ class TestPage extends Component {
       if (!newProps.data && !newProps.data.testById) {
         return;
       }
-      formConfig = newProps.data.testById.formConfig;  
+      formConfig = newProps.data.testById.formConfig;
     } else if (this.props.status === 'passed') {
       if (!newProps.data && !newProps.data.answerById) {
         return;
@@ -109,7 +109,7 @@ class TestPage extends Component {
       }
       formConfig = newProps.data.answerById.test.formConfig;
     }
-    
+
     this.formElements = analysisFormDeps(this, formConfig);
     this.setState(() => {
       return getFieldsDefaultValues(formConfig);
@@ -136,7 +136,7 @@ class TestPage extends Component {
     const userId = window.localStorage.getItem('rr_userId');
     const formAnswers = JSON.stringify(values);
     const statusId = '1';
-    
+
     this.props.mutate({
       variables: {
         testId,
@@ -188,7 +188,7 @@ class TestPage extends Component {
       title = data.answerById.test.title;
       description = data.answerById.test.description;
     }
-    
+
     const formState = getFormState(
       status,
       this.state,

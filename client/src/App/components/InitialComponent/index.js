@@ -5,7 +5,7 @@ import {
   Layout,
   Panel,
   Navigation,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import './welcome.scss';
 
 const InitialComponent = () => (
@@ -19,7 +19,7 @@ const InitialComponent = () => (
       </AppBar>
       <div className="container">
         <h1>Hi! Welcome to Testing System</h1>
-        <p>Main content for admin goes here.</p>      
+        <p>Main content for admin goes here.</p>
       </div>
     </Panel>
   </Layout>

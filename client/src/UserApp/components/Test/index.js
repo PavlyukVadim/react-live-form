@@ -3,7 +3,7 @@ import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import {
   Button,
   Dialog,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 

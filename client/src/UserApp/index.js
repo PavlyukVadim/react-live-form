@@ -11,7 +11,7 @@ import {
   Navigation,
   List,
   ListItem,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import UserAppRouter from './userAppRouter';
 
 class UserApp extends Component {

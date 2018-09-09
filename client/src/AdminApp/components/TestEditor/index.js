@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   Button,
   Dialog,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import SelectOfFields from './../SelectOfFields';
 import './TestEditor.scss';

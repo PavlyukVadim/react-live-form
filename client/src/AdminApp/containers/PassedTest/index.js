@@ -5,7 +5,7 @@ import gql from 'graphql-tag';
 import {
   Button,
   Dialog,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import analysisFormDeps from './../../../UserApp/containers/TestPage/analysisFormDeps';
 import callUpdateOnSubscribers from './../../../UserApp/containers/TestPage/callUpdateOnSubscribers';
 import changeFormField from './../../../UserApp/containers/TestPage/changeFormField';

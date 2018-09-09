@@ -6,7 +6,7 @@ import {
   ListCheckbox,
   RadioGroup,
   RadioButton,
-} from 'react-toolbox';
+} from 'react-toolbox/lib';
 import './ControlBar.scss';
 
 import javascriptTimeAgo from 'javascript-time-ago';
