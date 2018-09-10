@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Button } from 'react-toolbox/lib';
-import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
+import getFormItemByFieldType from '../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
 const getForm = (
   formState,
   fields = [],
-  changeFormField
+  changeFormField,
 ) => {
-  console.log('fields', fields)
+  console.log('fields', fields);
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
@@ -24,62 +24,57 @@ const getForm = (
       >
         {
           formState[fieldName].display !== false &&
-          <FormItem
-            fieldConfig={field}
-            fieldState={formState[fieldName]}
-            changeFormField={changeFormField}
-          />
+          (
+            <FormItem
+              fieldConfig={field}
+              fieldState={formState[fieldName]}
+              changeFormField={changeFormField}
+            />
+          )
         }
       </ReactCSSTransitionGroup>
     );
   });
 };
 
-class Test extends Component {
-  render() {
-    const {
-      testTitle,
-      testDesc,
-      formState,
-      formConfig,
-      changeFormField,
-      formSubmit,
-      testStatus,
-      isDialogActive,
-      goToPassed,
-    } = this.props;
+const Test = ({
+  formState,
+  formConfig,
+  changeFormField,
+  formSubmit,
+  testStatus,
+}) => {
+  const form = getForm(
+    formState,
+    formConfig,
+    changeFormField,
+  );
 
-    const form = getForm(
-      formState,
-      formConfig,
-      changeFormField
-    );
-
-    const getTestsControlPanel = () => {
-      if (testStatus === 'new') {
-        return (
-          <Button
-            className="form-submit"
-            onClick={formSubmit}
-            icon='send'
-            label='Send'
-            raised
-            primary
-          />
-        );
-      }
+  const getTestsControlPanel = () => {
+    if (testStatus === 'new') {
+      return (
+        <Button
+          className="form-submit"
+          onClick={formSubmit}
+          icon="send"
+          label="Send"
+          raised
+          primary
+        />
+      );
     }
+    return null;
+  };
 
-    return (
-      <div>
-        Form:
-        <div className="formWrapper">
-          {form}
-          {getTestsControlPanel()}
-        </div>
+  return (
+    <div>
+      Form:
+      <div className="formWrapper">
+        {form}
+        {getTestsControlPanel()}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default Test;

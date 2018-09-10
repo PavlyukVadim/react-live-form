@@ -1,10 +1,7 @@
-import React, { Component } from 'react';
 import Input from './FormComponents/Input';
 import Select from './FormComponents/Select';
 import Textarea from './FormComponents/Textarea';
 import Checkbox from './FormComponents/Checkbox';
-import OptionsSetter from './FormComponents/OptionsSetter';
-import StateSetter from './FormComponents/StateSetter';
 import './FormComponents/basicStyles.scss';
 
 const kvArray = [
@@ -12,14 +9,10 @@ const kvArray = [
   ['select', Select],
   ['textarea', Textarea],
   ['checkbox', Checkbox],
-  ['options', OptionsSetter],
-  ['state', StateSetter],
 ];
 
 const formItemsMap = new Map(kvArray);
 
-const getFormItemByFieldType = (fieldType) => {
-  return formItemsMap.get(fieldType);
-};
+const getFormItemByFieldType = (fieldType) => formItemsMap.get(fieldType);
 
 export default getFormItemByFieldType;

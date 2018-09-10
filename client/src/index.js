@@ -6,5 +6,5 @@ import './stylesheets/main.scss';
 
 ReactDOM.render(
   <UserApp />,
-  document.querySelector('#root')
+  document.querySelector('#root'),
 );

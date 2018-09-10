@@ -1,27 +1,23 @@
-import changeFormField from './../changeFormField';
+import changeFormField from '../changeFormField';
 
-const addUpdateFunction = (
+const getFieldUpdateFunction = (
   formElement,
   context,
   parents,
   updateExpr,
   fieldName,
-  propName
+  propName,
 ) => {
   const updateFunction = () => {
     const variablesValues = {};
-    parents.map((parentName) => {
+    parents.forEach((parentName) => {
       variablesValues[parentName] = context.state[parentName].value;
     });
     const newPropValue = updateExpr.evaluate(variablesValues);
     changeFormField(context, fieldName, propName, newPropValue);
   };
 
-  if (formElement.updateFunctions) {
-    formElement.updateFunctions.push(updateFunction);
-  } else {
-    formElement.updateFunctions = [updateFunction];
-  }
+  return updateFunction;
 };
 
-export default addUpdateFunction;
+export default getFieldUpdateFunction;

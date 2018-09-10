@@ -20,8 +20,8 @@ const formConfig = [
     title: 'field3',
     defaultValue: 0,
     state: {
-      value: 'field1 + field2'
-    }
+      value: 'field1 + field2',
+    },
   },
   {
     name: 'field4',
@@ -31,8 +31,8 @@ const formConfig = [
     defaultValue: 0,
     state: {
       value: 'field3 * 2',
-      display: 'field3 > 10'
-    }
+      display: 'field3 > 10',
+    },
   },
   {
     name: 'field5',
@@ -41,8 +41,8 @@ const formConfig = [
     title: 'field5',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
-    }
+      value: 'field3 * 2',
+    },
   },
   {
     name: 'field6',
@@ -51,8 +51,8 @@ const formConfig = [
     title: 'field6',
     defaultValue: 0,
     state: {
-      value: 'field2 * 21'
-    }
+      value: 'field2 * 21',
+    },
   },
   {
     name: 'field7',
@@ -61,8 +61,8 @@ const formConfig = [
     title: 'field7',
     defaultValue: 0,
     state: {
-      value: 'field3 * 3 + field2 * 2'
-    }
+      value: 'field3 * 3 + field2 * 2',
+    },
   },
   {
     name: 'field8',
@@ -71,8 +71,8 @@ const formConfig = [
     title: 'field8',
     defaultValue: 0,
     state: {
-      value: 'field7 - 5'
-    }
+      value: 'field7 - 5',
+    },
   },
   {
     name: 'field9',
@@ -81,29 +81,28 @@ const formConfig = [
     title: 'field9',
     defaultValue: 0,
     state: {
-      value: 'field3 / 2'
-    }
+      value: 'field3 / 2',
+    },
   },
   {
     name: 'field10',
     fieldType: 'select',
-    multiple: true,
     dataType: 'string',
     title: 'field10',
     options: [
       {
         value: 'option1',
-        content: 'option1'
+        content: 'option1',
       },
       {
         value: 'option2',
-        content: 'content for value2'
+        content: 'content for value2',
       },
       {
         value: 'option3',
-        content: 'option3'
+        content: 'option3',
       },
-    ]
+    ],
   },
   {
     name: 'field11',
@@ -112,8 +111,8 @@ const formConfig = [
     title: 'field11',
     defaultValue: 'some value',
     state: {
-      display: "'option1' in field10 or 'option2' in field10"
-    }
+      display: "'option1' in field10 or 'option2' in field10",
+    },
   },
   {
     name: 'field12',
@@ -122,8 +121,8 @@ const formConfig = [
     title: 'field12',
     defaultValue: 0,
     state: {
-      value: 'field13'
-    }
+      value: 'field13',
+    },
   },
   {
     name: 'field13',
@@ -132,8 +131,8 @@ const formConfig = [
     title: 'field13',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
-    }
+      value: 'field3 * 2',
+    },
   },
   {
     name: 'field14',
@@ -142,8 +141,8 @@ const formConfig = [
     title: 'field14',
     defaultValue: 0,
     state: {
-      value: 'field15 + 2'
-    }
+      value: 'field15 + 2',
+    },
   },
   {
     name: 'field15',
@@ -152,8 +151,8 @@ const formConfig = [
     title: 'field15',
     defaultValue: 0,
     state: {
-      value: 'field3 * 2'
-    }
+      value: 'field3 * 2',
+    },
   },
   {
     name: 'field16',
@@ -161,7 +160,7 @@ const formConfig = [
     dataType: 'int',
     title: 'field16',
     defaultValue: 0,
-  }
+  },
 ];
 
 export default formConfig;

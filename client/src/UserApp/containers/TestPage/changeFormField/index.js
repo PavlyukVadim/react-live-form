@@ -1,16 +1,16 @@
-import callUpdateOnSubscribers from './../callUpdateOnSubscribers';
+import callUpdateOnSubscribers from '../callUpdateOnSubscribers';
 
 const changeFormField = (
   context,
   fieldName,
   propName,
-  propValue
+  propValue,
 ) => {
   context.setState((prevState) => {
     const newFieldProps = Object.assign({}, prevState[fieldName]);
     newFieldProps[propName] = propValue;
     return {
-      [fieldName]: newFieldProps
+      [fieldName]: newFieldProps,
     };
   }, () => {
     const fieldSubscribers = context.formElements[fieldName].subscribers;

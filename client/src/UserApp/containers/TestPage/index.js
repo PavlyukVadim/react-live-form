@@ -4,15 +4,15 @@ import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
 import Test from '../../components/Test';
 
-import formConfig from './formConfig'
+import formConfig from './formConfig';
 
 const getFieldsDefaultValues = (fields) => {
   const fieldsDefaultValues = {};
-  for (const field of fields) {
+  fields.forEach((field) => {
     fieldsDefaultValues[field.name] = {
-      value: field.defaultValue || 0
+      value: field.defaultValue || 0,
     };
-  }
+  });
   return fieldsDefaultValues;
 };
 
@@ -26,15 +26,17 @@ const getFormState = (
     return state;
   }
   const newAnswers = {};
-  for (const key in answers) {
+
+  Object.keys(answers).forEach((key) => {
     newAnswers[key] = Object.assign({}, answers[key]);
     newAnswers[key].disabled = true;
-  }
+  });
+
   if (status === 'assessed') {
-    newAnswers['comment'] = {
+    newAnswers.comment = {
       value: comment,
+      disabled: true,
     };
-    newAnswers['comment'].disabled = true;
   }
 
   return newAnswers;
@@ -45,6 +47,7 @@ class TestPage extends Component {
     super(props);
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
+
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
   }
@@ -54,58 +57,44 @@ class TestPage extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    let formConfig;
-    if (this.props.status === 'new') {
+    const { status } = this.props;
+    if (status === 'new') {
       console.log('new---------------');
       if (!newProps.data && !newProps.data.testById) {
         return;
       }
-      formConfig = newProps.data.testById.formConfig;
-    } else if (this.props.status === 'passed') {
-      if (!newProps.data && !newProps.data.answerById) {
-        return;
-      }
-      formConfig = newProps.data.answerById.test.formConfig;
-    } else if (this.props.status === 'assessed') {
-      if (!newProps.data && !newProps.data.answerById) {
-        return;
-      }
-      formConfig = newProps.data.answerById.test.formConfig;
     }
 
     this.formElements = analysisFormDeps(this, formConfig);
-    this.setState(() => {
-      return getFieldsDefaultValues(formConfig);
-    }, () => {
-      this.firstFieldsUpdate();
-    });
+    this.setState(() => getFieldsDefaultValues(formConfig),
+      () => {
+        this.firstFieldsUpdate();
+      });
   }
 
   firstFieldsUpdate() {
-    for (const key in this.formElements) {
-      const formElement = this.formElements[key];
-      const fieldSubscribers = formElement.subscribers;
-      callUpdateOnSubscribers(fieldSubscribers, this.formElements);
-    }
+    console.log('this.formElements', this.formElements);
+    Object.values(this.formElements).forEach((formElement) => {
+      const { subscribers } = formElement;
+      if (subscribers) {
+        callUpdateOnSubscribers(subscribers, this.formElements);
+      }
+    });
   }
 
   changeFormField(fieldName, propName, propValue) {
     changeFormField(this, fieldName, propName, propValue);
   }
 
-  formSubmit() {
-
+  formSubmit(value) {
+    console.log('this', this);
+    console.log('value', value);
   }
 
   render() {
-    const {
-      data,
-      status,
-    } = this.props;
-
-    console.log('TetsPage', this.props);
-
-    let answers, comment, title, description;
+    const { status } = this.props;
+    let answers;
+    let comment;
     // if (status === 'new') {
     //   formConfig = [].concat(data.testById.formConfig);
     //   title = data.testById.title;

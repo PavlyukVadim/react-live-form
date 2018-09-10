@@ -1,11 +1,10 @@
-const addSubscriberNameToField = (field, subscriberName) => {
-  if (field.subscribers) {
-    if(!field.subscribers.includes(subscriberName)) {
-      field.subscribers.push(subscriberName);
-    }
-  } else {
-    field.subscribers = [subscriberName];
+const addFieldSubscriber = (field, subscriberName) => {
+  const { subscribers = [] } = field;
+  const newSubscribers = [...subscribers];
+  if (!subscribers.includes(subscriberName)) {
+    newSubscribers.push(subscriberName);
   }
+  return newSubscribers;
 };
 
-export default addSubscriberNameToField;
+export default addFieldSubscriber;

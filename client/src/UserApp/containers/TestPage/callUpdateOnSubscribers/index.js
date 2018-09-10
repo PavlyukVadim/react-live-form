@@ -1,8 +1,9 @@
 const callUpdateOnSubscribers = (fieldSubscribers, formElements) => {
   if (fieldSubscribers) {
-    for (const subscriberName of fieldSubscribers) {
+    fieldSubscribers.forEach((subscriberName) => {
+      console.log('subscriberName', subscriberName, formElements[subscriberName]);
       formElements[subscriberName].update();
-    }
+    });
   }
 };
 
