@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import {
-  Button,
-  Dialog,
-} from 'react-toolbox/lib';
+import { Button } from 'react-toolbox/lib';
 import getFormItemByFieldType from './../../../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
@@ -73,26 +70,13 @@ class Test extends Component {
       }
     }
 
-    const actions = [{ label: "Ok", onClick: goToPassed }];
-
     return (
       <div>
-        <h1>Test: {testTitle}</h1>
-        <h3>{testDesc}</h3>
         Form:
         <div className="formWrapper">
           {form}
           {getTestsControlPanel()}
         </div>
-        <Dialog
-          active={!!isDialogActive}
-          actions={actions}
-          onEscKeyDown={goToPassed}
-          onOverlayClick={goToPassed}
-          title='Success!'
-        >
-          <p>Yours answers were successfully saved!</p>
-        </Dialog>
       </div>
     );
   }

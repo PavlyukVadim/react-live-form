@@ -40,53 +40,13 @@ const getFormState = (
   return newAnswers;
 };
 
-const updateFormConfig = (formConfig, status) => {
-  const updatedFormConfig = [].concat(formConfig);
-  if (status === 'assessed') {
-    const commentField = {
-      name: 'comment',
-      fieldType: 'textarea',
-      dataType: 'string',
-      title: 'Admin comment:',
-      defaultValue: '',
-    };
-    updatedFormConfig.push(commentField);
-  }
-  return updatedFormConfig;
-};
-
-const getFormConfig = () => {
-  // let formConfig = [];
-  // if (props.data && props.data.loading) {
-  //   return formConfig;
-  // }
-  // if (props.status === 'new') {
-  //   console.log('new---------------');
-  //   if (!props.data && !props.data.testById) {
-  //     return;
-  //   }
-  //   formConfig = props.data.testById.formConfig;
-  // } else if (props.status === 'passed') {
-  //   if (!props.data && !props.data.answerById) {
-  //     return;
-  //   }
-  //   formConfig = props.data.answerById.test.formConfig;
-  // }
-
-
-  return formConfig;
-};
-
 class TestPage extends Component {
   constructor(props) {
     super(props);
-    // console.log('props', props)
-    const formConfig = getFormConfig();
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
-    this.goToPassed = this.goToPassed.bind(this);
   }
 
   componentDidMount() {
@@ -137,10 +97,6 @@ class TestPage extends Component {
 
   }
 
-  goToPassed() {
-    this.props.history.push('/user/passed');
-  }
-
   render() {
     const {
       data,
@@ -174,23 +130,14 @@ class TestPage extends Component {
       comment,
     );
 
-    const updatedFormConfig = updateFormConfig(
-      formConfig,
-      status
-    );
-
     return (
       <div>
         <Test
-          testTitle={title}
-          testDesc={description}
           testStatus={status}
           formState={formState}
-          formConfig={updatedFormConfig}
+          formConfig={formConfig}
           changeFormField={this.changeFormField}
           formSubmit={this.formSubmit}
-          isDialogActive={this.state.isDialogActive}
-          goToPassed={this.goToPassed}
         />
       </div>
     );
