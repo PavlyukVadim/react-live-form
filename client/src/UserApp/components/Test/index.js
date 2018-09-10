@@ -12,10 +12,11 @@ const getForm = (
   fields = [],
   changeFormField
 ) => {
+  console.log('fields', fields)
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;
-    
+
     return (
       <ReactCSSTransitionGroup
         key={fieldName}

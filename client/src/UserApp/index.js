@@ -12,7 +12,7 @@ import {
   List,
   ListItem,
 } from 'react-toolbox/lib';
-import UserAppRouter from './userAppRouter';
+import TestPage from './containers/TestPage';
 
 class UserApp extends Component {
   constructor(props) {
@@ -45,43 +45,11 @@ class UserApp extends Component {
 
     return (
       <Layout>
-        <NavDrawer
-          active={this.state.drawerActive}
-          onOverlayClick={this.toggleDrawerActive}
-          permanentAt='xxxl'
-        >
-          <List selectable ripple>
-            <ListItem
-              caption='New test'
-              onClick={() => this.goToPage('')}
-              leftIcon='add_box'
-            />
-            <ListItem
-              caption='Passed tests'
-              onClick={() => this.goToPage('/passed')}
-              leftIcon='undo'
-            />
-            <ListItem
-              caption='Assessed tests'
-              onClick={() => this.goToPage('/assessed')}
-              leftIcon='assessment'
-            />
-          </List>
-        </NavDrawer>
         <Panel>
-          <AppBar
-            leftIcon="menu"
-            title="User cabinet"
-            onLeftIconClick={this.toggleDrawerActive}
-          >
-            <Navigation type="horizontal">
-              <Link className="identification-link" to="/signin">Log out</Link>
-            </Navigation>
-          </AppBar>
           <div className="container">
             <h1>Main Content</h1>
             <p>Main content goes here.</p>
-            <UserAppRouter />
+            <TestPage status="new" />
           </div>
         </Panel>
       </Layout>
