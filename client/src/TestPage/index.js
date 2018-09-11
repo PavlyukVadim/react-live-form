@@ -37,7 +37,7 @@ const getFormState = (
 };
 
 const propTypes = {
-  status: PropTypes.string.isRequired,
+  status: PropTypes.string,
 };
 
 const defaultProps = {
@@ -95,7 +95,7 @@ class TestPage extends Component {
 
   render() {
     const { status } = this.props;
-    let answers = {};
+    const answers = {};
     // if (status === 'new') {
     //   formConfig = [].concat(data.testById.formConfig);
     //   title = data.testById.title;

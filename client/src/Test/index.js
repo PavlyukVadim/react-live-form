@@ -1,6 +1,4 @@
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import { Button } from 'react-toolbox/lib';
 import getFormItemByFieldType from '../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
@@ -16,13 +14,7 @@ const getForm = (
     const fieldName = field.name;
 
     return (
-      <ReactCSSTransitionGroup
-        key={fieldName}
-        component="div"
-        transitionName="example"
-        transitionEnterTimeout={1000}
-        transitionLeaveTimeout={700}
-      >
+      <div>
         {
           formState[fieldName].display !== false &&
           (
@@ -33,7 +25,7 @@ const getForm = (
             />
           )
         }
-      </ReactCSSTransitionGroup>
+      </div>
     );
   });
 };
@@ -54,14 +46,13 @@ const Test = ({
   const getTestsControlPanel = () => {
     if (testStatus === 'new') {
       return (
-        <Button
+        <button
           className="form-submit"
           onClick={formSubmit}
-          icon="send"
-          label="Send"
-          raised
-          primary
-        />
+          type="submit"
+        >
+          Submit
+        </button>
       );
     }
     return null;
