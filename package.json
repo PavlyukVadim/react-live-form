@@ -41,6 +41,7 @@
     "postcss": "^6.0.14",
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.8",
+    "prop-types": "^15.6.2",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-apollo": "^2.0.0",

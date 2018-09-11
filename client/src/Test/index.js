@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import { Button } from 'react-toolbox/lib';
-import getFormItemByFieldType from '../../../FormBuilder/getFormItemByFieldType';
+import getFormItemByFieldType from '../FormBuilder/getFormItemByFieldType';
 import './Test.scss';
 
 const getForm = (
@@ -10,6 +10,7 @@ const getForm = (
   changeFormField,
 ) => {
   console.log('fields', fields);
+
   return fields.map((field) => {
     const FormItem = getFormItemByFieldType(field.fieldType);
     const fieldName = field.name;

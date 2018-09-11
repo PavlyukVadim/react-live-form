@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import analysisFormDeps from './analysisFormDeps';
 import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
-import Test from '../../components/Test';
+import Test from '../Test';
 
 import formConfig from './formConfig';
 
@@ -20,11 +21,11 @@ const getFormState = (
   status,
   state,
   answers,
-  comment,
 ) => {
   if (status === 'new') {
     return state;
   }
+
   const newAnswers = {};
 
   Object.keys(answers).forEach((key) => {
@@ -32,14 +33,15 @@ const getFormState = (
     newAnswers[key].disabled = true;
   });
 
-  if (status === 'assessed') {
-    newAnswers.comment = {
-      value: comment,
-      disabled: true,
-    };
-  }
-
   return newAnswers;
+};
+
+const propTypes = {
+  status: PropTypes.string.isRequired,
+};
+
+const defaultProps = {
+  status: 'new',
 };
 
 class TestPage extends Component {
@@ -93,8 +95,7 @@ class TestPage extends Component {
 
   render() {
     const { status } = this.props;
-    let answers;
-    let comment;
+    let answers = {};
     // if (status === 'new') {
     //   formConfig = [].concat(data.testById.formConfig);
     //   title = data.testById.title;
@@ -116,7 +117,6 @@ class TestPage extends Component {
       status,
       this.state,
       answers,
-      comment,
     );
 
     return (
@@ -132,5 +132,8 @@ class TestPage extends Component {
     );
   }
 }
+
+TestPage.propTypes = propTypes;
+TestPage.defaultProps = defaultProps;
 
 export default TestPage;
