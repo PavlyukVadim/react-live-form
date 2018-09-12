@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TestPage from './TestPage';
+import Example from './Example';
 import './stylesheets/normalize.css';
 import './stylesheets/main.scss';
 
 ReactDOM.render(
-  <TestPage />,
+  <Example />,
   document.querySelector('#root'),
 );

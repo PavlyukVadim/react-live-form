@@ -3,11 +3,12 @@ import PropTypes from 'prop-types';
 import analysisFormDeps from './analysisFormDeps';
 import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
-import Test from '../Test';
 
-import formConfig from './formConfig';
+import { getFormComponents } from '../helpers';
 
-const getFieldsDefaultValues = (fields) => {
+import formConfig from '../../formConfig0';
+
+const getFieldsDefaultValues = (fields = []) => {
   const fieldsDefaultValues = {};
   fields.forEach((field) => {
     fieldsDefaultValues[field.name] = {
@@ -44,11 +45,12 @@ const defaultProps = {
   status: 'new',
 };
 
-class TestPage extends Component {
+class LiveForm extends Component {
   constructor(props) {
     super(props);
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
+    console.log('this.formElements', this.formElements);
 
     this.changeFormField = this.changeFormField.bind(this);
     this.formSubmit = this.formSubmit.bind(this);
@@ -119,21 +121,26 @@ class TestPage extends Component {
       answers,
     );
 
+    const form = getFormComponents(
+      formState,
+      formConfig,
+      this.changeFormField,
+    );
+
     return (
       <div>
-        <Test
-          testStatus={status}
-          formState={formState}
-          formConfig={formConfig}
-          changeFormField={this.changeFormField}
-          formSubmit={this.formSubmit}
-        />
+        <div>
+          Form:
+          <div className="formWrapper">
+            {form}
+          </div>
+        </div>
       </div>
     );
   }
 }
 
-TestPage.propTypes = propTypes;
-TestPage.defaultProps = defaultProps;
+LiveForm.propTypes = propTypes;
+LiveForm.defaultProps = defaultProps;
 
-export default TestPage;
+export default LiveForm;
