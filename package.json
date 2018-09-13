@@ -21,6 +21,9 @@
   },
   "homepage": "https://github.com/PavlyukVadim/testing-system#readme",
   "dependencies": {
+    "@babel/preset-stage-0": "^7.0.0",
+    "babel-eslint": "^9.0.0",
+    "babel-preset-stage-0": "^6.24.1",
     "cors": "^2.8.4",
     "create-react-class": "^15.6.2",
     "css-loader": "^0.28.7",

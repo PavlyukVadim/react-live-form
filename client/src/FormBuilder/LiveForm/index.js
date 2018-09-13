@@ -53,7 +53,6 @@ class LiveForm extends Component {
     console.log('this.formElements', this.formElements);
 
     this.changeFormField = this.changeFormField.bind(this);
-    this.formSubmit = this.formSubmit.bind(this);
   }
 
   componentDidMount() {
@@ -76,6 +75,11 @@ class LiveForm extends Component {
       });
   }
 
+  formSubmit = (value) => {
+    console.log('this', this);
+    console.log('value', value);
+  }
+
   firstFieldsUpdate() {
     console.log('this.formElements', this.formElements);
     Object.values(this.formElements).forEach((formElement) => {
@@ -88,11 +92,6 @@ class LiveForm extends Component {
 
   changeFormField(fieldName, propName, propValue) {
     changeFormField(this, fieldName, propName, propValue);
-  }
-
-  formSubmit(value) {
-    console.log('this', this);
-    console.log('value', value);
   }
 
   render() {
