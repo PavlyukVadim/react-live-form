@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import analysisFormDeps from './analysisFormDeps';
-import callUpdateOnSubscribers from './callUpdateOnSubscribers';
-import changeFormField from './changeFormField';
 
 import {
+  analysisFormDeps,
+  callUpdateOnSubscribers,
+  changeFormField,
   getFieldsDefaultValues,
   getFormComponents,
   getFormState,

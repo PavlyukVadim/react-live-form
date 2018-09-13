@@ -1,10 +1,10 @@
-import addSubscriberNameToField from './index';
+import addFieldSubscriber from './index';
 
 describe('analysisFormDeps', () => {
   test('return obj with subscs for field w/o subscs', () => {
     const field = {};
     const subscriberName = 'field1';
-    addSubscriberNameToField(field, subscriberName);
+    addFieldSubscriber(field, subscriberName);
     const expectedResult = {
       subscribers: ['field1'],
     };
@@ -16,7 +16,7 @@ describe('analysisFormDeps', () => {
       subscribers: ['field1'],
     };
     const subscriberName = 'field1';
-    addSubscriberNameToField(field, subscriberName);
+    addFieldSubscriber(field, subscriberName);
     const expectedResult = {
       subscribers: ['field1'],
     };
@@ -28,7 +28,7 @@ describe('analysisFormDeps', () => {
       subscribers: ['field1'],
     };
     const subscriberName = 'field2';
-    addSubscriberNameToField(field, subscriberName);
+    addFieldSubscriber(field, subscriberName);
     const expectedResult = {
       subscribers: ['field1', 'field2'],
     };

@@ -1,6 +1,6 @@
 import { Parser } from 'expr-eval';
-import addSubscriberNameToField from '../addSubscriberNameToField';
-import addUpdateFunction from '../addUpdateFunction';
+import addFieldSubscriber from '../addFieldSubscriber';
+import getFieldUpdateFunction from '../getFieldUpdateFunction';
 
 const parser = new Parser({
   operators: {
@@ -34,13 +34,13 @@ const analysisFormDeps = (context, fields) => {
             formElements[parentName] = {};
           }
 
-          formElements[parentName].subscribers = addSubscriberNameToField(
+          formElements[parentName].subscribers = addFieldSubscriber(
             formElements[parentName],
             fieldName,
           );
         });
 
-        const updateFunction = addUpdateFunction(
+        const updateFunction = getFieldUpdateFunction(
           formElement,
           context,
           parents,
