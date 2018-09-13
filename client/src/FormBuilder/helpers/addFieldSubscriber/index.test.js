@@ -1,6 +1,6 @@
 import addFieldSubscriber from './index';
 
-describe('analysisFormDeps', () => {
+describe('addFieldSubscriber', () => {
   test('should return array of subs for field w/o subscs', () => {
     const field = {};
     const subscriberName = 'field1';
