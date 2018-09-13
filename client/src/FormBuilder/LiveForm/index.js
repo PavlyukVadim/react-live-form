@@ -4,38 +4,13 @@ import analysisFormDeps from './analysisFormDeps';
 import callUpdateOnSubscribers from './callUpdateOnSubscribers';
 import changeFormField from './changeFormField';
 
-import { getFormComponents } from '../helpers';
+import {
+  getFieldsDefaultValues,
+  getFormComponents,
+  getFormState,
+} from '../helpers';
 
 import formConfig from '../../formConfig0';
-
-const getFieldsDefaultValues = (fields = []) => {
-  const fieldsDefaultValues = {};
-  fields.forEach((field) => {
-    fieldsDefaultValues[field.name] = {
-      value: field.defaultValue || 0,
-    };
-  });
-  return fieldsDefaultValues;
-};
-
-const getFormState = (
-  status,
-  state,
-  answers,
-) => {
-  if (status === 'new') {
-    return state;
-  }
-
-  const newAnswers = {};
-
-  Object.keys(answers).forEach((key) => {
-    newAnswers[key] = Object.assign({}, answers[key]);
-    newAnswers[key].disabled = true;
-  });
-
-  return newAnswers;
-};
 
 const propTypes = {
   status: PropTypes.string,
@@ -50,9 +25,6 @@ class LiveForm extends Component {
     super(props);
     this.state = getFieldsDefaultValues(formConfig);
     this.formElements = analysisFormDeps(this, formConfig);
-    console.log('this.formElements', this.formElements);
-
-    this.changeFormField = this.changeFormField.bind(this);
   }
 
   componentDidMount() {
@@ -75,13 +47,7 @@ class LiveForm extends Component {
       });
   }
 
-  formSubmit = (value) => {
-    console.log('this', this);
-    console.log('value', value);
-  }
-
-  firstFieldsUpdate() {
-    console.log('this.formElements', this.formElements);
+  firstFieldsUpdate = () => {
     Object.values(this.formElements).forEach((formElement) => {
       const { subscribers } = formElement;
       if (subscribers) {
@@ -90,29 +56,18 @@ class LiveForm extends Component {
     });
   }
 
-  changeFormField(fieldName, propName, propValue) {
+  changeFormField = (fieldName, propName, propValue) => {
     changeFormField(this, fieldName, propName, propValue);
+  }
+
+  formSubmit = (value) => {
+    console.log('this', this);
+    console.log('value', value);
   }
 
   render() {
     const { status } = this.props;
     const answers = {};
-    // if (status === 'new') {
-    //   formConfig = [].concat(data.testById.formConfig);
-    //   title = data.testById.title;
-    //   description = data.testById.description;
-    // } else if (status === 'passed') {
-    //   formConfig = [].concat(data.answerById.test.formConfig);
-    //   answers = Object.assign({}, data.answerById.form_answers);
-    //   title = data.answerById.test.title;
-    //   description = data.answerById.test.description;
-    // } else if (status === 'assessed') {
-    //   formConfig = [].concat(data.answerById.test.formConfig);
-    //   answers = Object.assign({}, data.answerById.form_answers);
-    //   comment = data.answerById.comment.content;
-    //   title = data.answerById.test.title;
-    //   description = data.answerById.test.description;
-    // }
 
     const formState = getFormState(
       status,
@@ -128,11 +83,9 @@ class LiveForm extends Component {
 
     return (
       <div>
-        <div>
-          Form:
-          <div className="formWrapper">
-            {form}
-          </div>
+        Form:
+        <div className="formWrapper">
+          {form}
         </div>
       </div>
     );
