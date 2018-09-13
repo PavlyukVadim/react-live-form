@@ -3,7 +3,7 @@ import React from 'react';
 const Checkbox = ({
   fieldConfig,
   fieldState,
-  changeFormField
+  changeFormField,
 }) => {
   const onChange = (target) => {
     const value = target.checked;

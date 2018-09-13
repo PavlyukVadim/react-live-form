@@ -3,79 +3,83 @@ import React from 'react';
 const SelectByType = (props) => {
   const {
     fieldConfig,
+    id,
     fieldState,
-    onChange
+    onChange,
+    children,
   } = props;
-  
+
   if (fieldConfig.multiple) {
     return (
       <select
+        id={id}
         className="form-select col-xxxs-6"
         name={fieldConfig.name}
         value={fieldState.value}
-        multiple={true}
+        multiple
         onChange={(e) => onChange(e.target)}
         disabled={fieldState.disabled}
       >
-        {props.children}
-      </select>
-    );
-  } else {
-    return (
-      <select
-        className="form-select col-xxxs-6"
-        name={fieldConfig.name}
-        value={fieldState.value}
-        onChange={(e) => onChange(e.target)}
-        disabled={fieldState.disabled}
-      >
-        {props.children}
+        {children}
       </select>
     );
   }
+  return (
+    <select
+      id={id}
+      className="form-select col-xxxs-6"
+      name={fieldConfig.name}
+      value={fieldState.value}
+      onChange={(e) => onChange(e.target)}
+      disabled={fieldState.disabled}
+    >
+      {children}
+    </select>
+  );
 };
 
 const Select = ({
   fieldConfig,
   fieldState,
-  changeFormField
+  changeFormField,
 }) => {
   const onChange = (target) => {
-    let value;
+    let newValue;
     if (!fieldConfig.multiple) {
-      value = target.value;
+      newValue = target.value;
     } else {
-      value = [];
-      const options = target.options;
-      for (let i = 0, l = options.length; i < l; i++) {
-        if (options[i].selected) {
-          value.push(options[i].value);
+      newValue = [];
+      const { options } = target;
+      options.forEach((option) => {
+        if (option.selected) {
+          newValue.push(option.value);
         }
-      }
+      });
     }
-    changeFormField(fieldConfig.name, 'value', value);
+    changeFormField(fieldConfig.name, 'value', newValue);
   };
 
   return (
     <div className="form-group row">
-      <label className="form-label col-xxxs-6">{fieldConfig.title}</label>
+      <label className="form-label col-xxxs-6" htmlFor={fieldConfig.name}>
+        {fieldConfig.title}
+      </label>
       <SelectByType
+        id={fieldConfig.name}
         fieldConfig={fieldConfig}
         fieldState={fieldState}
         onChange={onChange}
       >
         {
           fieldConfig.options &&
-          fieldConfig.options.map(option => {
-            return (
-              <option
-                key={option.value}
-                value={option.value}
-              >
-                {option.content}
-              </option>
-            );
-          })
+          fieldConfig.options.map(option => (
+            <option
+              key={option.value}
+              value={option.value}
+            >
+              {option.content}
+            </option>
+          ))
         }
       </SelectByType>
     </div>
