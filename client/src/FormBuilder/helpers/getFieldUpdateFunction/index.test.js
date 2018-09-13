@@ -1,5 +1,5 @@
 import { Parser } from 'expr-eval';
-import addUpdateFunction from './index';
+import getFieldUpdateFunction from './index';
 
 const parser = new Parser({
   operators: {
@@ -7,7 +7,7 @@ const parser = new Parser({
   },
 });
 
-describe('addUpdateFunction', () => {
+describe('getFieldUpdateFunction', () => {
   test('return ', () => {
     const formElement = {};
     const context = {
@@ -22,8 +22,8 @@ describe('addUpdateFunction', () => {
     const parents = updateExpr.variables(); // field1
     const fieldName = 'field2';
     const propName = 'value';
-    
-    addUpdateFunction(
+
+    const updateFunction = getFieldUpdateFunction(
       formElement,
       context,
       parents,
@@ -32,7 +32,7 @@ describe('addUpdateFunction', () => {
       propName
     );
 
-    formElement.updateFunctions[0]();
+    updateFunction();
     expect(context.setState).toHaveBeenCalled();
   });
 });

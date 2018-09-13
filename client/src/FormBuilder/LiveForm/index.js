@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import analysisFormDeps from './analysisFormDeps';
-import callUpdateOnSubscribers from './callUpdateOnSubscribers';
-import changeFormField from './changeFormField';
 
 import {
+  analysisFormDeps,
+  callUpdateOnSubscribers,
+  changeFormField,
   getFieldsDefaultValues,
   getFormComponents,
   getFormState,
 } from '../helpers';
-
-import formConfig from '../../formConfig0';
 
 const propTypes = {
   status: PropTypes.string,
@@ -23,8 +21,8 @@ const defaultProps = {
 class LiveForm extends Component {
   constructor(props) {
     super(props);
-    this.state = getFieldsDefaultValues(formConfig);
-    this.formElements = analysisFormDeps(this, formConfig);
+    this.state = getFieldsDefaultValues(props.formConfig);
+    this.formElements = analysisFormDeps(this, props.formConfig);
   }
 
   componentDidMount() {
@@ -32,7 +30,7 @@ class LiveForm extends Component {
   }
 
   componentWillReceiveProps(newProps) {
-    const { status } = this.props;
+    const { status, formConfig } = this.props;
     if (status === 'new') {
       console.log('new---------------');
       if (!newProps.data && !newProps.data.testById) {
@@ -66,7 +64,7 @@ class LiveForm extends Component {
   }
 
   render() {
-    const { status } = this.props;
+    const { status, formConfig } = this.props;
     const answers = {};
 
     const formState = getFormState(
