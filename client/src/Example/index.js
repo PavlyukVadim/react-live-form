@@ -1,6 +1,6 @@
 import React from 'react';
 import LiveForm from '../FormBuilder';
-import formConfig from '../formConfig0';
+import formConfig from '../formConfig';
 
 const Example = () => (
   <LiveForm
