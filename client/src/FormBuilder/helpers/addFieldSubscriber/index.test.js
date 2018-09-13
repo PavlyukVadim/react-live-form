@@ -1,37 +1,31 @@
 import addFieldSubscriber from './index';
 
 describe('analysisFormDeps', () => {
-  test('return obj with subscs for field w/o subscs', () => {
+  test('should return array of subs for field w/o subscs', () => {
     const field = {};
     const subscriberName = 'field1';
-    addFieldSubscriber(field, subscriberName);
-    const expectedResult = {
-      subscribers: ['field1'],
-    };
-    expect(field).toEqual(expectedResult);
+    const result = addFieldSubscriber(field, subscriberName);
+    const expectedResult = ['field1'];
+    expect(result).toEqual(expectedResult);
   });
 
-  test('return obj with 1 subsc for field with the same subsc', () => {
+  test('should return array with 1 subs for field with the same subsc', () => {
     const field = {
       subscribers: ['field1'],
     };
     const subscriberName = 'field1';
-    addFieldSubscriber(field, subscriberName);
-    const expectedResult = {
-      subscribers: ['field1'],
-    };
-    expect(field).toEqual(expectedResult);
+    const result = addFieldSubscriber(field, subscriberName);
+    const expectedResult = ['field1'];
+    expect(result).toEqual(expectedResult);
   });
 
-  test('return obj new subsc for field w/o the same subsc', () => {
+  test('should return array of new subs for field w/o the same subsc', () => {
     const field = {
       subscribers: ['field1'],
     };
     const subscriberName = 'field2';
-    addFieldSubscriber(field, subscriberName);
-    const expectedResult = {
-      subscribers: ['field1', 'field2'],
-    };
-    expect(field).toEqual(expectedResult);
+    const result = addFieldSubscriber(field, subscriberName);
+    const expectedResult = ['field1', 'field2'];
+    expect(result).toEqual(expectedResult);
   });
 });

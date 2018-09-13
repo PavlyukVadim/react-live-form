@@ -58,7 +58,6 @@ const analysisFormDeps = (context, fields) => {
         });
       };
       formElement.update = update;
-      console.log('formElement update', update);
     }
     formElements[fieldName] = formElement;
   });

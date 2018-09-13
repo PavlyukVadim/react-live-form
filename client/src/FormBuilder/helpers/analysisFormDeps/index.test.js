@@ -1,7 +1,7 @@
 import analysisFormDeps from './index';
 
 describe('analysisFormDeps', () => {
-  
+
   let myContext;
   beforeEach(() => {
     myContext = {};
@@ -10,7 +10,7 @@ describe('analysisFormDeps', () => {
   test('return {} for empty fields', () => {
     expect(analysisFormDeps(myContext, [])).toMatchObject({});
   });
-  
+
   test('return {} with props as fields name for fields without own state', () => {
     const formConfig = [{
       name: 'field1',
@@ -60,7 +60,6 @@ describe('analysisFormDeps', () => {
       }
     }];
 
-    const updateFunction = () => {};
     const expectedResult = {
       field1: {
         subscribers: ['field3']
@@ -70,10 +69,6 @@ describe('analysisFormDeps', () => {
       },
       field3: {
         update: () => {},
-        updateFunctions: [
-          updateFunction,
-          updateFunction
-        ]
       },
     };
     // TODO: fix comparing objects with functions

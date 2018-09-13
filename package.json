@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --coverage",
     "dev": "nodemon index.js",
     "build": "webpack",
-    "start": "webpack-dev-server --progress --inline --hot"
+    "start": "webpack-dev-server --progress --inline --hot",
+    "test": "jest --coverage",
+    "test:watch": "jest --watch --coverage"
   },
   "repository": {
     "type": "git",

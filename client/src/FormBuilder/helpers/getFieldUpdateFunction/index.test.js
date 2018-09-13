@@ -23,7 +23,7 @@ describe('getFieldUpdateFunction', () => {
     const fieldName = 'field2';
     const propName = 'value';
 
-    getFieldUpdateFunction(
+    const updateFunction = getFieldUpdateFunction(
       formElement,
       context,
       parents,
@@ -32,7 +32,7 @@ describe('getFieldUpdateFunction', () => {
       propName
     );
 
-    formElement.updateFunctions[0]();
+    updateFunction();
     expect(context.setState).toHaveBeenCalled();
   });
 });
