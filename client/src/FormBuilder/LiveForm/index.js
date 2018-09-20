@@ -5,6 +5,7 @@ import {
   analysisFormDeps,
   callUpdateOnSubscribers,
   changeFormField,
+  formConfigValidation,
   getFieldsDefaultValues,
   getFormComponents,
   getFormState,
@@ -21,12 +22,28 @@ const defaultProps = {
 class LiveForm extends Component {
   constructor(props) {
     super(props);
-    this.state = getFieldsDefaultValues(props.formConfig);
-    this.formElements = analysisFormDeps(this, props.formConfig);
+    this.state = {
+      isFormConfigValid: false,
+    };
+
+    // this.state = getFieldsDefaultValues(props.formConfig);
+    // this.formElements = analysisFormDeps(this, props.formConfig);
   }
 
   componentDidMount() {
-    this.firstFieldsUpdate();
+    const { formConfig } = this.props;
+
+    const isFormConfigValid = formConfigValidation(formConfig);
+    this.setState({
+      isFormConfigValid,
+    });
+
+    if (isFormConfigValid) {
+      const { fields } = formConfig;
+      this.liveFormFields = [...fields];
+    }
+
+    // this.firstFieldsUpdate();
   }
 
   componentWillReceiveProps(newProps) {
@@ -64,20 +81,29 @@ class LiveForm extends Component {
   }
 
   render() {
+    console.log(this.state, this.props);
     const { status, formConfig } = this.props;
+    const { isFormConfigValid } = this.state;
+
+    if (!isFormConfigValid) {
+      return null;
+    }
+
     const answers = {};
 
-    const formState = getFormState(
-      status,
-      this.state,
-      answers,
-    );
+    // const formState = getFormState(
+    //   status,
+    //   this.state,
+    //   answers,
+    // );
 
-    const form = getFormComponents(
-      formState,
-      formConfig,
-      this.changeFormField,
-    );
+    // const form = getFormComponents(
+    //   formState,
+    //   formConfig,
+    //   this.changeFormField,
+    // );
+
+    const form = null;
 
     return (
       <div>

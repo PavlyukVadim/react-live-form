@@ -1,3 +1,5 @@
+import testFormConfig from './testFormConfig';
+
 const config = {
   defaultFormName: 'liveForm',
   fields: {
@@ -5,7 +7,12 @@ const config = {
       'name',
       'fieldType',
     ],
+    stateCalculatedFields: [
+      'value',
+      'valueFn',
+    ],
   },
+  exampleOfFormConfigFields: [...testFormConfig.fields],
 };
 
 export default config;
