@@ -7,8 +7,9 @@ import {
   changeFormField,
   formConfigValidation,
   getFieldsDefaultValues,
-  getFormComponents,
-  getFormState,
+  getLiveFormFields,
+  // getFormComponents,
+  // getFormState,
 } from '../helpers';
 
 const propTypes = {
@@ -31,7 +32,7 @@ class LiveForm extends Component {
   }
 
   componentDidMount() {
-    const { formConfig } = this.props;
+    const { formConfig, dataSource } = this.props;
 
     const isFormConfigValid = formConfigValidation(formConfig);
     this.setState({
@@ -40,7 +41,8 @@ class LiveForm extends Component {
 
     if (isFormConfigValid) {
       const { fields } = formConfig;
-      this.liveFormFields = [...fields];
+      this.liveFormFields = getLiveFormFields(fields, dataSource);
+      console.log('this.liveFormFields', this.liveFormFields);
     }
 
     // this.firstFieldsUpdate();
@@ -82,14 +84,14 @@ class LiveForm extends Component {
 
   render() {
     console.log(this.state, this.props);
-    const { status, formConfig } = this.props;
+    // const { status, formConfig } = this.props;
     const { isFormConfigValid } = this.state;
 
     if (!isFormConfigValid) {
       return null;
     }
 
-    const answers = {};
+    // const answers = {};
 
     // const formState = getFormState(
     //   status,

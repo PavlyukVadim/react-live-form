@@ -108,7 +108,7 @@ describe('getLiveFormFields', () => {
         dataType: 'int',
         state: {
           sum: {
-            value: 'a + b',
+            valueExpr: 'a + b',
           },
         },
       },

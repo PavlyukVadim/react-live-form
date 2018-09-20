@@ -20,8 +20,8 @@ const updateFieldByValueExpr = (
   stateFieldName,
   stateField,
 ) => {
-  const { value } = stateField;
-  const expr = parser.parse(value);
+  const { valueExpr } = stateField;
+  const expr = parser.parse(valueExpr);
   const parents = expr.variables();
 
   const realValueFunction = () => {};
@@ -32,10 +32,10 @@ const updateFieldByValueExpr = (
     if (parentField) {
       parentField.subscribers = parentField.subscribers
         ? [...parentField.subscribers, stateField]
-        : [stateField]
+        : [stateField];
     } else {
       liveFormFields.push({
-        name,
+        name: fieldName,
         subscribers: [stateField],
       });
     }

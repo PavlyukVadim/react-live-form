@@ -7,12 +7,12 @@ const getDataSourceValue = (
   const componentProps = dataSource[componentName];
   if (!componentProps) {
     console.error(`dataSource doesn't include component ${componentName}`);
-    return;
+    return null;
   }
   const prop = componentProps[propName];
   if (!prop) {
     console.error(`component ${componentName} doesn't include prop ${propName}`);
-    return;
+    return null;
   }
   const value = prop[typeOfValue];
   return value;

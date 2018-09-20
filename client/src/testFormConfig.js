@@ -25,7 +25,7 @@ formConfig.fields = [
     state: {
       value: {
         defaultValue: 0,
-        valueExp: 'a + b',
+        valueExpr: 'a + b',
       },
     },
   },
@@ -40,7 +40,7 @@ formConfig.fields = [
       date: {
         defaultValue: '30.08.1998',
         valueFn: 'getDateValue',
-        watch: ['a', 'b'],
+        watch: ['a'],
       },
     },
   },

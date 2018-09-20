@@ -10,7 +10,7 @@ const { fields: { stateCalculatedFields } } = config;
 // functions that update initial formFields
 const updateFunctionsMap = new Map([
   ['valueFn', updateFieldByValueFn],
-  ['value', updateFieldByValueExpr],
+  ['valueExpr', updateFieldByValueExpr],
 ]);
 
 const getLiveFormFields = (formFields, dataSource = {}) => {

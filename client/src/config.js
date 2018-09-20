@@ -8,7 +8,7 @@ const config = {
       'fieldType',
     ],
     stateCalculatedFields: [
-      'value',
+      'valueExpr',
       'valueFn',
     ],
   },

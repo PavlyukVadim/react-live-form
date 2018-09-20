@@ -7,7 +7,6 @@ const updateFieldByValueFn = (
   stateField,
   dataSource,
 ) => {
-
   const realValueFunction = getDataSourceValue(
     dataSource,
     fieldName,
@@ -23,10 +22,10 @@ const updateFieldByValueFn = (
     if (parentField) {
       parentField.subscribers = parentField.subscribers
         ? [...parentField.subscribers, stateField]
-        : [stateField]
+        : [stateField];
     } else {
       liveFormFields.push({
-        name,
+        name: fieldName,
         subscribers: [stateField],
       });
     }
