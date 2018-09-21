@@ -1,18 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import config from 'src/config';
-
 import {
-  // changeFormField,
   formConfigValidation,
-  // getFieldsDefaultValues,
-
   getInitialFormState,
   getLiveFormFields,
   getFormComponents,
-  // getFormComponents,
-  // getFormState,
 } from '../helpers';
 
 const propTypes = {
