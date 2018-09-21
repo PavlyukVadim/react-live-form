@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
+import config from 'src/config';
+
 import {
-  analysisFormDeps,
   callUpdateOnSubscribers,
   changeFormField,
   formConfigValidation,
   getFieldsDefaultValues,
+
+  getInitialFormState,
   getLiveFormFields,
+  getFormComponents,
   // getFormComponents,
   // getFormState,
 } from '../helpers';
@@ -23,12 +27,22 @@ const defaultProps = {
 class LiveForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      isFormConfigValid: false,
-    };
+    const {
+      formConfig,
+      formConfig: {
+        formName = config.defaultFormName,
+      },
+    } = props;
 
-    // this.state = getFieldsDefaultValues(props.formConfig);
-    // this.formElements = analysisFormDeps(this, props.formConfig);
+    const initialFormState = getInitialFormState(formConfig);
+    this.state = Object.assign(
+      {},
+      initialFormState,
+      {
+        isFormConfigValid: false,
+        formName,
+      },
+    );
   }
 
   componentDidMount() {
@@ -57,7 +71,6 @@ class LiveForm extends Component {
       }
     }
 
-    this.formElements = analysisFormDeps(this, formConfig);
     this.setState(() => getFieldsDefaultValues(formConfig),
       () => {
         this.firstFieldsUpdate();
@@ -83,7 +96,8 @@ class LiveForm extends Component {
   }
 
   render() {
-    console.log(this.state, this.props);
+    console.log('state', this.state);
+    console.log('props', this.props);
     // const { status, formConfig } = this.props;
     const { isFormConfigValid } = this.state;
 
@@ -99,13 +113,18 @@ class LiveForm extends Component {
     //   answers,
     // );
 
-    // const form = getFormComponents(
-    //   formState,
-    //   formConfig,
-    //   this.changeFormField,
-    // );
+    const formState = {
+      a: '',
+      b: '',
+      c: '',
+      d: '',
+    };
 
-    const form = null;
+    const form = getFormComponents(
+      formState,
+      this.liveFormFields,
+      this.changeFormField,
+    );
 
     return (
       <div>
