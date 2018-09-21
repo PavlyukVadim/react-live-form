@@ -24,7 +24,24 @@ const updateFieldByValueExpr = (
   const expr = parser.parse(valueExpr);
   const parents = expr.variables();
 
-  const realValueFunction = () => {};
+  const realValueFunction = (formState, callback) => {
+    const variablesValues = {};
+    parents.forEach((parentName) => {
+      variablesValues[parentName] = formState[parentName].value || 0;
+    });
+    const newPropValue = expr.evaluate(variablesValues);
+    if (callback) {
+      const newFieldValue = Object.assign(
+        {},
+        formState[fieldName],
+        { value: newPropValue },
+      );
+      const newField = {
+        [fieldName]: newFieldValue,
+      };
+      callback(newField);
+    }
+  };
   stateField.function = realValueFunction;
 
   parents.forEach((nameOfParentField) => {

@@ -4,7 +4,7 @@ import getFormItemByFieldType from '../getFormItemByFieldType';
 const getFormComponents = (
   formState,
   liveFormFields = [],
-  changeFormField,
+  onChangeFormField,
 ) => (
   liveFormFields.map((field) => {
     const { fieldType } = field;
@@ -20,7 +20,7 @@ const getFormComponents = (
               <FormItem
                 fieldConfig={field}
                 fieldState={formState[fieldName]}
-                changeFormField={changeFormField}
+                onChangeFormField={onChangeFormField}
               />
             )
             : null

@@ -8,16 +8,16 @@ const getFieldUpdateFunction = (
   fieldName,
   propName,
 ) => {
-  const updateFunction = () => {
-    const variablesValues = {};
-    parents.forEach((parentName) => {
-      variablesValues[parentName] = context.state[parentName].value;
-    });
-    const newPropValue = updateExpr.evaluate(variablesValues);
-    changeFormField(context, fieldName, propName, newPropValue);
-  };
-
-  return updateFunction;
+  // const updateFunction = () => {
+  //   const variablesValues = {};
+  //   parents.forEach((parentName) => {
+  //     variablesValues[parentName] = context.state[parentName].value;
+  //   });
+  //   const newPropValue = updateExpr.evaluate(variablesValues);
+  //   changeFormField(context, fieldName, propName, newPropValue);
+  // };
+  //
+  // return updateFunction;
 };
 
 export default getFieldUpdateFunction;
