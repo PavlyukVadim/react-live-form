@@ -9,6 +9,11 @@ formConfig.fields = [
     name: 'a',
     fieldType: 'input',
     dataType: 'int',
+    state: {
+      value: {
+        defaultValue: 5,
+      },
+    },
   },
   {
     name: 'b',

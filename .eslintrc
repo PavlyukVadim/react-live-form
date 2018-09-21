@@ -8,9 +8,11 @@
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "arrow-parens": [0, "as-needed"],
-    "react/prop-types": [1],
     "jsx-a11y/label-has-for": [0],
+    "no-param-reassign": [1],
     "operator-linebreak": [0],
+    "react/prop-types": [1],
+    "react/forbid-prop-types": [1],
     "import/prefer-default-export": [0],
     "import/no-named-as-default": [0],
     "import/no-named-as-default-member": [0],

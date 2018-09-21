@@ -1,61 +1,118 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
+import config from 'src/config';
 import {
-  analysisFormDeps,
-  callUpdateOnSubscribers,
-  changeFormField,
-  getFieldsDefaultValues,
+  formConfigValidation,
+  getInitialFormState,
+  getLiveFormFields,
   getFormComponents,
-  getFormState,
 } from '../helpers';
 
 const propTypes = {
-  status: PropTypes.string,
+  formConfig: PropTypes.object.isRequired,
+  dataSource: PropTypes.object,
 };
 
 const defaultProps = {
-  status: 'new',
+  dataSource: {},
 };
 
 class LiveForm extends Component {
   constructor(props) {
     super(props);
-    this.state = getFieldsDefaultValues(props.formConfig);
-    this.formElements = analysisFormDeps(this, props.formConfig);
+    const {
+      formConfig,
+      formConfig: {
+        formName = config.defaultFormName,
+      },
+    } = props;
+
+    const initialFormState = getInitialFormState(formConfig);
+    this.state = Object.assign(
+      {},
+      initialFormState,
+      {
+        isFormConfigValid: false,
+        formName,
+      },
+    );
   }
 
   componentDidMount() {
-    this.firstFieldsUpdate();
-  }
+    const { formConfig, dataSource } = this.props;
+    const formState = this.getCurrentFormState();
 
-  componentWillReceiveProps(newProps) {
-    const { status, formConfig } = this.props;
-    if (status === 'new') {
-      console.log('new---------------');
-      if (!newProps.data && !newProps.data.testById) {
-        return;
-      }
+    const isFormConfigValid = formConfigValidation(formConfig);
+    this.setState({
+      isFormConfigValid,
+    });
+
+    if (isFormConfigValid) {
+      const { fields } = formConfig;
+      this.liveFormFields = getLiveFormFields(fields, dataSource);
+      console.log('this.liveFormFields', this.liveFormFields);
+
+      this.firstFieldsUpdate(formState);
     }
-
-    this.formElements = analysisFormDeps(this, formConfig);
-    this.setState(() => getFieldsDefaultValues(formConfig),
-      () => {
-        this.firstFieldsUpdate();
-      });
   }
 
-  firstFieldsUpdate = () => {
-    Object.values(this.formElements).forEach((formElement) => {
-      const { subscribers } = formElement;
-      if (subscribers) {
-        callUpdateOnSubscribers(subscribers, this.formElements);
-      }
+  componentWillReceiveProps() {
+    // this.setState(() => getInitialFormState(formConfig),
+    //   () => {
+    //     this.firstFieldsUpdate();
+    //   });
+  }
+
+  getCurrentFormState = () => {
+    const { formName, [formName]: formState } = this.state;
+    return formState;
+  };
+
+  firstFieldsUpdate = (formState) => {
+    Object.values(this.liveFormFields).forEach((liveFormField) => {
+      const { subscribers = [] } = liveFormField;
+      this.callSubscribers(subscribers, formState);
     });
   }
 
-  changeFormField = (fieldName, propName, propValue) => {
-    changeFormField(this, fieldName, propName, propValue);
+  callSubscribers = (subscribers, formState) => {
+    subscribers.forEach((subscriber) => {
+      const { function: updateFunction } = subscriber;
+      if (updateFunction) {
+        console.log('updateFunction', formState);
+        updateFunction(formState, this.updateFormState);
+      }
+    });
+  };
+
+  updateFormState = (newField, callback) => {
+    this.setState((prevState) => {
+      const { formName, [formName]: formState } = prevState;
+      const newFormState = Object.assign({}, formState, { ...newField });
+      return {
+        [formName]: newFormState,
+      };
+    }, () => {
+      if (callback) {
+        callback();
+      }
+    });
+  };
+
+  onChangeFormField = (fieldConfig, propName, propValue) => {
+    const { name, subscribers = [] } = fieldConfig;
+    const newField = {
+      [name]: {
+        [propName]: propValue,
+      },
+    };
+
+    const callback = () => {
+      const formState = this.getCurrentFormState();
+      this.callSubscribers(subscribers, formState);
+    };
+
+    this.updateFormState(newField, callback);
   }
 
   formSubmit = (value) => {
@@ -64,19 +121,23 @@ class LiveForm extends Component {
   }
 
   render() {
-    const { status, formConfig } = this.props;
-    const answers = {};
+    console.log('state', this.state);
+    console.log('props', this.props);
 
-    const formState = getFormState(
-      status,
-      this.state,
-      answers,
-    );
+    const {
+      isFormConfigValid,
+      formName,
+      [formName]: formState,
+    } = this.state;
+
+    if (!isFormConfigValid) {
+      return null;
+    }
 
     const form = getFormComponents(
       formState,
-      formConfig,
-      this.changeFormField,
+      this.liveFormFields,
+      this.onChangeFormField,
     );
 
     return (

@@ -3,11 +3,12 @@ import getFormItemByFieldType from '../getFormItemByFieldType';
 
 const getFormComponents = (
   formState,
-  fields = [],
-  changeFormField,
+  liveFormFields = [],
+  onChangeFormField,
 ) => (
-  fields.map((field) => {
-    const FormItem = getFormItemByFieldType(field.fieldType);
+  liveFormFields.map((field) => {
+    const { fieldType } = field;
+    const FormItem = getFormItemByFieldType(fieldType);
     if (!FormItem) return null;
     const fieldName = field.name;
 
@@ -19,7 +20,7 @@ const getFormComponents = (
               <FormItem
                 fieldConfig={field}
                 fieldState={formState[fieldName]}
-                changeFormField={changeFormField}
+                onChangeFormField={onChangeFormField}
               />
             )
             : null
