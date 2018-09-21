@@ -9,6 +9,9 @@ formConfig.fields = [
     name: 'a',
     fieldType: 'input',
     dataType: 'int',
+    props: {
+      title: 'field a',
+    },
     state: {
       value: {
         defaultValue: 5,
@@ -19,6 +22,9 @@ formConfig.fields = [
     name: 'b',
     fieldType: 'input',
     dataType: 'int',
+    props: {
+      title: 'field b',
+    },
   },
   {
     name: 'c',
@@ -46,6 +52,28 @@ formConfig.fields = [
         defaultValue: '30.08.1998',
         valueFn: 'getDateValue',
         watch: ['a'],
+      },
+    },
+  },
+  {
+    name: 'e',
+    fieldType: 'input',
+    dataType: 'string',
+    props: {
+      title: 'field e',
+    },
+    state: {
+      value: {
+        defaultValue: 0,
+        valueExpr: 'c * 2',
+      },
+      display: {
+        defaultValue: false,
+        valueExpr: 'a > 10',
+      },
+      disabled: {
+        defaultValue: false,
+        valueExpr: 'a > 34',
       },
     },
   },

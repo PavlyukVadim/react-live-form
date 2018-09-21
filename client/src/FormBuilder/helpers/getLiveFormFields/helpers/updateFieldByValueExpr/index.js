@@ -33,8 +33,7 @@ const updateFieldByValueExpr = (
     if (callback) {
       const newFieldValue = Object.assign(
         {},
-        formState[fieldName],
-        { value: newPropValue },
+        { [stateFieldName]: newPropValue },
       );
       const newField = {
         [fieldName]: newFieldValue,
