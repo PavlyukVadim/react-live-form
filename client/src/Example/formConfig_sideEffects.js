@@ -1,5 +1,5 @@
 const formConfig = {
-  formName: 'firstForm',
+  formName: 'sideEffectsForm',
   fields: [],
   onSubmit: 'submitFunction',
 };
@@ -25,6 +25,12 @@ formConfig.fields = [
     props: {
       title: 'field b',
     },
+    state: {
+      value: {
+        defaultValue: 0,
+        valueExpr: 'a * 2',
+      },
+    },
   },
   {
     name: 'c',
@@ -36,7 +42,7 @@ formConfig.fields = [
     state: {
       value: {
         defaultValue: 0,
-        valueExpr: 'a + b',
+        valueExpr: 'b * 2',
       },
     },
   },
@@ -48,32 +54,9 @@ formConfig.fields = [
       title: 'field d',
     },
     state: {
-      date: {
-        defaultValue: '30.08.1998',
-        valueFn: 'getDateValue',
-        watch: ['a'],
-      },
-    },
-  },
-  {
-    name: 'e',
-    fieldType: 'input',
-    dataType: 'string',
-    props: {
-      title: 'field e',
-    },
-    state: {
       value: {
         defaultValue: 0,
         valueExpr: 'c * 2',
-      },
-      display: {
-        defaultValue: false,
-        valueExpr: 'a > 10',
-      },
-      disabled: {
-        defaultValue: false,
-        valueExpr: 'a > 34',
       },
     },
   },

@@ -1,26 +1,14 @@
 import config from 'src/config';
 
 import {
-  updateFieldByValueExpr,
-  updateFieldByValueFn,
+  findFieldParents,
+  getFieldUpdateFunction,
 } from './helpers';
 
 const { fields: { stateCalculatedFields } } = config;
 
-// functions that update initial formFields
-const updateFunctionsMap = new Map([
-  ['valueFn', updateFieldByValueFn],
-  ['valueExpr', updateFieldByValueExpr],
-]);
-
-const getLiveFormFields = (formFields, dataSource = {}) => {
-  if (!Array.isArray(formFields)) {
-    return [];
-  }
-
-  const liveFormFields = [];
-
-  formFields.forEach((field) => {
+const addFieldsSubscribers = (liveFormFields, dataSource) => {
+  liveFormFields.forEach((field) => {
     const updatedField = Object.assign({}, field);
     const {
       name: fieldName,
@@ -34,10 +22,13 @@ const getLiveFormFields = (formFields, dataSource = {}) => {
           const stateField = updatedField.state[stateFieldName];
           const propKeys = Object.keys(stateField);
           propKeys.forEach((propKey) => {
+            // check dependency state field on other fields
             const isCalculatedField = stateCalculatedFields.includes(propKey);
             if (isCalculatedField) {
-              const updateFunction = updateFunctionsMap.get(propKey);
-              updateFunction(
+              // push state field as subscriber to parent's fields
+              const findFieldParentsFunc = findFieldParents(propKey);
+
+              findFieldParentsFunc(
                 liveFormFields,
                 fieldName,
                 stateFieldName,
@@ -50,8 +41,56 @@ const getLiveFormFields = (formFields, dataSource = {}) => {
       }
     }
 
-    liveFormFields.push(updatedField);
+    field = updatedField;
   });
+};
+
+const addFieldsUpdateFunc = (liveFormFields, dataSource) => {
+  liveFormFields.forEach((field) => {
+    const updatedField = Object.assign({}, field);
+    const {
+      name: fieldName,
+      state,
+    } = updatedField;
+
+    if (state) {
+      const stateFieldNames = Object.keys(state);
+      if (stateFieldNames.length) {
+        stateFieldNames.forEach((stateFieldName) => {
+          const stateField = updatedField.state[stateFieldName];
+          const propKeys = Object.keys(stateField);
+          propKeys.forEach((propKey) => {
+            // check dependency state field on other fields
+            const isCalculatedField = stateCalculatedFields.includes(propKey);
+            if (isCalculatedField) {
+              // push state field as subscriber to parent's fields
+              const fieldUpdateFunction = getFieldUpdateFunction(propKey);
+
+              fieldUpdateFunction(
+                liveFormFields,
+                fieldName,
+                stateFieldName,
+                stateField,
+                dataSource,
+              );
+            }
+          });
+        });
+      }
+    }
+
+    field = updatedField;
+  });
+};
+
+const getLiveFormFields = (formFields, dataSource = {}) => {
+  if (!Array.isArray(formFields)) {
+    return [];
+  }
+
+  const liveFormFields = [...formFields];
+  addFieldsSubscribers(liveFormFields, dataSource);
+  addFieldsUpdateFunc(liveFormFields, dataSource);
 
   return liveFormFields;
 };

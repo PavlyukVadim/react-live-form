@@ -76,30 +76,49 @@ class LiveForm extends Component {
   }
 
   callSubscribers = (subscribers, formState) => {
+    console.log('subscribers', subscribers);
     subscribers.forEach((subscriber) => {
       const { function: updateFunction } = subscriber;
       if (updateFunction) {
-        console.log('updateFunction', formState);
         updateFunction(formState, this.updateFormState);
       }
     });
   };
 
-  updateFormState = (newField, callback) => {
+  updateFormState = (newFieldPart, callback) => {
     this.setState((prevState) => {
       const { formName, [formName]: formState } = prevState;
-      const newFormState = Object.assign({}, formState, { ...newField });
+      const fieldName = Object.keys(newFieldPart)[0];
+
+      const newField = Object.assign(
+        {},
+        {
+          [fieldName]: {
+            ...formState[fieldName],
+            ...newFieldPart[fieldName],
+          },
+        },
+      );
+
+      const newFormState = Object.assign(
+        {},
+        formState,
+        newField,
+      );
+
       return {
         [formName]: newFormState,
       };
     }, () => {
+      const formState = this.getCurrentFormState();
       if (callback) {
-        callback();
+        callback(formState, this.updateFormState);
       }
     });
   };
 
   onChangeFormField = (fieldConfig, propName, propValue) => {
+    console.log('onChangeFormField', fieldConfig, propName, propValue);
     const { name, subscribers = [] } = fieldConfig;
     const newField = {
       [name]: {

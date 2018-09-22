@@ -1,4 +1,4 @@
-import { getDataSourceValue } from '../index';
+import getDataSourceValue from '../getDataSourceValue';
 
 const updateFieldByValueFn = (
   liveFormFields,
