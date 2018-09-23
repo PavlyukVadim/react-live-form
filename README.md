@@ -1,5 +1,5 @@
 # dynamic-forms
-[![Build Status](https://travis-ci.org/PavlyukVadim/app.github.io.svg?branch=source)](https://travis-ci.org/PavlyukVadim/dynamic-forms)
+[![Build Status](https://travis-ci.org/PavlyukVadim/app.github.io.svg?branch=source)](https://travis-ci.org/PavlyukVadim/dynamic-forms) [![Coverage Status](https://coveralls.io/repos/github/PavlyukVadim/dynamic-forms/badge.svg?branch=source)](https://coveralls.io/github/PavlyukVadim/dynamic-forms?branch=source)
 
 `dynamic-forms` is a library for building a live forms (forms with dynamic fields) based on [React](https://facebook.github.io/react/).
 
