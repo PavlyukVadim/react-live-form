@@ -1,5 +1,5 @@
 {
-  "name": "testing-system",
+  "name": "react-live-form",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/PavlyukVadim/testing-system.git"
+    "url": "git+https://github.com/PavlyukVadim/react-live-form.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [""],
+  "author": "Padym Pavliuk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/PavlyukVadim/testing-system/issues"
+    "url": "https://github.com/PavlyukVadim/react-live-form/issues"
   },
-  "homepage": "https://github.com/PavlyukVadim/testing-system#readme",
+  "homepage": "https://github.com/PavlyukVadim/react-live-form#readme",
   "dependencies": {
     "@babel/preset-stage-0": "^7.0.0",
     "babel-eslint": "^9.0.0",
