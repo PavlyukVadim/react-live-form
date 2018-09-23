@@ -3,14 +3,14 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-  entry: './client/src/index.js',
+  entry: './src/index.js',
   output: {
-    path: path.resolve(__dirname, 'client/static'),
+    path: path.resolve(__dirname, 'static'),
     filename: 'bundle.js'
   },
   resolve: {
     modules: [
-      path.resolve(__dirname, 'client'),
+      path.resolve(__dirname),
       'node_modules',
     ],
     extensions: ['.js'],
@@ -57,7 +57,7 @@ module.exports = {
   devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'client/index.html'
+      template: 'index.html'
     })
   ]
 };
