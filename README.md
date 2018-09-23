@@ -1,7 +1,7 @@
-# dynamic-forms
+# react-live-form
 [![Build Status](https://travis-ci.org/PavlyukVadim/app.github.io.svg?branch=source)](https://travis-ci.org/PavlyukVadim/dynamic-forms) [![Coverage Status](https://coveralls.io/repos/github/PavlyukVadim/dynamic-forms/badge.svg?branch=source)](https://coveralls.io/github/PavlyukVadim/dynamic-forms?branch=source)
 
-`dynamic-forms` is a library for building a live forms (forms with dynamic fields) based on [React](https://facebook.github.io/react/).
+`react-live-form` is a library for building a live forms (forms with dynamic fields) based on [React](https://facebook.github.io/react/).
 
 #### [Demo](https://someLink/) | [Source](https://github.com/PavlyukVadim/dynamic-forms)
 
@@ -9,16 +9,16 @@
 
 * Install with `npm` or `yarn`:
 ```sh
-npm i dynamic-forms
+npm i react-live-form
 # OR
-yarn add dynamic-forms
+yarn add react-live-form
 ```
 
 * Use in your project:
 
 ```jsx
 import React from 'react';
-import LiveForm from 'dynamic-forms';
+import LiveForm from 'react-live-form';
 import formConfig from './formConfig';
 
 const MyComponent = () =>
