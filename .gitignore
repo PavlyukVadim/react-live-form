@@ -1,5 +1,6 @@
 **/node_modules
 **/static
+**/build
 *.log
 .idea/
 package-lock.json
