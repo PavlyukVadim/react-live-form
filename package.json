@@ -23,23 +23,23 @@
   },
   "homepage": "https://github.com/PavlyukVadim/react-live-form#readme",
   "dependencies": {
+    "create-react-class": "^15.6.2",
+    "expr-eval": "^1.2.0",
+    "prop-types": "^15.6.2",
+    "react": "^16.2.0",
+    "react-dom": "^16.2.0"
+  },
+  "devDependencies": {
     "@babel/preset-stage-0": "^7.0.0",
     "babel-eslint": "^9.0.0",
     "babel-preset-stage-0": "^6.24.1",
-    "create-react-class": "^15.6.2",
     "css-loader": "^0.28.7",
     "eslint-loader": "^2.1.0",
-    "expr-eval": "^1.2.0",
     "postcss": "^6.0.14",
     "postcss-cssnext": "^3.0.2",
     "postcss-loader": "^2.0.8",
-    "prop-types": "^15.6.2",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
     "react-hot-loader": "^3.1.2",
-    "sass-loader": "^6.0.6"
-  },
-  "devDependencies": {
+    "sass-loader": "^6.0.6",
     "babel-core": "^6.26.0",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
