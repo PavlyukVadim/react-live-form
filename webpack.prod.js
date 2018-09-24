@@ -6,6 +6,8 @@ module.exports = merge(common, {
   entry: './src/FormBuilder/index.js',
   output: {
     path: path.resolve(__dirname, 'build'),
-    filename: 'index.js'
+    filename: 'index.js',
+    library: 'react-live-form',
+    libraryTarget: 'umd',
   }
 });
