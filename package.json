@@ -4,8 +4,8 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "build": "webpack -p",
-    "start": "webpack-dev-server --progress --inline --hot",
+    "build": "webpack --config webpack.prod.js -p",
+    "start": "webpack-dev-server --open --config webpack.dev.js --progress --inline --hot",
     "test": "jest --watch --coverage",
     "test:coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
   },
@@ -60,7 +60,8 @@
     "style-loader": "^0.19.0",
     "webpack": "^3.8.1",
     "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.9.4"
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.4"
   },
   "jest": {
     "moduleNameMapper": {
