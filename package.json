@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "build": "webpack --config webpack.prod.js -p",
+    "build:storybook": "build-storybook -c .storybook -o .out",
     "start": "start-storybook -p 9001 -c .storybook",
     "test": "jest --watch --coverage",
     "test:coverage": "jest --coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage"
@@ -14,7 +15,9 @@
     "url": "git+https://github.com/PavlyukVadim/react-live-form.git"
   },
   "keywords": [
-    ""
+    "react",
+    "react-forms",
+    "react-live-form"
   ],
   "author": "Padym Pavliuk",
   "license": "ISC",
