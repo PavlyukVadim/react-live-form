@@ -2,6 +2,7 @@
 **/static
 **/build
 *.log
+.out
 .idea/
 package-lock.json
 coverage
