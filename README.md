@@ -3,7 +3,7 @@
 
 `react-live-form` is a library for building a live forms (forms with dynamic fields) based on [React](https://facebook.github.io/react/).
 
-#### [Demo](https://someLink/) | [Source](https://github.com/PavlyukVadim/dynamic-forms)
+#### [Demo](https://pavlyukvadim.github.io/react-live-form/) | [Source](https://github.com/PavlyukVadim/dynamic-forms)
 
 ## Setup
 
@@ -89,7 +89,7 @@ const MyComponent = () =>
 
 ## Tips
 
-* Use [demo pages](https://someLink/) to find all available components with examples.
+* Use [demo pages](https://pavlyukvadim.github.io/react-live-form/) to find all available components with examples.
 
 ## License
 This project is offered under [MIT License](https://github.com/PavlyukVadim/dynamic-forms/blob/master/LICENSE).
