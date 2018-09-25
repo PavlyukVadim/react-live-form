@@ -5,7 +5,7 @@ const common = require('./webpack.common.js');
 
 module.exports = merge(common, {
   entry: './src/index.js',
-  devtool: 'source-map',
+  // devtool: 'source-map',
   plugins: [
     new HtmlWebpackPlugin({
       template: 'index.html'
