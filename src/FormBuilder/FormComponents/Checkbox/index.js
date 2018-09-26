@@ -3,24 +3,35 @@ import React from 'react';
 const Checkbox = ({
   fieldConfig,
   fieldState,
-  changeFormField,
+  onChangeFormField,
 }) => {
   const onChange = (target) => {
     const value = target.checked;
-    changeFormField(fieldConfig.name, 'value', value);
+    onChangeFormField(fieldConfig, 'value', value);
   };
+
+  const {
+    name,
+    props = {},
+  } = fieldConfig;
+
+  const { title } = props;
+  const {
+    value,
+    disabled,
+  } = fieldState;
 
   return (
     <div className="form-group row">
-      <label className="col-xxxs-6" htmlFor={`checkbox-${fieldConfig.name}`}>
-        {fieldConfig.title}
+      <label className="col-xxxs-6" htmlFor={`checkbox-${name}`}>
+        {title}
       </label>
       <input
         type="checkbox"
-        id={`checkbox-${fieldConfig.name}`}
-        checked={fieldState.value}
+        id={`checkbox-${name}`}
+        checked={value}
         onChange={(e) => onChange(e.target)}
-        disabled={fieldState.disabled}
+        disabled={disabled}
       />
     </div>
   );

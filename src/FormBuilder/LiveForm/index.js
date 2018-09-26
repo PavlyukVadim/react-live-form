@@ -24,37 +24,13 @@ class LiveForm extends Component {
   }
 
   componentDidMount() {
-    const { formConfig, dataSource } = this.props;
-    const formState = this.getCurrentFormState();
-
-    const isFormConfigValid = formConfigValidation(formConfig);
-    this.setState({
-      isFormConfigValid,
-    });
-
-    if (isFormConfigValid) {
-      const { fields } = formConfig;
-      this.liveFormFields = getLiveFormFields(fields, dataSource);
-      this.firstFieldsUpdate(formState);
-    }
+    this.setLiveFormFields(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState(() => this.getInitialState(nextProps),
       () => {
-        const { formConfig, dataSource } = nextProps;
-        const formState = this.getCurrentFormState();
-
-        const isFormConfigValid = formConfigValidation(formConfig);
-        this.setState({
-          isFormConfigValid,
-        });
-
-        if (isFormConfigValid) {
-          const { fields } = formConfig;
-          this.liveFormFields = getLiveFormFields(fields, dataSource);
-          this.firstFieldsUpdate(formState);
-        }
+        this.setLiveFormFields(nextProps);
       });
   }
 
@@ -76,6 +52,22 @@ class LiveForm extends Component {
       },
     );
     return state;
+  }
+
+  setLiveFormFields = (props = this.props) => {
+    const { formConfig, dataSource } = props;
+    const formState = this.getCurrentFormState();
+
+    const isFormConfigValid = formConfigValidation(formConfig);
+    this.setState({
+      isFormConfigValid,
+    });
+
+    if (isFormConfigValid) {
+      const { fields } = formConfig;
+      this.liveFormFields = getLiveFormFields(fields, dataSource);
+      this.firstFieldsUpdate(formState);
+    }
   }
 
   getCurrentFormState = () => {

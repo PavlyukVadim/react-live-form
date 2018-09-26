@@ -6,31 +6,34 @@ import {
   withKnobs,
   object,
   text,
+  boolean,
 } from '@storybook/addon-knobs/react';
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('Field', module);
+const story = storiesOf('Fields', module);
 story.addDecorator(withKnobs);
 story.add(
-  'single field config',
+  'checkbox',
   withInfo({
-    text: 'basic formConfig for the demo',
+    text: 'basic checkbox field config',
   })(() => {
-
     const formConfigObj = {
       formName: 'firstForm',
       fields: [
         {
           name: 'a',
-          fieldType: 'input',
-          dataType: 'int',
+          fieldType: 'checkbox',
+          dataType: 'bool',
           props: {
             title: text('title', 'field a'),
           },
           state: {
             value: {
-              defaultValue: text('defaultValue', '5'),
+              defaultValue: boolean('defaultValue', true),
+            },
+            disabled: {
+              defaultValue: boolean('disabled', false),
             },
           },
         },
@@ -38,14 +41,9 @@ story.add(
       onSubmit: 'submitFunction',
     };
 
-    const formConfig = object(
-      'formConfig',
-      formConfigObj
-    );
+    const formConfig = object('formConfig', formConfigObj);
 
     return (
-      <LiveForm
-        formConfig={formConfig}
-      />
+      <LiveForm formConfig={formConfig} />
     )
   }));
