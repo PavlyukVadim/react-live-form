@@ -20,22 +20,7 @@ const defaultProps = {
 class LiveForm extends Component {
   constructor(props) {
     super(props);
-    const {
-      formConfig,
-      formConfig: {
-        formName = config.defaultFormName,
-      },
-    } = props;
-
-    const initialFormState = getInitialFormState(formConfig);
-    this.state = Object.assign(
-      {},
-      initialFormState,
-      {
-        isFormConfigValid: false,
-        formName,
-      },
-    );
+    this.state = this.getInitialState(props);
   }
 
   componentDidMount() {
@@ -50,17 +35,47 @@ class LiveForm extends Component {
     if (isFormConfigValid) {
       const { fields } = formConfig;
       this.liveFormFields = getLiveFormFields(fields, dataSource);
-      console.log('this.liveFormFields', this.liveFormFields);
-
       this.firstFieldsUpdate(formState);
     }
   }
 
-  componentWillReceiveProps() {
-    // this.setState(() => getInitialFormState(formConfig),
-    //   () => {
-    //     this.firstFieldsUpdate();
-    //   });
+  componentWillReceiveProps(nextProps) {
+    this.setState(() => this.getInitialState(nextProps),
+      () => {
+        const { formConfig, dataSource } = nextProps;
+        const formState = this.getCurrentFormState();
+
+        const isFormConfigValid = formConfigValidation(formConfig);
+        this.setState({
+          isFormConfigValid,
+        });
+
+        if (isFormConfigValid) {
+          const { fields } = formConfig;
+          this.liveFormFields = getLiveFormFields(fields, dataSource);
+          this.firstFieldsUpdate(formState);
+        }
+      });
+  }
+
+  getInitialState = (props = this.props) => {
+    const {
+      formConfig,
+      formConfig: {
+        formName = config.defaultFormName,
+      },
+    } = props;
+
+    const initialFormState = getInitialFormState(formConfig);
+    const state = Object.assign(
+      {},
+      initialFormState,
+      {
+        isFormConfigValid: false,
+        formName,
+      },
+    );
+    return state;
   }
 
   getCurrentFormState = () => {

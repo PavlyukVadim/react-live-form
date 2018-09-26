@@ -2,6 +2,7 @@ import { configure } from '@storybook/react';
 import { setDefaults } from '@storybook/addon-info';
 
 function loadStories() {
+  require('../stories/Field/index.js');
   require('../stories/Demo/index.js');
   require('../stories/ConfigWithSideEffects/index.js');
   require('../stories/ConfigWithExternalFuncs/index.js');
