@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 
@@ -13,7 +12,6 @@ story.add(
   withInfo({
     text: 'config that contains fields that have a big hierarchy of dependencies',
   })(() => {
-
     const formConfigObj = {
       formName: 'sideEffectsForm',
       fields: [
@@ -76,14 +74,12 @@ story.add(
       onSubmit: 'submitFunction',
     };
 
-    const formConfig = object(
-      'formConfig',
-      formConfigObj
-    );
+    const formConfig = object('formConfig', formConfigObj);
 
     return (
       <LiveForm
         formConfig={formConfig}
       />
-    )
-  }));
+    );
+  }),
+);

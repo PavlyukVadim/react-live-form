@@ -2,6 +2,12 @@ import { configure } from '@storybook/react';
 import { setDefaults } from '@storybook/addon-info';
 
 function loadStories() {
+  // fields
+  require('../stories/Fields/input.js');
+  require('../stories/Fields/checkbox.js');
+  require('../stories/Fields/textarea.js');
+  require('../stories/Fields/select.js');
+
   require('../stories/Demo/index.js');
   require('../stories/ConfigWithSideEffects/index.js');
   require('../stories/ConfigWithExternalFuncs/index.js');

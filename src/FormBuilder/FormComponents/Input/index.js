@@ -16,9 +16,6 @@ const Input = ({
     disabled,
   } = fieldState;
 
-  console.log('fieldConfig', fieldConfig);
-  console.log('fieldState', fieldState);
-
   return (
     <div className="form-group row">
       <label className="form-label col-xxxs-6" htmlFor={name}>
