@@ -1,37 +1,33 @@
 import React from 'react';
 
-const SelectByType = (props) => {
+const SelectByType = ({
+  fieldConfig,
+  id,
+  fieldState,
+  onChange,
+  children,
+}) => {
   const {
-    fieldConfig,
-    id,
-    fieldState,
-    onChange,
-    children,
-  } = props;
+    name,
+    props = {},
+    options = [],
+  } = fieldConfig;
 
-  if (fieldConfig.multiple) {
-    return (
-      <select
-        id={id}
-        className="form-select col-xxxs-6"
-        name={fieldConfig.name}
-        value={fieldState.value}
-        multiple
-        onChange={(e) => onChange(e.target)}
-        disabled={fieldState.disabled}
-      >
-        {children}
-      </select>
-    );
-  }
+  const { title } = props;
+  const {
+    value,
+    disabled,
+  } = fieldState;
+
   return (
     <select
       id={id}
       className="form-select col-xxxs-6"
-      name={fieldConfig.name}
-      value={fieldState.value}
+      name={name}
+      value={value}
+      multiple={fieldConfig.multiple}
       onChange={(e) => onChange(e.target)}
-      disabled={fieldState.disabled}
+      disabled={disabled}
     >
       {children}
     </select>
@@ -41,8 +37,22 @@ const SelectByType = (props) => {
 const Select = ({
   fieldConfig,
   fieldState,
-  changeFormField,
+  onChangeFormField,
 }) => {
+  const {
+    name,
+    props = {},
+  } = fieldConfig;
+
+  const {
+    title,
+    options = [],
+  } = props;
+  const {
+    value,
+    disabled,
+  } = fieldState;
+
   const onChange = (target) => {
     let newValue;
     if (!fieldConfig.multiple) {
@@ -56,23 +66,22 @@ const Select = ({
         }
       });
     }
-    changeFormField(fieldConfig.name, 'value', newValue);
+    onChangeFormField(fieldConfig, 'value', newValue);
   };
 
   return (
     <div className="form-group row">
-      <label className="form-label col-xxxs-6" htmlFor={fieldConfig.name}>
-        {fieldConfig.title}
+      <label className="form-label col-xxxs-6" htmlFor={name}>
+        {title}
       </label>
       <SelectByType
-        id={fieldConfig.name}
+        id={name}
         fieldConfig={fieldConfig}
         fieldState={fieldState}
         onChange={onChange}
       >
         {
-          fieldConfig.options &&
-          fieldConfig.options.map(option => (
+          options.map((option) => (
             <option
               key={option.value}
               value={option.value}

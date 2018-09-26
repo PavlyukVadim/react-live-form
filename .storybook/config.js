@@ -6,7 +6,7 @@ function loadStories() {
   require('../stories/Fields/input.js');
   require('../stories/Fields/checkbox.js');
   require('../stories/Fields/textarea.js');
-
+  require('../stories/Fields/select.js');
 
   require('../stories/Demo/index.js');
   require('../stories/ConfigWithSideEffects/index.js');
