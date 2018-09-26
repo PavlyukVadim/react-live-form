@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { withInfo } from '@storybook/addon-info';
 import {
   withKnobs,
@@ -27,20 +26,22 @@ story.add(
           dataType: 'string',
           props: {
             title: text('title', 'field a'),
-            options: [
-              {
-                value: 'option1',
-                content: 'option1',
-              },
-              {
-                value: 'option2',
-                content: 'content for value2',
-              },
-              {
-                value: 'option3',
-                content: 'option3',
-              },
-            ],
+            multiple: boolean('multiple', false),
+            options: object('options',
+              [
+                {
+                  value: 'option1',
+                  content: 'option1',
+                },
+                {
+                  value: 'option2',
+                  content: 'content for value2',
+                },
+                {
+                  value: 'option3',
+                  content: 'option3',
+                },
+              ]),
           },
           state: {
             value: {
@@ -59,5 +60,6 @@ story.add(
 
     return (
       <LiveForm formConfig={formConfig} />
-    )
-  }));
+    );
+  }),
+);

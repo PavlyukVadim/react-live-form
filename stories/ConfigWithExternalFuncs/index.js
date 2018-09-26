@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 import { withInfo } from '@storybook/addon-info';
 import { withKnobs, object } from '@storybook/addon-knobs/react';
 
@@ -13,7 +12,6 @@ story.add(
   withInfo({
     text: 'config that contains some state functions from dataSource',
   })(() => {
-
     const formConfigObj = {
       formName: 'firstForm',
       fields: [
@@ -59,15 +57,13 @@ story.add(
 
     dataSource.d.date.getDateValue = getDateValue;
 
-    const formConfig = object(
-      'formConfig',
-      formConfigObj
-    );
+    const formConfig = object('formConfig', formConfigObj);
 
     return (
       <LiveForm
         formConfig={formConfig}
         dataSource={dataSource}
       />
-    )
-  }));
+    );
+  }),
+);

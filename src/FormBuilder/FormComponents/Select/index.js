@@ -10,10 +10,10 @@ const SelectByType = ({
   const {
     name,
     props = {},
-    options = [],
   } = fieldConfig;
 
-  const { title } = props;
+  const { multiple } = props;
+
   const {
     value,
     disabled,
@@ -25,7 +25,7 @@ const SelectByType = ({
       className="form-select col-xxxs-6"
       name={name}
       value={value}
-      multiple={fieldConfig.multiple}
+      multiple={multiple}
       onChange={(e) => onChange(e.target)}
       disabled={disabled}
     >
@@ -47,20 +47,17 @@ const Select = ({
   const {
     title,
     options = [],
+    multiple,
   } = props;
-  const {
-    value,
-    disabled,
-  } = fieldState;
 
   const onChange = (target) => {
     let newValue;
-    if (!fieldConfig.multiple) {
+    if (!multiple) {
       newValue = target.value;
     } else {
       newValue = [];
-      const { options } = target;
-      options.forEach((option) => {
+      const { options: targetOptions } = target;
+      Array.from(targetOptions).forEach((option) => {
         if (option.selected) {
           newValue.push(option.value);
         }
