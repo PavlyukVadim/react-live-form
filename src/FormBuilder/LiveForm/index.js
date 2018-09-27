@@ -139,9 +139,9 @@ class LiveForm extends Component {
     this.updateFormState(newField, callback);
   }
 
-  formSubmit = (value) => {
-    console.log('this', this);
-    console.log('value', value);
+  formSubmit = () => {
+    const formState = this.getCurrentFormState();
+    console.log('formState', formState);
   }
 
   render() {
@@ -159,6 +159,7 @@ class LiveForm extends Component {
       formState,
       this.liveFormFields,
       this.onChangeFormField,
+      this.formSubmit,
     );
 
     return (
