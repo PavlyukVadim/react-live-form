@@ -8,6 +8,28 @@ function loadStories() {
   require('../stories/Fields/textarea.js');
   require('../stories/Fields/select.js');
 
+  // fieldsValueExpr
+
+  // mathematical
+  require('../stories/FieldsValueExpr/Mathematical/sum.js');
+  require('../stories/FieldsValueExpr/Mathematical/multiplication.js');
+  require('../stories/FieldsValueExpr/Mathematical/power.js');
+  require('../stories/FieldsValueExpr/Mathematical/sqrt.js');
+
+  // Logical
+
+  require('../stories/FieldsValueExpr/Logical/or.js');
+  require('../stories/FieldsValueExpr/Logical/and.js');
+  require('../stories/FieldsValueExpr/Logical/ternary.js');
+
+  // preDefinedFuncs
+
+  require('../stories/FieldsValueExpr/PreDefinedFuncs/random.js');
+  require('../stories/FieldsValueExpr/PreDefinedFuncs/roundTo.js');
+  require('../stories/FieldsValueExpr/PreDefinedFuncs/minMax.js');
+
+
+
   require('../stories/Demo/index.js');
   require('../stories/ConfigWithSideEffects/index.js');
   require('../stories/ConfigWithExternalFuncs/index.js');
