@@ -5,12 +5,12 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('ConfigWithExternalFuncs', module);
+const story = storiesOf('3. Configs', module);
 story.addDecorator(withKnobs);
 story.add(
-  'config with external functions',
+  '3.3 demo',
   withInfo({
-    text: 'config that contains some state functions from dataSource',
+    text: 'basic formConfig for the demo',
   })(() => {
     const formConfigObj = {
       formName: 'firstForm',
@@ -31,9 +31,31 @@ story.add(
         {
           name: 'b',
           fieldType: 'input',
-          dataType: 'string',
+          dataType: 'int',
           props: {
             title: 'field b',
+          },
+        },
+        {
+          name: 'c',
+          fieldType: 'input',
+          dataType: 'string',
+          props: {
+            title: 'field c',
+          },
+          state: {
+            value: {
+              defaultValue: 0,
+              valueExpr: 'a + b',
+            },
+          },
+        },
+        {
+          name: 'd',
+          fieldType: 'input',
+          dataType: 'string',
+          props: {
+            title: 'field d',
           },
           state: {
             date: {
@@ -43,26 +65,37 @@ story.add(
             },
           },
         },
+        {
+          name: 'e',
+          fieldType: 'input',
+          dataType: 'string',
+          props: {
+            title: 'field e',
+          },
+          state: {
+            value: {
+              defaultValue: 0,
+              valueExpr: 'c * 2',
+            },
+            display: {
+              defaultValue: false,
+              valueExpr: 'a > 10',
+            },
+            disabled: {
+              defaultValue: false,
+              valueExpr: 'a > 34',
+            },
+          },
+        },
       ],
       onSubmit: 'submitFunction',
     };
-
-    const dataSource = {
-      d: {
-        date: {},
-      },
-    };
-
-    const getDateValue = () => new Date();
-
-    dataSource.d.date.getDateValue = getDateValue;
 
     const formConfig = object('formConfig', formConfigObj);
 
     return (
       <LiveForm
         formConfig={formConfig}
-        dataSource={dataSource}
       />
     );
   }),

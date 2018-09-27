@@ -5,10 +5,10 @@ import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('ConfigWithSideEffects', module);
+const story = storiesOf('3. Configs', module);
 story.addDecorator(withKnobs);
 story.add(
-  'config with side effects',
+  '3.1 configWithSideEffects',
   withInfo({
     text: 'config that contains fields that have a big hierarchy of dependencies',
   })(() => {

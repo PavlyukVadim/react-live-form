@@ -28,11 +28,11 @@ function loadStories() {
   require('../stories/FieldsValueExpr/PreDefinedFuncs/roundTo.js');
   require('../stories/FieldsValueExpr/PreDefinedFuncs/minMax.js');
 
+  // configs
 
-
-  require('../stories/Demo/index.js');
-  require('../stories/ConfigWithSideEffects/index.js');
-  require('../stories/ConfigWithExternalFuncs/index.js');
+  require('../stories/Configs/configWithSideEffects.js');
+  require('../stories/Configs/configWithExternalFuncs.js');
+  require('../stories/Configs/demo.js');
 
   // You can require as many stories as you need.
 }
