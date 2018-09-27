@@ -83,7 +83,6 @@ class LiveForm extends Component {
   }
 
   callSubscribers = (subscribers, formState) => {
-    console.log('subscribers', subscribers);
     subscribers.forEach((subscriber) => {
       const { function: updateFunction } = subscriber;
       if (updateFunction) {
@@ -125,7 +124,6 @@ class LiveForm extends Component {
   };
 
   onChangeFormField = (fieldConfig, propName, propValue) => {
-    console.log('onChangeFormField', fieldConfig, propName, propValue);
     const { name, subscribers = [] } = fieldConfig;
     const newField = {
       [name]: {
@@ -141,15 +139,12 @@ class LiveForm extends Component {
     this.updateFormState(newField, callback);
   }
 
-  formSubmit = (value) => {
-    console.log('this', this);
-    console.log('value', value);
+  formSubmit = () => {
+    const formState = this.getCurrentFormState();
+    console.log('formState', formState);
   }
 
   render() {
-    console.log('state', this.state);
-    console.log('props', this.props);
-
     const {
       isFormConfigValid,
       formName,
@@ -164,6 +159,7 @@ class LiveForm extends Component {
       formState,
       this.liveFormFields,
       this.onChangeFormField,
+      this.formSubmit,
     );
 
     return (
