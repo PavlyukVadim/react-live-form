@@ -5,8 +5,9 @@ const getFormComponents = (
   formState,
   liveFormFields = [],
   onChangeFormField,
-) => (
-  liveFormFields.map((field) => {
+  onSubmit,
+) => {
+  const fields = liveFormFields.map((field) => {
     const { fieldType } = field;
     const FormItem = getFormItemByFieldType(fieldType);
     if (!FormItem) return null;
@@ -27,7 +28,20 @@ const getFormComponents = (
         }
       </div>
     );
-  })
-);
+  });
+
+  const submit = onSubmit
+    ? (
+      <button
+        type="submit"
+        onClick={onSubmit}
+      >
+        Submit
+      </button>
+    )
+    : null;
+
+  return [...fields, submit];
+};
 
 export default getFormComponents;
