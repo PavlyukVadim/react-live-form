@@ -1,38 +1,44 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-import {
-  withKnobs,
-  object,
-  text,
-  boolean,
-} from '@storybook/addon-knobs/react';
+import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('1. Fields', module);
+const story = storiesOf('2. FieldsValueExpr/2.3 PreDefinedFuncs', module);
 story.addDecorator(withKnobs);
 story.add(
-  '1.1. input',
+  '2.3.1. random',
   withInfo({
-    text: 'basic input field config',
+    text: 'Get a random number in the range [0, n). If n is zero, or not provided, it defaults to 1.',
   })(() => {
     const formConfigObj = {
       formName: 'firstForm',
       fields: [
         {
-          name: 'a',
+          name: 'parent1',
           fieldType: 'input',
           dataType: 'int',
           props: {
-            title: text('title', 'field a'),
+            title: 'parent1',
           },
           state: {
             value: {
-              defaultValue: text('defaultValue', '5'),
+              defaultValue: 100,
             },
-            disabled: {
-              defaultValue: boolean('disabled', false),
+          },
+        },
+        {
+          name: 'child',
+          fieldType: 'input',
+          dataType: 'int',
+          props: {
+            title: 'child = random[0, p1)',
+          },
+          state: {
+            value: {
+              defaultValue: 0,
+              valueExpr: 'random(parent1)',
             },
           },
         },

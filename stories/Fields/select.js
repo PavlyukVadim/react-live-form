@@ -10,10 +10,10 @@ import {
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('Fields', module);
+const story = storiesOf('1. Fields', module);
 story.addDecorator(withKnobs);
 story.add(
-  'select',
+  '1.4. select',
   withInfo({
     text: 'basic select field config',
   })(() => {
