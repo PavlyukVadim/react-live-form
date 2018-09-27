@@ -1,38 +1,44 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withInfo } from '@storybook/addon-info';
-import {
-  withKnobs,
-  object,
-  text,
-  boolean,
-} from '@storybook/addon-knobs/react';
+import { withKnobs, object } from '@storybook/addon-knobs/react';
 
 import LiveForm from 'src/FormBuilder';
 
-const story = storiesOf('1. Fields', module);
+const story = storiesOf('2. FieldsValueExpr/2.1 Mathematical', module);
 story.addDecorator(withKnobs);
 story.add(
-  '1.3. textarea',
+  '2.1.2. multiplication',
   withInfo({
-    text: 'basic textarea field config',
+    text: 'basic mathematical expression',
   })(() => {
     const formConfigObj = {
       formName: 'firstForm',
       fields: [
         {
-          name: 'a',
-          fieldType: 'textarea',
+          name: 'parent1',
+          fieldType: 'input',
           dataType: 'int',
           props: {
-            title: text('title', 'field a'),
+            title: 'parent1',
           },
           state: {
             value: {
-              defaultValue: text('defaultValue', '5'),
+              defaultValue: 0,
             },
-            disabled: {
-              defaultValue: boolean('disabled', false),
+          },
+        },
+        {
+          name: 'child',
+          fieldType: 'input',
+          dataType: 'int',
+          props: {
+            title: 'child = (p1 + 2) * 3',
+          },
+          state: {
+            value: {
+              defaultValue: 0,
+              valueExpr: '(parent1 + 2) * 3',
             },
           },
         },
