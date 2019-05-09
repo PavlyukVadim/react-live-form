@@ -18,7 +18,6 @@ story.add(
         {
           name: 'a',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'field a',
           },
@@ -31,7 +30,6 @@ story.add(
         {
           name: 'b',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'field b',
           },
@@ -39,7 +37,6 @@ story.add(
         {
           name: 'c',
           fieldType: 'input',
-          dataType: 'string',
           props: {
             title: 'field c',
           },
@@ -53,7 +50,6 @@ story.add(
         {
           name: 'd',
           fieldType: 'input',
-          dataType: 'string',
           props: {
             title: 'field d',
           },
@@ -68,7 +64,6 @@ story.add(
         {
           name: 'e',
           fieldType: 'input',
-          dataType: 'string',
           props: {
             title: 'field e',
           },

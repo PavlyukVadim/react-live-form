@@ -18,7 +18,6 @@ story.add(
         {
           name: 'parent1',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'parent1',
           },
@@ -31,7 +30,6 @@ story.add(
         {
           name: 'parent2',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'parent2',
           },
@@ -44,7 +42,6 @@ story.add(
         {
           name: 'parent3',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'parent3',
           },
@@ -57,7 +54,6 @@ story.add(
         {
           name: 'min',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'min',
           },
@@ -71,7 +67,6 @@ story.add(
         {
           name: 'max',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'max',
           },

@@ -23,7 +23,6 @@ story.add(
         {
           name: 'a',
           fieldType: 'checkbox',
-          dataType: 'bool',
           props: {
             title: text('title', 'field a'),
           },

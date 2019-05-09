@@ -18,7 +18,6 @@ story.add(
         {
           name: 'parent1',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'parent1',
           },
@@ -31,7 +30,6 @@ story.add(
         {
           name: 'child',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'child = random[0, p1)',
           },

@@ -18,7 +18,6 @@ story.add(
         {
           name: 'parent1',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'parent1',
           },

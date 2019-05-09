@@ -26,7 +26,6 @@ const formConfig = {
     {
       name: 'a',
       fieldType: 'input',
-      dataType: 'int',
       props: {
         title: 'field a',
       },
@@ -39,7 +38,6 @@ const formConfig = {
     {
       name: 'b',
       fieldType: 'input',
-      dataType: 'int',
       props: {
         title: 'field b',
       },
@@ -47,7 +45,6 @@ const formConfig = {
     {
       name: 'c',
       fieldType: 'input',
-      dataType: 'string',
       props: {
         title: 'field c',
       },
@@ -61,7 +58,6 @@ const formConfig = {
     {
       name: 'd',
       fieldType: 'input',
-      dataType: 'string',
       props: {
         title: 'field d',
       },

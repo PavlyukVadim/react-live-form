@@ -8,17 +8,14 @@ formConfig.fields = [
   {
     name: 'a',
     fieldType: 'input',
-    dataType: 'int',
   },
   {
     name: 'b',
     fieldType: 'input',
-    dataType: 'int',
   },
   {
     name: 'c',
     fieldType: 'input',
-    dataType: 'string',
     props: {
       title: 'field c',
     },
@@ -32,7 +29,6 @@ formConfig.fields = [
   {
     name: 'd',
     fieldType: 'input',
-    dataType: 'string',
     props: {
       title: 'field d',
     },

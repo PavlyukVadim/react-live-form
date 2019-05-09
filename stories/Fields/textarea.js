@@ -23,7 +23,6 @@ story.add(
         {
           name: 'a',
           fieldType: 'textarea',
-          dataType: 'int',
           props: {
             title: text('title', 'field a'),
           },

@@ -23,7 +23,6 @@ story.add(
         {
           name: 'a',
           fieldType: 'select',
-          dataType: 'string',
           props: {
             title: text('title', 'field a'),
             multiple: boolean('multiple', false),

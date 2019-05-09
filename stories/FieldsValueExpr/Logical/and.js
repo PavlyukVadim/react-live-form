@@ -18,7 +18,6 @@ story.add(
         {
           name: 'parent1',
           fieldType: 'checkbox',
-          dataType: 'bool',
           props: {
             title: 'parent1',
           },
@@ -31,7 +30,6 @@ story.add(
         {
           name: 'parent2',
           fieldType: 'checkbox',
-          dataType: 'bool',
           props: {
             title: 'parent2',
           },
@@ -44,7 +42,6 @@ story.add(
         {
           name: 'child',
           fieldType: 'checkbox',
-          dataType: 'bool',
           props: {
             title: 'child = (p1 && p2)',
           },

@@ -18,7 +18,6 @@ story.add(
         {
           name: 'parent1',
           fieldType: 'checkbox',
-          dataType: 'bool',
           props: {
             title: '°F',
           },
@@ -31,7 +30,6 @@ story.add(
         {
           name: 'child',
           fieldType: 'input',
-          dataType: 'string',
           props: {
             title: 'child',
           },

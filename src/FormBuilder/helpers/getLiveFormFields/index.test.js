@@ -18,12 +18,10 @@ describe('getLiveFormFields', () => {
       {
         name: 'a',
         fieldType: 'input',
-        dataType: 'int',
       },
       {
         name: 'b',
         fieldType: 'input',
-        dataType: 'int',
       },
     ];
     const result = getLiveFormFields(formFields);
@@ -35,12 +33,10 @@ describe('getLiveFormFields', () => {
       {
         name: 'a',
         fieldType: 'input',
-        dataType: 'int',
       },
       {
         name: 'b',
         fieldType: 'input',
-        dataType: 'int',
         state: {
           date: {
             defaultValue: '30.08.1998',
@@ -72,7 +68,6 @@ describe('getLiveFormFields', () => {
       {
         name: 'a',
         fieldType: 'input',
-        dataType: 'int',
         subscribers: [
           updatedDateObj,
         ],
@@ -80,7 +75,6 @@ describe('getLiveFormFields', () => {
       {
         name: 'b',
         fieldType: 'input',
-        dataType: 'int',
         state: {
           date: updatedDateObj,
         },
@@ -95,17 +89,14 @@ describe('getLiveFormFields', () => {
       {
         name: 'a',
         fieldType: 'input',
-        dataType: 'int',
       },
       {
         name: 'b',
         fieldType: 'input',
-        dataType: 'int',
       },
       {
         name: 'c',
         fieldType: 'input',
-        dataType: 'int',
         state: {
           sum: {
             valueExpr: 'a + b',
@@ -124,7 +115,6 @@ describe('getLiveFormFields', () => {
       {
         name: 'a',
         fieldType: 'input',
-        dataType: 'int',
         subscribers: [
           updatedSumObj,
         ],
@@ -132,7 +122,6 @@ describe('getLiveFormFields', () => {
       {
         name: 'b',
         fieldType: 'input',
-        dataType: 'int',
         subscribers: [
           updatedSumObj,
         ],
@@ -140,7 +129,6 @@ describe('getLiveFormFields', () => {
       {
         name: 'c',
         fieldType: 'input',
-        dataType: 'int',
         state: {
           sum: updatedSumObj,
         },

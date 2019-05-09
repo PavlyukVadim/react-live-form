@@ -17,8 +17,6 @@ story.add(
       fields: [
         {
           name: 'a',
-          fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'field a',
           },
@@ -30,8 +28,6 @@ story.add(
         },
         {
           name: 'b',
-          fieldType: 'input',
-          dataType: 'string',
           props: {
             title: 'field b',
           },
