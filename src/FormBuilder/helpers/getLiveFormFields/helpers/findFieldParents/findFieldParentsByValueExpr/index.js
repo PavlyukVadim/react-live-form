@@ -13,22 +13,20 @@ const findFieldParentsByValueExpr = (
   stateField,
 ) => {
   const { valueExpr } = stateField;
-  const expr = parser.parse(valueExpr);
-  const parents = expr.variables();
-
-  parents.forEach((nameOfParentField) => {
-    const parentField = liveFormFields.find((field) => (field.name === nameOfParentField));
-    if (parentField) {
-      parentField.subscribers = parentField.subscribers
-        ? [...parentField.subscribers, stateField]
-        : [stateField];
-    } else {
-      liveFormFields.push({
-        name: fieldName,
-        subscribers: [stateField],
-      });
-    }
-  });
+  try {
+    const expr = parser.parse(valueExpr);
+    const parents = expr.variables();
+    parents.forEach((nameOfParentField) => {
+      const parentField = liveFormFields.find((field) => (field.name === nameOfParentField));
+      if (parentField) {
+        parentField.subscribers = parentField.subscribers
+          ? [...parentField.subscribers, stateField]
+          : [stateField];
+      }
+    });
+  } catch (e) {
+    console.error('Parse error', e);
+  }
 };
 
 export default findFieldParentsByValueExpr;

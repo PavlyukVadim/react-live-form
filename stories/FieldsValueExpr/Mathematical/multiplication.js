@@ -30,14 +30,13 @@ story.add(
         {
           name: 'child',
           fieldType: 'input',
-          dataType: 'int',
           props: {
             title: 'child = (p1 + 2) * 3',
           },
           state: {
             value: {
               defaultValue: 0,
-              valueExpr: '(parent1 + 2) * 3',
+              valueExpr: '(parent5 + ) * 3',
             },
           },
         },

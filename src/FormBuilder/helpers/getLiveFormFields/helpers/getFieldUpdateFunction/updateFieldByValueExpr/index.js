@@ -15,8 +15,17 @@ const updateFieldByValueExpr = (
   const liveFormField = liveFormFields.find((formField) => (formField.name === fieldName));
   const { subscribers = [] } = liveFormField;
   const { valueExpr } = stateField;
-  const expr = parser.parse(valueExpr);
-  const parents = expr.variables();
+
+  let expr;
+  let parents = [];
+
+  try {
+    expr = parser.parse(valueExpr);
+    parents = expr.variables();
+  } catch (e) {
+    console.error('Parse error', e);
+    return;
+  }
 
   /**
   * function that will call on parent's changes
