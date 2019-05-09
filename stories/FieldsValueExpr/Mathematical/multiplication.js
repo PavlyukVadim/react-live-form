@@ -36,7 +36,7 @@ story.add(
           state: {
             value: {
               defaultValue: 0,
-              valueExpr: '(parent5 + ) * 3',
+              valueExpr: '(parent1 + 2) * 3',
             },
           },
         },
