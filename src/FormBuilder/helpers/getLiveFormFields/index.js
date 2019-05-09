@@ -24,7 +24,8 @@ const addFieldsSubscribers = (liveFormFields, dataSource) => {
           propKeys.forEach((propKey) => {
             // check dependency state field on other fields
             const isCalculatedField = stateCalculatedFields.includes(propKey);
-            if (isCalculatedField) {
+            const isFilledCalculatedField = !!stateField[propKey];
+            if (isCalculatedField && isFilledCalculatedField) {
               // push state field as subscriber to parent's fields
               const findFieldParentsFunc = findFieldParents(propKey);
 
@@ -62,7 +63,8 @@ const addFieldsUpdateFunc = (liveFormFields, dataSource) => {
           propKeys.forEach((propKey) => {
             // check dependency state field on other fields
             const isCalculatedField = stateCalculatedFields.includes(propKey);
-            if (isCalculatedField) {
+            const isFilledCalculatedField = !!stateField[propKey];
+            if (isCalculatedField && isFilledCalculatedField) {
               // push state field as subscriber to parent's fields
               const fieldUpdateFunction = getFieldUpdateFunction(propKey);
 
