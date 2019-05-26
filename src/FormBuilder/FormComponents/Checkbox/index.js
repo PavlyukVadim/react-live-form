@@ -22,7 +22,7 @@ const Checkbox = ({
   } = fieldState;
 
   return (
-    <div className="form-group row">
+    <div className="form-group checkbox-group row">
       <label className="col-xxxs-6" htmlFor={`checkbox-${name}`}>
         {title}
       </label>

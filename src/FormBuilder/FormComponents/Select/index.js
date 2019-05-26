@@ -67,7 +67,7 @@ const Select = ({
   };
 
   return (
-    <div className="form-group row">
+    <div className="form-group select-group row">
       <label className="form-label col-xxxs-6" htmlFor={name}>
         {title}
       </label>

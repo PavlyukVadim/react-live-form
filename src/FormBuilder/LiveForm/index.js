@@ -7,13 +7,16 @@ import {
   getLiveFormFields,
   getFormComponents,
 } from '../helpers';
+import '../../stylesheets/main.scss';
 
 const propTypes = {
+  onSubmit: PropTypes.func,
   formConfig: PropTypes.object.isRequired,
   dataSource: PropTypes.object,
 };
 
 const defaultProps = {
+  onSubmit: () => {},
   dataSource: {},
 };
 
@@ -140,7 +143,11 @@ class LiveForm extends Component {
   }
 
   formSubmit = () => {
+    const { onSubmit } = this.props;
     const formState = this.getCurrentFormState();
+    if (onSubmit) {
+      onSubmit(formState);
+    }
     console.log('formState', formState);
   }
 
