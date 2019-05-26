@@ -170,8 +170,7 @@ class LiveForm extends Component {
     );
 
     return (
-      <div>
-        Form:
+      <div className="react-live-form">
         <div className="formWrapper">
           {form}
         </div>

@@ -1,6 +1,7 @@
 .formWrapper {
   .form-group.row  {
     margin: 0 0 1em;
+    flex-direction: column;
 
     label {
       display: block;
