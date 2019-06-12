@@ -89,7 +89,11 @@ class LiveForm extends Component {
     subscribers.forEach((subscriber) => {
       const { function: updateFunction } = subscriber;
       if (updateFunction) {
-        updateFunction(formState, this.updateFormState);
+        try {
+          updateFunction(formState, this.updateFormState);
+        } catch (e) {
+          console.log('e', e);
+        }
       }
     });
   };
